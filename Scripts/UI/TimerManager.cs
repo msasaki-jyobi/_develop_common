@@ -23,6 +23,7 @@ namespace GameSet.Common
         [SerializeField] private UnityEvent _completeEvent;
 
         private bool _complete = false;
+        private bool _isStop = false;
 
         private void Start()
         {
@@ -34,6 +35,8 @@ namespace GameSet.Common
             GameTimer
                 .Subscribe(async (x) =>
                 {
+                    if (_isStop) return;
+
                     if (!_complete)
                     {
                         if (x <= 0)
@@ -52,6 +55,8 @@ namespace GameSet.Common
 
         private void Update()
         {
+            if (_isStop) return;
+
             if (GameTimer.Value > 0)
             {
                 GameTimer.Value -= Time.deltaTime;
@@ -60,6 +65,8 @@ namespace GameSet.Common
                     _timerTextGUI.text = $"{_prefix}{GameTimer.Value.ToString("F2")}{_suffix}";
             }
         }
+
+        public void OnActiveChangeTimer(bool active) => _isStop = active;
     }
 }
 
