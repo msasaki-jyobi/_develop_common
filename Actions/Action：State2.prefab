@@ -84,7 +84,7 @@ MonoBehaviour:
   - PlayFrame: 3
     IsForce: 0
     FoucePower: {x: 0, y: 5, z: 0}
-    IsPrefab: 0
+    IsPrefab: 1
     PrefabNum: 0
     IsNextAction: 0
     IsComplete: 0
@@ -100,7 +100,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e283f7cdd946b7b40ae62b5ffdf4bee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabDatas: []
+  PrefabDatas:
+  - Prefab: {fileID: 5654430554081778471, guid: db35847342fd0c5419880ae2302f0ae2, type: 3}
+    CreateSe: {fileID: 0}
+    DestroyTime: 1
+    LocalPosition: {x: 0, y: 0, z: 1}
+    LocalEulerAngle: {x: 0, y: 0, z: 0}
+    SetScale: {x: 2, y: 2, z: 2}
+    LookType: 0
+    ParentType: 0
 --- !u!114 &5481746996292819022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,17 +121,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3577c668b3346e3408312df74be589f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitHitActionData: {fileID: 0}
-  UnitDeadActionData: {fileID: 0}
-  Damage: 1
-  WeightDiff: 1
-  HitLimit: 1
-  DamageUnitLimit: 1
-  HitSpanTime: 0.1
-  HitLimitResetTime: 6
-  HitSE: {fileID: 0}
-  HitEffect: {fileID: 0}
-  DestroySE: {fileID: 0}
-  DestroyEffect: {fileID: 0}
-  UnitHitDestroy: 0
-  WallHitDestroy: 0
+  DamageValue:
+    AttackerUnit: {fileID: 0}
+    DamageAction: {fileID: 0}
+    DeadAction: {fileID: 0}
+    Amount: 1
+    WeightDiff: 1
+    HitLimit: 1
+    UnitLimit: 5
+    HitSpanTime: 0.1
+    HitLimitResetTime: 6
+    HitEffect: {fileID: 0}
+    HitSE: {fileID: 0}
+    DestroyEffect: {fileID: 0}
+    DestroySE: {fileID: 0}
+    UnitHitDestroy: 0
+    ObjectHitDestroy: 0
