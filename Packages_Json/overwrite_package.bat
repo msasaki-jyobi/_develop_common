@@ -6,7 +6,7 @@ set scriptdir=%~dp0
 set source_dir=%scriptdir%
 
 :: コピー先 (Packagesディレクトリ)
-set target_dir=%scriptdir%..\..\Packages\
+set target_dir=%scriptdir%..\..\..\Packages\
 
 :: manifest.jsonをコピーして上書き
 copy /Y "%source_dir%manifest.json" "%target_dir%manifest.json"
