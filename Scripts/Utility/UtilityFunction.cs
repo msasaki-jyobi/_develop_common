@@ -158,5 +158,36 @@ namespace GameSet.Common {
             }
             Destroy(effect, destroyTime);
         }
+
+        /// <summary>
+        /// LineCastを検知するメソッド
+        /// </summary>
+        public static bool CheckLineData(LineData lineData, Transform self)
+        {
+            if (lineData == null) return false;
+
+            for (int i = 0; i < lineData.StartPosition.Count; i++)
+            {
+                // 向いている方向で座標を計算
+                Vector3 lookStartPos =
+                        self.transform.right * lineData.StartPosition[i].x +
+                        self.transform.up * lineData.StartPosition[i].y +
+                        self.transform.forward * lineData.StartPosition[i].z;
+                Vector3 lookEndPos =
+                        self.transform.right * lineData.EndPosition[i].x +
+                        self.transform.up * lineData.EndPosition[i].y +
+                        self.transform.forward * lineData.EndPosition[i].z;
+                // 開始位置の座標
+                Vector3 startPos = self.transform.position + lookStartPos;
+                // 終了位置の座標
+                Vector3 endPos = self.transform.position + lookEndPos;
+                // 描画
+                Debug.DrawLine(startPos, endPos, lineData.LineColor);
+                // 判定チェック
+                if (Physics.Linecast(startPos, endPos, lineData.LineLayer))
+                    return true;
+            }
+            return false;
+        }
     }
 }
