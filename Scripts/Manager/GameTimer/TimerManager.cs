@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 namespace develop_common
 {
-    public class TimerManager : MonoBehaviour
+    public class TimerManager : SingletonMonoBehaviour<TimerManager>
     {
         public ReactiveProperty<float> GameTimer { get; private set; } = new ReactiveProperty<float>();
 
@@ -19,6 +19,7 @@ namespace develop_common
         [SerializeField] private string _prefix = "Timer: ";
         [SerializeField] private string _suffix = " Seconds";
         [SerializeField] private string _completeMessage = "Game Hello!!";
+        [SerializeField] private Color _completeColor = Color.red;
         [SerializeField] private int __completeEventDelay = 3000;
         [SerializeField] private UnityEvent _completeEvent;
 
@@ -46,6 +47,9 @@ namespace develop_common
                             if (_completeTextGUI != null)
                                 _completeTextGUI.text = _completeMessage;
 
+                            _timerTextGUI.color = _completeColor;
+                            _completeTextGUI.color = _completeColor;
+
                             await UniTask.Delay(__completeEventDelay);
                             _completeEvent?.Invoke();
                         }
@@ -66,7 +70,7 @@ namespace develop_common
             }
         }
 
-        public void OnActiveChangeTimer(bool active) => _isStop = active;
+        public void OnStopTimer(bool active) => _isStop = active;
     }
 }
 
