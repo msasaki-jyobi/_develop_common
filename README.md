@@ -8,5 +8,5 @@
 1. git_pull.batを実行する ※ common_develop内の作業は**すべて取り消されます**
 
 # 他アセット
-- _shotter_develop:
+- (develop_shooter)[https://github.com/msasaki-jyobi/_develop_shooter]
 - 
