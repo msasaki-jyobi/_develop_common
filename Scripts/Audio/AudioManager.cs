@@ -1,8 +1,7 @@
-﻿using GameSet.Common;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
-namespace GameSet.Common
+namespace develop_common
 {
     public class AudioManager : SingletonMonoBehaviour<AudioManager>
     {

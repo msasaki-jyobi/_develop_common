@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace GameSet.Common
+namespace develop_common
 {
     [Serializable]
     public class DamageUnit

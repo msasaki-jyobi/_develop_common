@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameSet.Common
+namespace develop_common
 {
     // EnemyHealth ƒNƒ‰ƒX
     public class EnemyHealth : MonoBehaviour, IHealth

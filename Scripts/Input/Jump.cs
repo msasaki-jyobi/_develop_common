@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-namespace GameSet.Common
+namespace develop_common
 {
     public class Jump : MonoBehaviour
     {

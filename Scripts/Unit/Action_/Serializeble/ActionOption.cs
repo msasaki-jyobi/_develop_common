@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace GameSet.Common 
+namespace develop_common 
 { 
     [System.Serializable]
     public class ActionOption

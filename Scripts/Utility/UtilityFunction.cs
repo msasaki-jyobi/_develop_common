@@ -2,7 +2,9 @@
 using UnityEngine;
 using UnityEngine;
 using UnityEngine.UI;
-namespace GameSet.Common { 
+
+namespace develop_common 
+{ 
     public class UtilityFunction : MonoBehaviour
     {
 

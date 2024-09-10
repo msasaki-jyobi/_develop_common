@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameSet.Common
+namespace develop_common
 {
     [CreateAssetMenu(fileName = "LineData", menuName = "GameSet / LineData", order = 0)]
     public class LineData : ScriptableObject

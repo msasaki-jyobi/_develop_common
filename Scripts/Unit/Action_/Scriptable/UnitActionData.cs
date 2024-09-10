@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore;
 
-namespace GameSet.Common
+namespace develop_common
 {
     // 実行しているアクションの種類
     public enum EActionKinds

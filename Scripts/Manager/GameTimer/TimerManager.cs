@@ -6,7 +6,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace GameSet.Common
+namespace develop_common
 {
     public class TimerManager : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace GameSet.Common
+namespace develop_common
 {
     public class ActionFrame : MonoBehaviour
     {

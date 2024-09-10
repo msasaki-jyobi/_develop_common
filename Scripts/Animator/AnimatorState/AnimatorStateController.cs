@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
-namespace GameSet.Common
+namespace develop_common
 {
     public enum EStatePlayType
     {
