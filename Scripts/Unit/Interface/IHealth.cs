@@ -10,7 +10,7 @@ namespace develop_common
         EUnitType UnitType { get; }
         int CurrentHealth { get; }
         int MaxHealth { get; }
-        void TakeDamage(DamageValue damageValue);
+        void TakeDamage(DamageValue damageValue = null);
         void Heal(float amount);
 
     }
