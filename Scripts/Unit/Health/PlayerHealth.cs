@@ -18,17 +18,11 @@ namespace develop_common
         [SerializeField]
         private EUnitType unitType = EUnitType.Player;
         public EUnitType UnitType => unitType;
-        [field: SerializeField] public float CurrentHealth { get; private set; } = 100f;
-
-
+        [field: SerializeField] public int CurrentHealth { get; private set; } = 50;
+        public int MaxHealth { get; private set; } = 50;
         public void TakeDamage(DamageValue damageValue)
         {
-            CurrentHealth -= damageValue.Amount * damageValue.WeightDiff;
-            if (damageValue.DamageAction.TryGetComponent<ActionBase>(out var actionBase))
-            {
-                _animatorStateController.ChangeMotion(actionBase.MotionName, actionBase.MotionLate, actionBase.StatePlayType, actionBase.StateReset, actionBase.ApplyRootMotion);
-
-            }
+         
 
 
             if (CurrentHealth <= 0)
@@ -40,7 +34,7 @@ namespace develop_common
 
         public void Heal(float amount)
         {
-            CurrentHealth += amount;
+            CurrentHealth += (int)amount;
             // Å‘å’l‚ð’´‚¦‚È‚¢‚æ‚¤‚É‚·‚é
         }
     }

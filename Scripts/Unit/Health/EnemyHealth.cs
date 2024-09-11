@@ -12,10 +12,12 @@ namespace develop_common
         [SerializeField]
         private EUnitType unitType = EUnitType.Enemy;
         public EUnitType UnitType => unitType;
-        [field: SerializeField] public float CurrentHealth { get; private set; } = 50f;
+        [field: SerializeField] public int CurrentHealth { get; private set; } = 50;
+        public int MaxHealth { get; private set; } = 50;
 
         public void TakeDamage(DamageValue damageValue)
         {
+
             CurrentHealth -= damageValue.Amount * damageValue.WeightDiff;
 
             if (damageValue.DamageAction.TryGetComponent<ActionBase>(out var actionBase))
@@ -32,7 +34,7 @@ namespace develop_common
 
         public void Heal(float amount)
         {
-            CurrentHealth += amount;
+            CurrentHealth += (int)amount;
         }
     }
 }
