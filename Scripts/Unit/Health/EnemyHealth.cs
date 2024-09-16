@@ -12,8 +12,8 @@ namespace develop_common
         [SerializeField]
         private EUnitType unitType = EUnitType.Enemy;
         public EUnitType UnitType => unitType;
-        [field: SerializeField] public int CurrentHealth { get; private set; } = 50;
-        public int MaxHealth { get; private set; } = 50;
+        [field: SerializeField] public int CurrentHealth { get; private set; } = 10;
+        public int MaxHealth { get; private set; } = 10;
 
         public void TakeDamage(DamageValue damageValue)
         {

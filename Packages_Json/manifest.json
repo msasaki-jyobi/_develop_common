@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "net.tnrd.serializableinterface": "2.2.1",
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.harumak.ezaddresser": "https://github.com/Haruma-K/EZAddresser.git?path=/Packages/com.harumak.ezaddresser",
     "com.unity.addressables": "1.21.17",
