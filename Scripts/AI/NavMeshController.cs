@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,8 +9,10 @@ namespace develop_common
     public class NavMeshController : MonoBehaviour
     {
         public GameObject Target;
+
         public NavMeshAgent Agent;
         public GameObject Eye;
+        public AnimatorStateController AnimatorStateController;
 
         public float NormalSpeed = 3.5f;
         public float HuntSpeed = 3.5f;
@@ -18,16 +21,34 @@ namespace develop_common
         public float distance = 5f;
         public bool IsLook; // 視認が必要
 
+        private ReactiveProperty<bool> _isHunt = new ReactiveProperty<bool>();
+        private bool _isStop;
+
         private void Start()
         {
             if(Target == null)
-            Target = GameObject.Find("Player");
+                Target = GameObject.Find("Player");
 
             // 半径10m以内の徘徊場所を自動取得
+
+            _isHunt
+                .Subscribe((x) => 
+                {
+                    if (_isStop) return;
+
+                    if (AnimatorStateController != null)
+                        if(AnimatorStateController.Animator != null)
+                        {
+                            var motionName = x ? "Run" : "Idle";
+                            AnimatorStateController.ChangeMotion(motionName, 30f, EStatePlayType.Loop, false);
+                        }
+                
+                });
         }
 
         private void Update()
         {
+            if (_isStop) return;
             Move();
         }
 
@@ -41,6 +62,7 @@ namespace develop_common
             if (IsLook) // 視認をチェック
                 check = check && AIFunction.GetRayTarget(Eye, Target, rayHeight: 0.5f);
 
+            _isHunt.Value = check;
             if (check)
             {
                 // ターゲットを追跡するための移動を開始
@@ -59,5 +81,10 @@ namespace develop_common
             }
         }
 
+        public void OnStopAgent()
+        {
+            _isStop = true;
+            Agent.enabled = false;
+        }
     }
 }
