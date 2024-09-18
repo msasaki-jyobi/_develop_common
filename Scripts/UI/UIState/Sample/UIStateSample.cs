@@ -11,6 +11,11 @@ namespace develop_common
         [SerializeField] private string UIStateName8;
         [SerializeField] private string UIStateName9;
 
+        private void Start()
+        {
+            _uiStateManager.ChangeStateEvent += OnChangeStateHandle;
+        }
+
         private void Update()
         {
             if(Input.GetKeyDown(KeyCode.Alpha8))
@@ -35,12 +40,22 @@ namespace develop_common
                     case "Shop_SellSelect":
                         _uiStateManager.OnChangeStateAndButtons("Shop_SelectOption");
                         break;
-                        
 
                 }
             }
         }
 
-
+        private void OnChangeStateHandle(string stateName)
+        {
+            switch(stateName) 
+            {
+                case "Close":
+                    Time.timeScale = 1;
+                    break;
+                default:
+                    Time.timeScale = 0;
+                    break;
+            }
+        }
     }
 }

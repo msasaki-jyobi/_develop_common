@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
@@ -15,10 +16,13 @@ namespace develop_common
         [SerializeField] private bool AutoFirstFocus;
         [SerializeField] private bool AutoStartUIState;
         [SerializeField] private string _startUIStateName;
-
+        
+        // ステート開いた時に呼び出すイベント
+        public event Action<string> ChangeStateEvent;
 
         private Button _firstFocusButton;
         private string _currentStateName = "";
+
 
         private void Start()
         {
@@ -52,6 +56,8 @@ namespace develop_common
                 content.gameObject.SetActive(true);
             // State Save
             _currentStateName = uiStateInfo.StateName;
+            // イベント呼び出し
+            ChangeStateEvent?.Invoke(stateName);
 
         }
         /// <summary>
