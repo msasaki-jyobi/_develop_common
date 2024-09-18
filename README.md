@@ -15,5 +15,10 @@
 # 更新方法
 1. git_pull.batを実行する ※ common_develop内の作業は**すべて取り消されます**
 
-# 他アセット
+# _develop_common 利用アセット
+- [Basic Motions FREE](https://assetstore.unity.com/packages/3d/animations/basic-motions-free-154271)
+- []()
+
+# その他 develop
 - [develop_shooter](https://github.com/msasaki-jyobi/_develop_shooter)
+- [RPG Character Mecanim Animation Pack FREE](https://assetstore.unity.com/packages/3d/animations/rpg-character-mecanim-animation-pack-free-65284)
