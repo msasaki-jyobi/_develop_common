@@ -13,9 +13,18 @@ namespace develop_common
         public List<UIButtonInfo> ButtonInfos = new List<UIButtonInfo>();
 
         [SerializeField] private bool AutoFirstFocus;
+        [SerializeField] private bool AutoStartUIState;
+        [SerializeField] private string _startUIStateName;
+
 
         private Button _firstFocusButton;
         private string _currentStateName = "";
+
+        private void Start()
+        {
+            if (AutoStartUIState)
+                OnChangeStateAndButtons(_startUIStateName);
+        }
 
         private void Update()
         {
@@ -24,7 +33,7 @@ namespace develop_common
 
 
         /// <summary>
-        /// 指定されたUIステートのパーツのみ画面表示
+        /// 指定されたUIステートのパーツのみ画面表示 
         /// </summary>
         /// <param name="stateName"></param>
         public void ChangeUIState(string stateName)
@@ -64,8 +73,12 @@ namespace develop_common
             foreach (var enablebutton in buttons)
                 enablebutton.interactable = true;
             // フォーカスも設定
-            _firstFocusButton = buttons[0];
-            EventSystem.current.SetSelectedGameObject(_firstFocusButton.gameObject);
+            if(buttons != null && buttons.Count != 0)
+            {
+                _firstFocusButton = buttons[0];
+                EventSystem.current.SetSelectedGameObject(_firstFocusButton.gameObject);
+            }
+
         }
 
         public string GetCurrentStateName()
@@ -77,7 +90,7 @@ namespace develop_common
         /// UnityEvent用：ステート・ボタン共に切り替え
         /// </summary>
         /// <param name="interactableStateName"></param>
-        public void OnChangeState(string stateName)
+        public void OnChangeStateAndButtons(string stateName)
         {
             ChangeUIState(stateName);
             ChangeButtonInteractable(stateName);
@@ -86,7 +99,7 @@ namespace develop_common
         /// UnityEvent用：ボタンのInteractableのみ切り替え
         /// </summary>
         /// <param name="interactableStateName"></param>
-        public void OnChangeButtonInteractableOnly(string interactableStateName)
+        public void OnOnlyChangeButtonInteractable(string interactableStateName)
         {
             ChangeButtonInteractable(interactableStateName);
         }

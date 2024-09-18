@@ -15,11 +15,11 @@ namespace develop_common
         {
             if(Input.GetKeyDown(KeyCode.Alpha8))
             {
-                _uiStateManager.OnChangeState(UIStateName8);
+                _uiStateManager.OnChangeStateAndButtons(UIStateName8);
             }
             if (Input.GetKeyDown(KeyCode.Alpha9))
             {
-                _uiStateManager.OnChangeState(UIStateName9);
+                _uiStateManager.OnChangeStateAndButtons(UIStateName9);
             }
 
             if(Input.GetKeyDown(KeyCode.Escape))
@@ -27,13 +27,13 @@ namespace develop_common
                 switch(_uiStateManager.GetCurrentStateName())
                 {
                     case "Shop_ItemSelect":
-                        _uiStateManager.OnChangeState("Close");
+                        _uiStateManager.OnChangeStateAndButtons("Close");
                         break;                   
                     case "Shop_SelectOption":
-                        _uiStateManager.OnChangeState("Shop_ItemSelect");
+                        _uiStateManager.OnChangeStateAndButtons("Shop_ItemSelect");
                         break;                    
                     case "Shop_SellSelect":
-                        _uiStateManager.OnChangeState("Shop_SelectOption");
+                        _uiStateManager.OnChangeStateAndButtons("Shop_SelectOption");
                         break;
                         
 

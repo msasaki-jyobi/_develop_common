@@ -207,7 +207,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 233044812}
         m_TargetAssemblyTypeName: develop_common.UIStateManager, Assembly-CSharp
-        m_MethodName: OnChangeState
+        m_MethodName: OnChangeStateAndButtons
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -507,7 +507,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 233044812}
         m_TargetAssemblyTypeName: develop_common.UIStateManager, Assembly-CSharp
-        m_MethodName: OnChangeState
+        m_MethodName: OnChangeStateAndButtons
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -640,7 +640,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 233044812}
         m_TargetAssemblyTypeName: develop_common.UIStateManager, Assembly-CSharp
-        m_MethodName: OnChangeState
+        m_MethodName: OnChangeStateAndButtons
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -901,6 +901,8 @@ MonoBehaviour:
     - {fileID: 1206700001}
     - {fileID: 1193913204}
   AutoFirstFocus: 1
+  AutoStartUIState: 1
+  _startUIStateName: Shop_ItemSelect
 --- !u!4 &233044813
 Transform:
   m_ObjectHideFlags: 0
@@ -1639,7 +1641,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 233044812}
         m_TargetAssemblyTypeName: develop_common.UIStateManager, Assembly-CSharp
-        m_MethodName: OnChangeState
+        m_MethodName: OnChangeStateAndButtons
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1772,7 +1774,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 233044812}
         m_TargetAssemblyTypeName: develop_common.UIStateManager, Assembly-CSharp
-        m_MethodName: OnChangeState
+        m_MethodName: OnChangeStateAndButtons
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2342,7 +2344,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 233044812}
         m_TargetAssemblyTypeName: develop_common.UIStateManager, Assembly-CSharp
-        m_MethodName: OnChangeState
+        m_MethodName: OnChangeStateAndButtons
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2540,7 +2542,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 233044812}
         m_TargetAssemblyTypeName: develop_common.UIStateManager, Assembly-CSharp
-        m_MethodName: OnChangeState
+        m_MethodName: OnChangeStateAndButtons
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2673,7 +2675,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 233044812}
         m_TargetAssemblyTypeName: develop_common.UIStateManager, Assembly-CSharp
-        m_MethodName: OnChangeState
+        m_MethodName: OnChangeStateAndButtons
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3281,7 +3283,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 233044812}
         m_TargetAssemblyTypeName: develop_common.UIStateManager, Assembly-CSharp
-        m_MethodName: OnChangeState
+        m_MethodName: OnChangeStateAndButtons
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3548,7 +3550,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 233044812}
         m_TargetAssemblyTypeName: develop_common.UIStateManager, Assembly-CSharp
-        m_MethodName: OnChangeState
+        m_MethodName: OnChangeStateAndButtons
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
