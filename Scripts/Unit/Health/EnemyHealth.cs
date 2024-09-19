@@ -22,7 +22,17 @@ namespace develop_common
 
             if (damageValue.DamageAction.TryGetComponent<ActionBase>(out var actionBase))
             {
-                _animatorStateController.ChangeMotion(actionBase.MotionName, actionBase.MotionLate, actionBase.StatePlayType, actionBase.StateReset, actionBase.ApplyRootMotion);
+                if(actionBase.ActionStart != null) 
+                {
+                    var motionName = actionBase.ActionStart.MotionName;
+                    var motionLate = actionBase.ActionStart.MotionLate;
+                    var statePlayType = actionBase.ActionStart.StatePlayType;
+                    var isStateReset = actionBase.ActionStart.IsStateReset;
+                    var isApplyRootMotion = actionBase.ActionStart.IsApplyRootMotion;
+
+                    _animatorStateController.ChangeMotion(motionName, motionLate, statePlayType, isStateReset, isApplyRootMotion);
+                }
+
             }
 
             if (CurrentHealth <= 0)
