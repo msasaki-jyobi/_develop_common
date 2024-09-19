@@ -25,7 +25,7 @@ namespace develop_common
 
         // Action Delay
         private float _actionDelayTimer;
-        private float _actionDelayTime = 0.25f;
+        private float _actionDelayTime = 0.1f;
 
         // Event
         public event Action<ActionBase> PlayActionEvent;
@@ -78,7 +78,7 @@ namespace develop_common
         private void FinishMotionEventHandle(string stateName, bool isLoop)
         {
             // Delay Time Return
-            if (_actionDelayTimer > 0) return;
+            //if (_actionDelayTimer > 0) return;
 
             Debug.Log($"State: {stateName} 終了XXX");
             // Frame Reset
