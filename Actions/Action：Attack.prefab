@@ -90,7 +90,7 @@ MonoBehaviour:
   MotionLate: 30
   IsApplyRootMotion: 0
   StatePlayType: 0
-  IsStateReset: 0
+  IsStateReset: 1
   SetStartStatus: 2
   IsResetVelocity: 1
   IsNotInputReader: 1
@@ -130,7 +130,7 @@ MonoBehaviour:
     PrefabNum: 0
     IsNextAction: 0
     IsComplete: 0
-  - PlayFrame: 9
+  - PlayFrame: 15
     IsResetVelocity: 1
     IsForce: 1
     FoucePower: {x: 0, y: -20, z: 0}

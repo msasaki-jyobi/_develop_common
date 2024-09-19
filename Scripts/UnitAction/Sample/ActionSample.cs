@@ -27,18 +27,34 @@ namespace develop_common
 
         private void Update()
         {
+
             if (Input.GetKeyDown(KeyCode.C))
-                _unitActionLoader.LoadAction(_actionDataC);
+            {
+                if (TryGetComponent<TPSUnitController>(out var unitController))
+                {
+                    if (unitController.IsNotInputReader) return;
+                    _unitActionLoader.LoadAction(_actionDataC);
+
+                }
+            }
             if (Input.GetKeyDown(KeyCode.X))
-                _unitActionLoader.LoadAction(_actionDataX);
+            {
+                if (TryGetComponent<TPSUnitController>(out var unitController))
+                {
+                    if (unitController.IsNotInputReader) return;
+                    _unitActionLoader.LoadAction(_actionDataX);
+                }
+            }
         }
 
         private void OnMoveHandle(Vector2 movement)
         {
+            // à⁄ìÆÇ≈Ç´ÇÈÉoÉOÇÃå¥àˆ
+            return;
             if (Mathf.Abs(movement.x + movement.y) == 1)
             {
                 DownValue--;
-                if(DownValue <= 0)
+                if (DownValue <= 0)
                     if (TryGetComponent<TPSUnitController>(out var controller))
                         controller.ChangeDisableInputControl(false);
             }
@@ -46,7 +62,7 @@ namespace develop_common
 
         private void OnStartAdditiveParameterHandle(string parameterName, int value)
         {
-            switch(parameterName) 
+            switch (parameterName)
             {
                 case "Kousoku":
                     Debug.Log($"{parameterName}, {value} Hello StartÅI");

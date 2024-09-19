@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace develop_common
@@ -8,6 +9,7 @@ namespace develop_common
         [SerializeField] private AudioSource _seAudio;
         [SerializeField] private AudioSource _bgmAudio;
         [SerializeField] private AudioSource _voiceAudio;
+        [SerializeField] private List<AudioClip> _debugSEs = new List<AudioClip>();
 
         public void PlayOneShot(AudioClip clip, EAudioType audioType)
         {
@@ -52,6 +54,11 @@ namespace develop_common
         public void OnChangeSEPitch(float value)
         {
             _seAudio.pitch = value;
+        }
+
+        public void OnDebugSE(int num)
+        {
+            PlayOneShot(_debugSEs[num], EAudioType.Se);
         }
     }
 }

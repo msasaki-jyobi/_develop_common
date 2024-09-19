@@ -23,6 +23,10 @@ namespace develop_common
         // Action Loading Check
         private bool _isExecuting;
 
+        // Action Delay
+        private float _actionDelayTimer;
+        private float _actionDelayTime = 0.25f;
+
         // Event
         public event Action<ActionBase> PlayActionEvent;
         public event Action<ActionBase> FinishActionEvent;
@@ -65,8 +69,17 @@ namespace develop_common
                 });
         }
 
+        private void Update()
+        {
+            if (_actionDelayTimer >= 0)
+                _actionDelayTimer -= Time.deltaTime;
+        }       
+
         private void FinishMotionEventHandle(string stateName, bool isLoop)
         {
+            // Delay Time Return
+            if (_actionDelayTimer > 0) return;
+
             Debug.Log($"State: {stateName} 終了XXX");
             // Frame Reset
             _loadFrameInfos?.Clear();
@@ -85,7 +98,7 @@ namespace develop_common
                 if (oldActiveActionBase.ActionFinish != null)
                 {
                     // Status Change
-                    ChangeStatus(oldActiveActionBase.ActionFinish.SetFinishStatus);
+                    ChangeStatus(oldActiveActionBase.ActionFinish.SetFinishStatus, 1);
                     // Next ActionData
                     if (oldActiveActionBase.ActionFinish.NextActionData != null)
                     {
@@ -110,6 +123,9 @@ namespace develop_common
         {
             if (actionObject.TryGetComponent<ActionBase>(out var actionBase))
             {
+                // Delay Time Return
+                if (_actionDelayTimer > 0) return;
+
                 if (actionBase.ActionRequirement != null)
                     // アクションの条件チェック
                     if (!actionBase.ActionRequirement.CheckExecute(this))
@@ -122,6 +138,8 @@ namespace develop_common
                 ActiveActionObject = actionObject;
                 ActiveActionBase = actionBase;
                 IsNextAction = false;
+                _actionDelayTimer = _actionDelayTime; // 連打発動防止
+
 
                 // イベント発行
                 PlayActionEvent?.Invoke(actionBase);
@@ -129,7 +147,7 @@ namespace develop_common
                 // Start Additive Parameter
                 if (actionBase.ActionStartAdditiveParameter != null)
                 {
-                    foreach(var startParameter in actionBase.ActionStartAdditiveParameter.StartAdditiveParameters)
+                    foreach (var startParameter in actionBase.ActionStartAdditiveParameter.StartAdditiveParameters)
                         StartAdditiveParameterEvent?.Invoke(startParameter.AdditiveParameterName, startParameter.AdditiveParameterValue);
                 }
 
@@ -143,7 +161,7 @@ namespace develop_common
                     var root = actionBase.ActionStart.IsApplyRootMotion;
 
                     _stateController.ChangeMotion(stateName, late, playType, reset, root);
-                    ChangeStatus(actionBase.ActionStart.SetStartStatus);
+                    ChangeStatus(actionBase.ActionStart.SetStartStatus, 0);
                 }
                 // Frame
                 if (actionBase.ActionFrame != null)
@@ -152,10 +170,12 @@ namespace develop_common
             }
         }
 
-        public void ChangeStatus(EUnitStatus status)
+        public void ChangeStatus(EUnitStatus status, int code = 0)
         {
             if (status != EUnitStatus.None)
                 UnitStatus = status;
+
+            AudioManager.Instance.OnDebugSE(code);
         }
     }
 }
