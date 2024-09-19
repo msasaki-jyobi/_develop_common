@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6741626706195423436}
   - component: {fileID: 5481746996292819022}
   m_Layer: 0
-  m_Name: "Action\uFF1AHikick"
+  m_Name: "Action\uFF1AAttack"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458d7337e8ce6ff4f86d2423b88e6c92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionName: Hikick
+  MotionName: Attack
   MotionLate: 30
   ApplyRootMotion: 0
   StatePlayType: 0

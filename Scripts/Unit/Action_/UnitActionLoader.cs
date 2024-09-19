@@ -10,10 +10,6 @@ namespace develop_common
     {
         [SerializeField] private AnimatorStateController _stateController;
         public EUnitStatus UnitStatus;
-
-        public GameObject C_TestAction;
-        public GameObject X_TestAction;
-
         public GameObject ActiveAction { get; private set; }
         private List<FrameInfo> _loadFrameInfos;
         private bool _isExecuting;
@@ -57,15 +53,12 @@ namespace develop_common
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.C))
-                LoadAction(C_TestAction);
-            if (Input.GetKeyDown(KeyCode.X))
-                LoadAction(X_TestAction);
+
         }
 
 
 
-        private void LoadAction(GameObject ActionObject)
+        public void LoadAction(GameObject ActionObject)
         {
             // アクションの条件チェック
             if (ActionObject.TryGetComponent<ActionRequirement>(out var requirement))
