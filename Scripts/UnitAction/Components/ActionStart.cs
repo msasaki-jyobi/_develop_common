@@ -15,8 +15,14 @@ namespace develop_common
         public EStatePlayType StatePlayType;
         // 同じモーションでも繰り返し行うか
         public bool IsStateReset;
-
+        [Space(10)]
         // 開始時に切り替える状態
         public EUnitStatus SetStartStatus;
+        [Space(10)]
+        // Velocity Reset
+        public bool IsResetVelocity;
+        [Space(10)]
+        // 操作不可
+        public bool IsNotInputReader = true;
     }
 }

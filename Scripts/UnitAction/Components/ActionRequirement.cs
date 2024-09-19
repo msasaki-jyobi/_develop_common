@@ -22,18 +22,29 @@ namespace develop_common
         public bool CheckExecute(UnitActionLoader actionLoader)
         {
             bool check = true;
+            string errorMessage = "";
 
             // トリガーアクションは実行されているか？
             if (TriggerAction != null)
+            {
                 check = check && actionLoader.ActiveActionObject == TriggerAction;
-
+                errorMessage += ", トリガーアクションは実行されていません. ";
+            }
             // ステートは一致するか
             if (TriggerStatus != EUnitStatus.None)
+            {
                 check = check && actionLoader.UnitStatus == TriggerStatus;
-
+                errorMessage += $", UnitStatusは一致しません. Trigger:{TriggerStatus}|Unit:{actionLoader.UnitStatus}";
+            }
             // 追加入力が可能な状態か
             if (IsWaitingForKey)
+            {
                 check = check && actionLoader.IsNextAction;
+                errorMessage += $", IsWaitingForKeyはFalseです.";
+            }
+
+            if(!check)
+                Debug.Log($"実行できません. {gameObject.name} {actionLoader.name}, {errorMessage}");
 
             // True:実行可能 False:実行不可
             return check;

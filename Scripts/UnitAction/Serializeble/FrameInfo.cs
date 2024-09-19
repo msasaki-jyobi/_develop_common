@@ -13,6 +13,8 @@ namespace develop_common
         //public string Title;
         [Header("発動フレーム")]
         public float PlayFrame;
+        [Header("Velocity Reset")]
+        public bool IsResetVelocity;
         [Header("力を加える")]
         public bool IsForce;
         public Vector3 FoucePower;
@@ -43,10 +45,15 @@ namespace develop_common
         public FrameInfo(FrameInfo other)
         {
             this.PlayFrame = other.PlayFrame;
+
+            this.IsResetVelocity = other.IsResetVelocity;
+
             this.IsForce = other.IsForce;
             this.FoucePower = other.FoucePower;
+
             this.IsPrefab = other.IsPrefab;
             this.PrefabNum = other.PrefabNum;
+
             this.IsNextAction = other.IsNextAction;
 
 

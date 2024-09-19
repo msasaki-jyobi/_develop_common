@@ -90,6 +90,8 @@ MonoBehaviour:
   StatePlayType: 0
   IsStateReset: 0
   SetStartStatus: 2
+  IsResetVelocity: 1
+  IsNotInputReader: 1
 --- !u!114 &4454726136892598134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,6 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SetFinishStatus: 1
   NextActionData: {fileID: 0}
+  IsActiveInputReader: 1
 --- !u!114 &4257612234498888255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,8 +121,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FrameInfo:
   - PlayFrame: 5
-    IsForce: 0
-    FoucePower: {x: 0, y: 0, z: 0}
+    IsResetVelocity: 0
+    IsForce: 1
+    FoucePower: {x: 1, y: 30, z: 20}
+    IsPrefab: 1
+    PrefabNum: 0
+    IsNextAction: 0
+    IsComplete: 0
+  - PlayFrame: 9
+    IsResetVelocity: 1
+    IsForce: 1
+    FoucePower: {x: 0, y: -20, z: 0}
     IsPrefab: 1
     PrefabNum: 0
     IsNextAction: 0
@@ -139,10 +151,10 @@ MonoBehaviour:
   PrefabDatas:
   - Prefab: {fileID: 8866232049573502529, guid: 68d27f5a0c6d1b7468f8257bd65b904d, type: 3}
     CreateSe: {fileID: 0}
-    DestroyTime: 5
-    LocalPosition: {x: 0, y: 0, z: 1}
+    DestroyTime: 0.3
+    LocalPosition: {x: 0, y: 1, z: 1}
     LocalEulerAngle: {x: 0, y: 45, z: 0}
-    SetScale: {x: 0, y: 0, z: 0}
+    SetScale: {x: 1, y: 2, z: 1}
     LookType: 0
     ParentType: 0
 --- !u!114 &5481746996292819022

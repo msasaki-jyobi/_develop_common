@@ -28,11 +28,15 @@ namespace develop_common
 
             // オブジェクトの向く方向を指定
             Vector3 lookPos =
-                UtilityFunction.LocalLookPos(transform, data.LocalPosition);
-            // 生成場所
+                UtilityFunction.LocalLookPos(unit.gameObject.transform, data.LocalPosition);
+
+            // Position
             Vector3 pos = pointObject.transform.position + lookPos;
+
+            // Instantiate
             GameObject prefab = Instantiate(data.Prefab, pos, Quaternion.identity);
-            // 回転の設定
+
+            // Rotation
             GameObject rotOrigin = gameObject;
             if (data.LookType == ELookType.Camera) // カメラならカメラの向きに依存
                 rotOrigin = Camera.main.gameObject;

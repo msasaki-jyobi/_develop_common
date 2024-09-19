@@ -11,18 +11,30 @@ namespace develop_common
     {
         [SerializeField] private AnimatorStateController _stateController;
         public EUnitStatus UnitStatus;
+
+        // Property
         public GameObject ActiveActionObject { get; private set; }
         public ActionBase ActiveActionBase { get; private set; }
+        public bool IsNextAction { get; private set; }
+
+        // private Frame Parameter
         private List<FrameInfo> _loadFrameInfos;
 
         // Action Loading Check
         private bool _isExecuting;
-        public bool IsNextAction { get; private set; }
 
+        // Event
         public event Action<ActionBase> PlayActionEvent;
+        public event Action<ActionBase> FinishActionEvent;
+        public event Action<Vector3> FrameFouceEvent;
+        public event Action FrameResetVelocityEvent;
 
         private void Start()
         {
+            // Event Handle
+            _stateController.FinishMotionEvent += FinishMotionEventHandle;
+
+            // Frame 
             _stateController.FrameTimer
                 .Subscribe((x) =>
                 {
@@ -36,8 +48,10 @@ namespace develop_common
                                     {
                                         frameInfo.IsComplete = true;
 
+                                        if (frameInfo.IsResetVelocity)
+                                            FrameResetVelocityEvent?.Invoke();
                                         if (frameInfo.IsForce)
-                                            if (TryGetComponent<Rigidbody>(out var rigid)) rigid.AddForce(transform.up * frameInfo.FoucePower.y, ForceMode.Impulse);
+                                            FrameFouceEvent?.Invoke(frameInfo.FoucePower);
                                         if (frameInfo.IsPrefab)
                                             if (ActiveActionBase.ActionPrefabInfo != null)
                                                 ActiveActionBase.ActionPrefabInfo.CreatePrefab(frameInfo.PrefabNum, gameObject);
@@ -47,23 +61,40 @@ namespace develop_common
                                     }
                     }
                 });
-            _stateController.FinishMotionEvent += FinishMotionEventHandle;
         }
 
         private void FinishMotionEventHandle(string stateName)
         {
             Debug.Log($"State: {stateName} 終了");
+            // Frame Reset
             _loadFrameInfos?.Clear();
+
+            // ActionPlay Reset
             _isExecuting = false;
 
-            if (ActiveActionBase.ActionFinish != null)
-            {
-                ChangeStatus(ActiveActionBase.ActionFinish.SetFinishStatus);
-                if (ActiveActionBase.ActionFinish.NextActionData != null)
-                    LoadAction(ActiveActionBase.ActionFinish.NextActionData);
-            }
+            // Reset
+            var oldActiveActionObject = ActiveActionObject;
+            var oldActiveActionBase = ActiveActionBase;
             ActiveActionObject = null;
             ActiveActionBase = null;
+
+            // Action Finish
+            if (oldActiveActionBase != null)
+                if (oldActiveActionBase.ActionFinish != null)
+                {
+                    // Status Change
+                    ChangeStatus(oldActiveActionBase.ActionFinish.SetFinishStatus);
+                    // Next ActionData
+                    if (oldActiveActionBase.ActionFinish.NextActionData != null)
+                    {
+                        LoadAction(oldActiveActionBase.ActionFinish.NextActionData);
+                        return;
+                    }
+                }
+
+            // Finish Event
+            FinishActionEvent?.Invoke(oldActiveActionBase);
+
         }
 
         public void LoadAction(GameObject actionObject)
@@ -75,11 +106,11 @@ namespace develop_common
                     if (!actionBase.ActionRequirement.CheckExecute(this))
                     {
                         _isExecuting = false;
-                        Debug.Log($"実行できません. {gameObject.name} {actionObject.name}");
                         return;
                     }
 
                 Debug.Log($"実行!!. {gameObject.name} {actionObject.name}");
+
                 // アクションの実行
                 _isExecuting = true;
                 ActiveActionObject = actionObject;
@@ -104,9 +135,7 @@ namespace develop_common
                 // Frame
                 if (actionBase.ActionFrame != null)
                     _loadFrameInfos = actionBase.ActionFrame.FrameInfo.Select(item => new FrameInfo(item)).ToList();
-                //// Finish
-                //if (actionBase.ActionFinish != null)
-                //    ChangeStatus(actionBase.ActionFinish.SetFinishStatus);
+
             }
         }
 
