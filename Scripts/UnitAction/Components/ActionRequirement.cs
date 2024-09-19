@@ -12,10 +12,13 @@ namespace develop_common
 
     public class ActionRequirement : MonoBehaviour
     {
+        [Header("条件：トリガーアクション")]
         // 再生するのに必要なトリガーアクション
         public GameObject TriggerAction;
+        [Header("条件：トリガーUnitStatus")]
         // 再生に必要なステータス
         public EUnitStatus TriggerStatus;
+        [Header("条件：キー入力受付中のみ")]
         // 追加入力状態の有無
         public bool IsWaitingForKey;
 

@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1964579485700207550}
   - component: {fileID: 5017441459642140199}
-  - component: {fileID: 8276063280196032279}
   - component: {fileID: -9094532401574635501}
-  - component: {fileID: -3313922022840471475}
+  - component: {fileID: 4454726136892598134}
   - component: {fileID: 4257612234498888255}
   - component: {fileID: 6741626706195423436}
   - component: {fileID: 5481746996292819022}
@@ -50,28 +49,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458d7337e8ce6ff4f86d2423b88e6c92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActionRequirement: {fileID: 8276063280196032279}
+  ActionRequirement: {fileID: 0}
   ActionStart: {fileID: -9094532401574635501}
   ActionFrame: {fileID: 4257612234498888255}
-  ActionFinish: {fileID: -3313922022840471475}
+  ActionFinish: {fileID: 4454726136892598134}
   ActionParent: {fileID: 0}
   ActionPrefabInfo: {fileID: 6741626706195423436}
   ActionDamageValue: {fileID: 5481746996292819022}
---- !u!114 &8276063280196032279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867914962149053577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6898e62c2fc62be46a96eec2aeba8107, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TriggerAction: {fileID: 0}
-  TriggerStatus: 1
-  IsWaitingForKey: 0
 --- !u!114 &-9094532401574635501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,9 +72,11 @@ MonoBehaviour:
   MotionLate: 30
   IsApplyRootMotion: 0
   StatePlayType: 0
-  IsStateReset: 0
+  IsStateReset: 1
   SetStartStatus: 2
---- !u!114 &-3313922022840471475
+  IsResetVelocity: 1
+  IsNotInputReader: 1
+--- !u!114 &4454726136892598134
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,6 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SetFinishStatus: 1
   NextActionData: {fileID: 0}
+  IsActiveInputReader: 1
 --- !u!114 &4257612234498888255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,8 +105,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FrameInfo:
   - PlayFrame: 5
-    IsForce: 0
-    FoucePower: {x: 0, y: 0, z: 0}
+    IsResetVelocity: 0
+    IsForce: 1
+    FoucePower: {x: 1, y: 30, z: 20}
+    IsPrefab: 1
+    PrefabNum: 0
+    IsNextAction: 0
+    IsComplete: 0
+  - PlayFrame: 9
+    IsResetVelocity: 1
+    IsForce: 1
+    FoucePower: {x: 0, y: -20, z: 0}
     IsPrefab: 1
     PrefabNum: 0
     IsNextAction: 0
@@ -139,10 +135,10 @@ MonoBehaviour:
   PrefabDatas:
   - Prefab: {fileID: 8866232049573502529, guid: 68d27f5a0c6d1b7468f8257bd65b904d, type: 3}
     CreateSe: {fileID: 0}
-    DestroyTime: 5
-    LocalPosition: {x: 0, y: 0, z: 1}
+    DestroyTime: 0.3
+    LocalPosition: {x: 0, y: 1, z: 1}
     LocalEulerAngle: {x: 0, y: 45, z: 0}
-    SetScale: {x: 0, y: 0, z: 0}
+    SetScale: {x: 1, y: 2, z: 1}
     LookType: 0
     ParentType: 0
 --- !u!114 &5481746996292819022

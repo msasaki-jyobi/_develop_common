@@ -28,6 +28,8 @@ namespace develop_common
         public event Action<ActionBase> FinishActionEvent;
         public event Action<Vector3> FrameFouceEvent;
         public event Action FrameResetVelocityEvent;
+        public event Action<string, int> StartAdditiveParameterEvent;
+        public event Action<string, int> FinishAdditiveParameterEvent;
 
         private void Start()
         {
@@ -63,9 +65,9 @@ namespace develop_common
                 });
         }
 
-        private void FinishMotionEventHandle(string stateName)
+        private void FinishMotionEventHandle(string stateName, bool isLoop)
         {
-            Debug.Log($"State: {stateName} 終了");
+            Debug.Log($"State: {stateName} 終了XXX");
             // Frame Reset
             _loadFrameInfos?.Clear();
 
@@ -95,6 +97,13 @@ namespace develop_common
             // Finish Event
             FinishActionEvent?.Invoke(oldActiveActionBase);
 
+            // Finish Additive Parameter
+            if (oldActiveActionBase.ActionFinishAdditiveParameter != null)
+            {
+                foreach (var finishParameter in oldActiveActionBase.ActionFinishAdditiveParameter.FinishAdditiveParameters)
+                    FinishAdditiveParameterEvent?.Invoke(finishParameter.AdditiveParameterName, finishParameter.AdditiveParameterValue);
+            }
+
         }
 
         public void LoadAction(GameObject actionObject)
@@ -104,10 +113,7 @@ namespace develop_common
                 if (actionBase.ActionRequirement != null)
                     // アクションの条件チェック
                     if (!actionBase.ActionRequirement.CheckExecute(this))
-                    {
-                        _isExecuting = false;
                         return;
-                    }
 
                 Debug.Log($"実行!!. {gameObject.name} {actionObject.name}");
 
@@ -119,6 +125,13 @@ namespace develop_common
 
                 // イベント発行
                 PlayActionEvent?.Invoke(actionBase);
+
+                // Start Additive Parameter
+                if (actionBase.ActionStartAdditiveParameter != null)
+                {
+                    foreach(var startParameter in actionBase.ActionStartAdditiveParameter.StartAdditiveParameters)
+                        StartAdditiveParameterEvent?.Invoke(startParameter.AdditiveParameterName, startParameter.AdditiveParameterValue);
+                }
 
                 // Start
                 if (actionBase.ActionStart != null)

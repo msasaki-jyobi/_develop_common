@@ -32,10 +32,13 @@ namespace develop_common
             }
         }
 
-        public void OnFinishMotionHandle(string motion)
+        public void OnFinishMotionHandle(string motion, bool isLoop)
         {
-            if (motion == Alpha2KeyPlayState)
-                controller.ChangeMotion(Alpha2FinishNextState, 30, DebugStatePlayType, DebugStateReset);
+            if(!isLoop)
+            {
+                if (motion == Alpha2KeyPlayState)
+                    controller.ChangeMotion(Alpha2FinishNextState, 30, DebugStatePlayType, DebugStateReset);
+            }
         }
     }
 

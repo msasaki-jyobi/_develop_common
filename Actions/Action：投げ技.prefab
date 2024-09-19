@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6741626706195423436}
   - component: {fileID: 5481746996292819022}
   m_Layer: 0
-  m_Name: "Action\uFF1AAttack"
+  m_Name: "Action\uFF1A\u6295\u3052\u6280"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,8 +57,6 @@ MonoBehaviour:
   ActionParent: {fileID: 0}
   ActionPrefabInfo: {fileID: 6741626706195423436}
   ActionDamageValue: {fileID: 5481746996292819022}
-  ActionStartAdditiveParameter: {fileID: 0}
-  ActionFinishAdditiveParameter: {fileID: 0}
 --- !u!114 &8276063280196032279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SetFinishStatus: 1
-  NextActionData: {fileID: 0}
+  NextActionData: {fileID: 867914962149053577, guid: 7cfe6830d369ee14eaa509244092f37d, type: 3}
   IsActiveInputReader: 1
 --- !u!114 &4257612234498888255
 MonoBehaviour:
@@ -123,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FrameInfo:
   - PlayFrame: 5
-    IsResetVelocity: 1
+    IsResetVelocity: 0
     IsForce: 1
     FoucePower: {x: 1, y: 30, z: 20}
     IsPrefab: 1

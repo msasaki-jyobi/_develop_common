@@ -28,7 +28,7 @@ namespace develop_common
         private float _totalFrames = 60f;
         private bool _isMotionLoop;
 
-        public event Action<string> FinishMotionEvent;
+        public event Action<string, bool> FinishMotionEvent;
 
         private void Start()
         {
@@ -49,11 +49,14 @@ namespace develop_common
                             MainStateName.Value = "";
                             MainStateName.Value = stateName;
                         }
-                        else
-                        {
-                            // モーションの終了を発行
-                            FinishMotionEvent.Invoke(MainStateName.Value);
-                        }
+                        //else
+                        //{
+                        //    // モーションの終了を発行
+                        //    FinishMotionEvent.Invoke(MainStateName.Value);
+                        //}
+
+                        // モーションの終了を発行
+                        FinishMotionEvent.Invoke(MainStateName.Value, _isMotionLoop);
                     }
                 });
 

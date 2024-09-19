@@ -16,6 +16,9 @@ namespace develop_common
         public ActionParent ActionParent;
         public ActionPrefabInfo ActionPrefabInfo;
         public ActionDamageValue ActionDamageValue;
+        [Space(10)]
+        public ActionStartAdditiveParameter ActionStartAdditiveParameter;
+        public ActionFinishAdditiveParameter ActionFinishAdditiveParameter;
 
         // 条件チェック
         // 実行後に行うなど…
