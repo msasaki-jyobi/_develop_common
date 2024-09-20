@@ -25,7 +25,7 @@ namespace develop_common
         public bool CheckExecute(UnitActionLoader actionLoader)
         {
             bool check = true;
-            string errorMessage = "";
+            string errorMessage = ""; 
 
             // トリガーアクションは実行されているか？
             if (TriggerAction != null)

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace develop_common
-{
+{ 
     public class ActionSample : MonoBehaviour
     {
         [SerializeField] private InputReader _inputReader;
@@ -73,7 +73,7 @@ namespace develop_common
                     if (TryGetComponent<TPSUnitController>(out var controller2))
                     {
                         DownValue = value;
-                        controller2.ChangeDisableInputControl(true);
+                        //controller2.ChangeDisableInputControl(true);
                     }
                     break;
             }
@@ -91,7 +91,7 @@ namespace develop_common
                     if (TryGetComponent<TPSUnitController>(out var controller))
                     {
                         DownValue = value;
-                        controller.ChangeDisableInputControl(true);
+                        //controller.ChangeDisableInputControl(true);
                     }
                     break;
             }

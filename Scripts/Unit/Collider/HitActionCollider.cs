@@ -6,7 +6,7 @@ namespace develop_common
 {
     public class HitActionCollider : MonoBehaviour
     {
-        public DamageValue DamageValue;
+        public GameObject DamageAction;
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -20,9 +20,23 @@ namespace develop_common
 
         public void OnHit(GameObject hit)
         {
-            if(hit.TryGetComponent<UnitActionLoader>(out var hitActionLoader))
+            if (hit.TryGetComponent<UnitActionLoader>(out var hitActionLoader))
             {
-                hitActionLoader.LoadAction(DamageValue.DamageAction);
+                if (DamageAction.TryGetComponent<ActionBase>(out var actionBase))
+                {
+                    // ダメージ演出を実行する
+                    if(actionBase.ActionDamageValue != null)
+                        hitActionLoader.LoadAction(DamageAction);
+
+                    var actionDamageValue = actionBase.ActionDamageValue;
+                    if(actionDamageValue != null)
+                    {
+                        var damageValue = actionDamageValue.DamageValue;
+                        // ダメージ量
+                        int damage = damageValue.Amount * damageValue.WeightDiff;
+                    }
+                    
+                }
             }
         }
     }

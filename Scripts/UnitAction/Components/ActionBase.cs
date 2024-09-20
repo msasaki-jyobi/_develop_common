@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace develop_common
 {
-    public class ActionBase : MonoBehaviour
+    public class ActionBase : MonoBehaviour 
     {
         public ActionRequirement ActionRequirement;
         [Space(10)]
