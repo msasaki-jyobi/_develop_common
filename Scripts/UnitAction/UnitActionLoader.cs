@@ -73,7 +73,7 @@ namespace develop_common
         {
             if (_actionDelayTimer >= 0)
                 _actionDelayTimer -= Time.deltaTime;
-        }
+        }       
 
         private void FinishMotionEventHandle(string stateName, bool isLoop)
         {
@@ -81,6 +81,7 @@ namespace develop_common
             //if (_actionDelayTimer > 0) return;
 
             Debug.Log($"State: {stateName} 終了XXX");
+
             // Frame Reset
             _loadFrameInfos?.Clear();
 
@@ -109,13 +110,14 @@ namespace develop_common
 
             // Finish Event
             FinishActionEvent?.Invoke(oldActiveActionBase);
-            if (oldActiveActionBase != null)
-                // Finish Additive Parameter
-                if (oldActiveActionBase.ActionFinishAdditiveParameter != null)
-                {
-                    foreach (var finishParameter in oldActiveActionBase.ActionFinishAdditiveParameter.FinishAdditiveParameters)
-                        FinishAdditiveParameterEvent?.Invoke(finishParameter.AdditiveParameterName, finishParameter.AdditiveParameterValue);
-                }
+
+            // Finish Additive Parameter
+            if (oldActiveActionBase.ActionFinishAdditiveParameter != null)
+            {
+                foreach (var finishParameter in oldActiveActionBase.ActionFinishAdditiveParameter.FinishAdditiveParameters)
+                    FinishAdditiveParameterEvent?.Invoke(finishParameter.AdditiveParameterName, finishParameter.AdditiveParameterValue);
+            }
+
         }
 
         public void LoadAction(GameObject actionObject)
@@ -125,10 +127,9 @@ namespace develop_common
                 // Delay Time Return
                 if (_actionDelayTimer > 0) return;
 
-                var actionRequirement = actionBase.ActionRequirement;
-                if (actionRequirement != null)
+                if (actionBase.ActionRequirement != null)
                     // アクションの条件チェック
-                    if (!actionRequirement.CheckExecute(this))
+                    if (!actionBase.ActionRequirement.CheckExecute(this))
                         return;
 
                 Debug.Log($"実行!!. {gameObject.name} {actionObject.name}");
@@ -140,32 +141,32 @@ namespace develop_common
                 IsNextAction = false;
                 _actionDelayTimer = _actionDelayTime; // 連打発動防止
 
+
                 // イベント発行
                 PlayActionEvent?.Invoke(actionBase);
 
                 // Start Additive Parameter
-                var actionStartAdditiveParameter = actionBase.ActionStartAdditiveParameter;
-                if (actionStartAdditiveParameter != null)
-                    foreach (var startParameter in actionStartAdditiveParameter.StartAdditiveParameters)
+                if (actionBase.ActionStartAdditiveParameter != null)
+                {
+                    foreach (var startParameter in actionBase.ActionStartAdditiveParameter.StartAdditiveParameters)
                         StartAdditiveParameterEvent?.Invoke(startParameter.AdditiveParameterName, startParameter.AdditiveParameterValue);
+                }
 
                 // Start
-                var actionStart = actionBase.ActionStart;
-                if (actionStart != null)
+                if (actionBase.ActionStart != null)
                 {
-                    var stateName = actionStart.MotionName;
-                    var late = actionStart.MotionLate;
-                    var playType = actionStart.StatePlayType;
-                    var reset = actionStart.IsStateReset;
-                    var root = actionStart.IsApplyRootMotion;
+                    var stateName = actionBase.ActionStart.MotionName;
+                    var late = actionBase.ActionStart.MotionLate;
+                    var playType = actionBase.ActionStart.StatePlayType;
+                    var reset = actionBase.ActionStart.IsStateReset;
+                    var root = actionBase.ActionStart.IsApplyRootMotion;
 
                     _stateController.ChangeMotion(stateName, late, playType, reset, root);
-                    ChangeStatus(actionStart.SetStartStatus, 0);
+                    ChangeStatus(actionBase.ActionStart.SetStartStatus, 0);
                 }
                 // Frame
-                var actionFrame = actionBase.ActionFrame;
-                if (actionFrame != null)
-                    _loadFrameInfos = actionFrame.FrameInfo.Select(item => new FrameInfo(item)).ToList();
+                if (actionBase.ActionFrame != null)
+                    _loadFrameInfos = actionBase.ActionFrame.FrameInfo.Select(item => new FrameInfo(item)).ToList();
 
             }
         }

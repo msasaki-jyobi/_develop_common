@@ -7,6 +7,7 @@ namespace develop_common
     [CreateAssetMenu(fileName = "RecoveryCatalog", menuName = "Catalog / RecoveryCatalog")]
     public class RecoveryCatalog : ScriptableObject
     {
+        public string PrimaryIDName;
         public List<RecoveryInfo> Recoverys = new List<RecoveryInfo>();
     }
 }
