@@ -7,10 +7,17 @@ namespace develop_common
     public class LoopRotate : MonoBehaviour
     {
         public Vector3 RotatePower;
+        public bool IsRotate = true;
 
         private void Update()
         {
-            transform.Rotate(RotatePower * Time.deltaTime);
+            if (IsRotate)
+                transform.Rotate(RotatePower * Time.deltaTime);
+        }
+
+        public void OnChangeRotate(bool flg)
+        {
+            IsRotate = flg;
         }
     }
 }

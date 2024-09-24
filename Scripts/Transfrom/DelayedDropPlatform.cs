@@ -58,5 +58,10 @@ namespace develop_common
             }
         }
 
+        public void OnChangeIsDrop(bool flg)
+        {
+            IsDrop = flg;
+        }
+
     }
 }
