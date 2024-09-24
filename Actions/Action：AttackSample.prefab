@@ -1,0 +1,189 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &867914962149053577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1964579485700207550}
+  - component: {fileID: 5017441459642140199}
+  - component: {fileID: 8276063280196032279}
+  - component: {fileID: -9094532401574635501}
+  - component: {fileID: 4454726136892598134}
+  - component: {fileID: 4257612234498888255}
+  - component: {fileID: 6741626706195423436}
+  - component: {fileID: 5481746996292819022}
+  m_Layer: 0
+  m_Name: "Action\uFF1AAttackSample"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1964579485700207550
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867914962149053577}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5017441459642140199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867914962149053577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 458d7337e8ce6ff4f86d2423b88e6c92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionRequirement: {fileID: 8276063280196032279}
+  ActionStart: {fileID: -9094532401574635501}
+  ActionFrame: {fileID: 4257612234498888255}
+  ActionFinish: {fileID: 4454726136892598134}
+  ActionParent: {fileID: 0}
+  ActionPrefabInfo: {fileID: 6741626706195423436}
+  ActionDamageValue: {fileID: 5481746996292819022}
+  ActionStartAdditiveParameter: {fileID: 0}
+  ActionFinishAdditiveParameter: {fileID: 0}
+--- !u!114 &8276063280196032279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867914962149053577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6898e62c2fc62be46a96eec2aeba8107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TriggerAction: {fileID: 0}
+  TriggerStatus: 1
+  IsWaitingForKey: 0
+--- !u!114 &-9094532401574635501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867914962149053577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MotionName: Attack
+  MotionLate: 30
+  IsApplyRootMotion: 0
+  StatePlayType: 0
+  IsStateReset: 1
+  SetStartStatus: 2
+  IsResetVelocity: 1
+  IsNotInputReader: 1
+--- !u!114 &4454726136892598134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867914962149053577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6089b1ca23130ca4295a1b9c41cac0ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SetFinishStatus: 1
+  NextActionData: {fileID: 0}
+  IsActiveInputReader: 1
+--- !u!114 &4257612234498888255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867914962149053577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 186fbed7197d4474bb075a52e80023f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FrameInfo:
+  - PlayFrame: 5
+    IsResetVelocity: 1
+    IsForce: 1
+    FoucePower: {x: 1, y: 30, z: 20}
+    IsPrefab: 1
+    PrefabNum: 0
+    IsNextAction: 0
+    IsComplete: 0
+  - PlayFrame: 15
+    IsResetVelocity: 1
+    IsForce: 1
+    FoucePower: {x: 0, y: -20, z: 0}
+    IsPrefab: 1
+    PrefabNum: 0
+    IsNextAction: 0
+    IsComplete: 0
+--- !u!114 &6741626706195423436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867914962149053577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e283f7cdd946b7b40ae62b5ffdf4bee2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrefabDatas:
+  - Prefab: {fileID: 8866232049573502529, guid: 68d27f5a0c6d1b7468f8257bd65b904d, type: 3}
+    CreateSe: {fileID: 0}
+    DestroyTime: 0.3
+    LocalPosition: {x: 0, y: 1, z: 1}
+    LocalEulerAngle: {x: 0, y: 45, z: 0}
+    SetScale: {x: 1, y: 2, z: 1}
+    LookType: 0
+    ParentType: 0
+--- !u!114 &5481746996292819022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867914962149053577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3577c668b3346e3408312df74be589f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageValue:
+    AttackerUnit: {fileID: 0}
+    DamageAction: {fileID: 867914962149053577, guid: 7eba3ec710b1e1543b276182fe84aba1, type: 3}
+    DeadAction: {fileID: 0}
+    Amount: 1
+    WeightDiff: 1
+    HitLimit: 1
+    UnitLimit: 5
+    HitSpanTime: 0.1
+    HitLimitResetTime: 6
+    HitEffect: {fileID: 0}
+    HitSE: {fileID: 0}
+    DestroyEffect: {fileID: 0}
+    DestroySE: {fileID: 0}
+    UnitHitDestroy: 0
+    ObjectHitDestroy: 0
