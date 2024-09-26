@@ -40,16 +40,16 @@ namespace develop_common
             return null;
         }
 
-        public ThrowInfo GetThrowInfo(int id)
-        {
-            foreach (var Catalog in ThrowCatalogs)
-                foreach (var info in Catalog.Throws)
-                if (info.ThrowID == id)
-                    return info;
+        //public ThrowInfo GetThrowInfo(int id)
+        //{
+        //    foreach (var Catalog in ThrowCatalogs)
+        //        foreach (var info in Catalog.Throws)
+        //        if (info.ThrowID == id)
+        //            return info;
 
-            Debug.LogError($"Throw:{id} ÇÕë∂ç›ÇµÇ‹ÇπÇÒ. ");
-            return null;
-        }
+        //    Debug.LogError($"Throw:{id} ÇÕë∂ç›ÇµÇ‹ÇπÇÒ. ");
+        //    return null;
+        //}
 
         public RecoveryInfo GetRecoveryInfo(int id)
         {

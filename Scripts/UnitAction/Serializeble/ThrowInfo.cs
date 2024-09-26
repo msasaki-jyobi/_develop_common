@@ -9,9 +9,16 @@ namespace develop_common
     [Serializable]
     public class ThrowInfo
     {
-        public string ThrowActionData; // モーション名とFrame情報だけ参照する
-        public int ThrowID; // 投げ技ID
-        public int DownID; // ダウンID
-        public string frames; // A1,A3,C11,C22 とかだと楽 ,区切りで取得とか
+        public string AtkStateName;
+        public string DmgStateName;
+        public List<int> DefaultDamageFrames;
+
+        public Vector3 LocalPos;
+        public Vector3 LocalRot;
+        
+        public bool AtkApplyRootMotion;
+        public bool DmgApplyRootMotion;
+        public int AtkLate = 30;
+        public int DmgLate = 30;
     }
 }

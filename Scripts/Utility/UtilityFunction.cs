@@ -100,6 +100,31 @@ namespace develop_common
             return null;
         }
 
+
+        /// <summary>
+        /// オブジェクトのクリックした位置を返す
+        /// </summary>
+        /// <param name="camera">ゲーム用カメラ</param>
+        /// <returns></returns>
+        static public Vector3 GetScreenClickObjectPosition(Camera camera, GameObject effectPrefab = null)
+        {
+            RaycastHit hit;
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 3f);
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                if (effectPrefab != null)
+                {
+                    GameObject effect = Instantiate(effectPrefab, hit.point, Quaternion.identity);
+                    foreach (var g in effect.GetComponentsInChildren<ParticleSystem>())
+                        g.loop = false;
+                    Destroy(effect, 5f);
+                }
+                return hit.point;
+            }
+            return Vector3.zero;
+        }
+
         /// <summary>
         /// クリックしたオブジェクトを親にして空オブジェクトを生成して返す
         /// </summary>
