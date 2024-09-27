@@ -9,9 +9,11 @@ namespace develop_common
         public AnimatorStateController controller;
 
         public string Alpha1KeyPlayState = "State1";
-        public string Alpha2KeyPlayState = "State2";
-        public string Alpha2FinishNextState = "State3";
-
+        public string Alpha1FinishNextState = "State3";
+        [Space(20)]
+        public string Alpha2KeyPlayAdditiveState = "GetUp";
+        public float Alpha2KeyPlayAdditivefadeLength = 0;
+        [Space(20)]
         public EStatePlayType DebugStatePlayType;
         public bool DebugStateReset;
 
@@ -24,11 +26,11 @@ namespace develop_common
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                controller.ChangeMotion(Alpha1KeyPlayState, 30f, DebugStatePlayType, DebugStateReset);
+                controller.StatePlay(Alpha1KeyPlayState, DebugStatePlayType, DebugStateReset);
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                controller.ChangeMotion(Alpha2KeyPlayState, 30f, DebugStatePlayType, DebugStateReset);
+                controller.AnimatorLayerPlay(1, Alpha2KeyPlayAdditiveState, Alpha2KeyPlayAdditivefadeLength);
             }
         }
 
@@ -36,8 +38,8 @@ namespace develop_common
         {
             if(!isLoop)
             {
-                if (motion == Alpha2KeyPlayState)
-                    controller.ChangeMotion(Alpha2FinishNextState, 30, DebugStatePlayType, DebugStateReset);
+                if (motion == Alpha2KeyPlayAdditiveState)
+                    controller.StatePlay(Alpha1FinishNextState, DebugStatePlayType, DebugStateReset);
             }
         }
     }

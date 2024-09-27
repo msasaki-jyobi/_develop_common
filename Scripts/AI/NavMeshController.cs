@@ -40,7 +40,7 @@ namespace develop_common
                         if(AnimatorStateController.Animator != null)
                         {
                             var motionName = x ? "Run" : "Idle";
-                            AnimatorStateController.ChangeMotion(motionName, 30f, EStatePlayType.Loop, false);
+                            AnimatorStateController.StatePlay(motionName, EStatePlayType.Loop, false);
                         }
                 
                 });

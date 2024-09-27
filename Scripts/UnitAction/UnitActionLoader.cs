@@ -73,7 +73,7 @@ namespace develop_common
         {
             if (_actionDelayTimer >= 0)
                 _actionDelayTimer -= Time.deltaTime;
-        }       
+        }
 
         private void FinishMotionEventHandle(string stateName, bool isLoop)
         {
@@ -112,11 +112,12 @@ namespace develop_common
             FinishActionEvent?.Invoke(oldActiveActionBase);
 
             // Finish Additive Parameter
-            if (oldActiveActionBase.ActionFinishAdditiveParameter != null)
-            {
-                foreach (var finishParameter in oldActiveActionBase.ActionFinishAdditiveParameter.FinishAdditiveParameters)
-                    FinishAdditiveParameterEvent?.Invoke(finishParameter.AdditiveParameterName, finishParameter.AdditiveParameterValue);
-            }
+            if (oldActiveActionBase != null)
+                if (oldActiveActionBase.ActionFinishAdditiveParameter != null)
+                {
+                    foreach (var finishParameter in oldActiveActionBase.ActionFinishAdditiveParameter.FinishAdditiveParameters)
+                        FinishAdditiveParameterEvent?.Invoke(finishParameter.AdditiveParameterName, finishParameter.AdditiveParameterValue);
+                }
 
         }
 
@@ -161,7 +162,7 @@ namespace develop_common
                     var reset = actionBase.ActionStart.IsStateReset;
                     var root = actionBase.ActionStart.IsApplyRootMotion;
 
-                    _stateController.ChangeMotion(stateName, late, playType, reset, root);
+                    _stateController.StatePlay(stateName, playType, reset, root);
                     ChangeStatus(actionBase.ActionStart.SetStartStatus, 0);
                 }
                 // Frame

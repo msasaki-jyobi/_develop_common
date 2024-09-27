@@ -30,7 +30,7 @@ namespace develop_common
                     var isStateReset = actionBase.ActionStart.IsStateReset;
                     var isApplyRootMotion = actionBase.ActionStart.IsApplyRootMotion;
 
-                    _animatorStateController.ChangeMotion(motionName, motionLate, statePlayType, isStateReset, isApplyRootMotion);
+                    _animatorStateController.StatePlay(motionName, statePlayType, isStateReset, isApplyRootMotion);
                 }
 
             }
