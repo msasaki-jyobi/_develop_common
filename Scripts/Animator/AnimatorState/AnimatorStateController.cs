@@ -125,6 +125,7 @@ namespace develop_common
         /// 指定レイヤーのモーションを再生します(Layerを利用した際に活用）
         /// </summary>
         /// <param name="layerNo">レイヤー番号</param>
+        /// <param name="_animator">Animator</param>
         /// <param name="animName">ステート名</param>
         /// <param name="fadeLength">切り替え時間</param>
         public async void AnimatorLayerPlay(int layerNo, string animName, float fadeLength)
@@ -132,15 +133,18 @@ namespace develop_common
             //if (_addTimer >= 0.7f) return;
             //_addTimer = 1;
 
-            // 現在のレイヤーのアニメーション状態を取得
-            AnimatorStateInfo currentStateInfo = Animator.GetCurrentAnimatorStateInfo(layerNo);
-            // 切り替えに必要な時間を計算
-            float duration = fadeLength / currentStateInfo.length;
-            // 指定されたアニメーションに滑らかに切り替え
+            // 指定レイヤーの情報を取得
+            AnimatorStateInfo info = Animator.GetCurrentAnimatorStateInfo(layerNo);
+            // アニメーションを実行
+            //animator.Play(info.shortNameHash, layerNo, 0);
+            // 滑らかに切り替えるまでの時間を計測
+            float duration = fadeLength / Animator.GetCurrentAnimatorStateInfo(layerNo).length;
+            // 現在のモーションから滑らかにモーション切り替え
+            Animator.CrossFade("", duration, layerNo);
+            await UniTask.Delay(1);
             Animator.CrossFade(animName, duration, layerNo);
-            // 非同期処理の遅延を削除（必要があれば保持）
-            // await UniTask.Delay(1);
         }
+
 
 
         /// <summary>
