@@ -8,7 +8,7 @@ namespace develop_common
     public class EnterUnityEventLoader : MonoBehaviour
     {
         // タグのリストを指定する
-        public List<string> targetTags = new List<string>() { "Player", "Unit", "Character"};
+        public List<string> targetTags = new List<string>() {  "Player", "Unit", "Character"};
         public bool IsFinishDestroy;
         public float DestroyTime = 0.5f;
         public UnityEvent EnterEvent;
