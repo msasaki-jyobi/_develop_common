@@ -8,6 +8,7 @@ namespace develop_common
     public interface IHealth
     {
         EUnitType UnitType { get; }
+        EUnitStatus UnitStatus { get; }
         int CurrentHealth { get; }
         int MaxHealth { get; }
         void TakeDamage(DamageValue damageValue = null);

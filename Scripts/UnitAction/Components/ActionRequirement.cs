@@ -5,12 +5,12 @@ namespace develop_common
 {
     public enum EUnitStatus
     {
-        None,       // 未定義の状態
         Ready,      // 操作可能状態
-        Executing   // アクション実行中
+        Executing,   // アクション実行中
+        None,       // 未定義の状態
     }
 
-    public class ActionRequirement : MonoBehaviour
+    public class ActionRequirement : MonoBehaviour 
     {
         [Header("条件：トリガーアクション")]
         // 再生するのに必要なトリガーアクション

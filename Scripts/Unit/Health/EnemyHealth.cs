@@ -10,8 +10,12 @@ namespace develop_common
         [SerializeField] private AnimatorStateController _animatorStateController;
 
         [SerializeField]
-        private EUnitType unitType = EUnitType.Enemy;
-        public EUnitType UnitType => unitType;
+        private EUnitType _unitType = EUnitType.Enemy;
+        public EUnitType UnitType => _unitType;
+
+        [SerializeField]
+        private EUnitStatus _unitStatus = EUnitStatus.Ready;
+        public EUnitStatus UnitStatus => _unitStatus;
         [field: SerializeField] public int CurrentHealth { get; private set; } = 10;
         public int MaxHealth { get; private set; } = 10;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace develop_common
 {
-    public class ActionPrefabInfo : MonoBehaviour
+    public class ActionPrefabInfo : MonoBehaviour 
     {
         public List<PrefabData> PrefabDatas = new List<PrefabData>();
 
