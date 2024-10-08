@@ -44,8 +44,7 @@ namespace develop_common
 
         public void ChangeStatus(EUnitStatus status)
         {
-           
+
         }
     }
-
 }
