@@ -13,6 +13,7 @@ namespace develop_common
         int MaxHealth { get; }
         void TakeDamage(DamageValue damageValue = null);
         void Heal(float amount);
+        void ChangeStatus(EUnitStatus status);
 
     }
 

@@ -50,6 +50,11 @@ namespace develop_common
         {
             CurrentHealth += (int)amount;
         }
+
+        public void ChangeStatus(EUnitStatus status)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
 

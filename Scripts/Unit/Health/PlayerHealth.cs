@@ -42,6 +42,11 @@ namespace develop_common
             CurrentHealth += (int)amount;
             // Å‘å’l‚ğ’´‚¦‚È‚¢‚æ‚¤‚É‚·‚é
         }
+
+        public void ChangeStatus(EUnitStatus status)
+        {
+            _unitStatus = status;
+        }
     }
 
 }
