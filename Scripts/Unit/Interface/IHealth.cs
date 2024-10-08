@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 namespace develop_common
@@ -8,7 +9,7 @@ namespace develop_common
     public interface IHealth
     {
         EUnitType UnitType { get; }
-        EUnitStatus UnitStatus { get; }
+        ReactiveProperty<EUnitStatus> UnitStatus { get; }
         int CurrentHealth { get; }
         int MaxHealth { get; }
         void TakeDamage(DamageValue damageValue = null);

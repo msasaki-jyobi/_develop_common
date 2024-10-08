@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 namespace develop_common
@@ -19,9 +20,7 @@ namespace develop_common
         private EUnitType _unitType = EUnitType.Player;
         public EUnitType UnitType => _unitType;
 
-        [SerializeField]
-        private EUnitStatus _unitStatus = EUnitStatus.Ready;
-        public EUnitStatus UnitStatus => _unitStatus;
+        public ReactiveProperty<EUnitStatus> UnitStatus => new ReactiveProperty<EUnitStatus>();
 
         [field: SerializeField] public int CurrentHealth { get; private set; } = 50;
         public int MaxHealth { get; private set; } = 50;
@@ -45,7 +44,7 @@ namespace develop_common
 
         public void ChangeStatus(EUnitStatus status)
         {
-            _unitStatus = status;
+           
         }
     }
 
