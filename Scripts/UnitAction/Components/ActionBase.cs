@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace develop_common
 {
+    [AddComponentMenu("ActionBaseÅFïKê{")]
     public class ActionBase : MonoBehaviour 
     {
         public ActionRequirement ActionRequirement;

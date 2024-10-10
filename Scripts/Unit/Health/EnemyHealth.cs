@@ -29,7 +29,6 @@ namespace develop_common
                 if(actionBase.ActionStart != null) 
                 {
                     var motionName = actionBase.ActionStart.MotionName;
-                    var motionLate = actionBase.ActionStart.MotionLate;
                     var statePlayType = actionBase.ActionStart.StatePlayType;
                     var isStateReset = actionBase.ActionStart.IsStateReset;
                     var isApplyRootMotion = actionBase.ActionStart.IsApplyRootMotion;

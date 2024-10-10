@@ -9,7 +9,7 @@ namespace develop_common
         Executing,   // アクション実行中
         None,       // 未定義の状態
     }
-
+    [AddComponentMenu("ActionRequirement：条件")]
     public class ActionRequirement : MonoBehaviour 
     {
         [Header("条件：トリガーアクション")]
