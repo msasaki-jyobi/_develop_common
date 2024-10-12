@@ -52,9 +52,12 @@ namespace develop_common
                 case "Close":
                     Time.timeScale = 1;
                     break;
-                default:
+                case "Select":
                     Time.timeScale = 0;
                     break;
+                //default:
+                //    Time.timeScale = 0;
+                //    break;
             }
         }
     }

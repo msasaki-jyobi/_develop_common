@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace develop_common
 {
-    public class UIStateManager : MonoBehaviour
+    public class UIStateManager : SingletonMonoBehaviour<UIStateManager>
     {
         public List<UIStateInfo> States = new List<UIStateInfo>();
         public List<UIButtonInfo> ButtonInfos = new List<UIButtonInfo>();
@@ -78,6 +78,7 @@ namespace develop_common
             // 該当のボタンはON
             foreach (var enablebutton in buttons)
                 enablebutton.interactable = true;
+
             // フォーカスも設定
             if (buttons != null && buttons.Count != 0)
             {
@@ -162,8 +163,6 @@ namespace develop_common
             ChangeButtonInteractable(interactableStateName);
         }
 
-
-
         private void FocusCheck()
         {
             if (AutoFirstFocus)
@@ -178,6 +177,11 @@ namespace develop_common
                             Debug.LogWarning($"Log {_firstFocusButton.gameObject.name} は 非表示です.");
                     else
                         Debug.LogWarning($"Log _firstFocusButton は Nullです.");
+        }
+
+        public void OnChangeTimeScale(float timeScale)
+        {
+            Time.timeScale = timeScale;
         }
     }
 

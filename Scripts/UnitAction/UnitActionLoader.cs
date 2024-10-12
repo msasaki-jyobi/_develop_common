@@ -177,7 +177,6 @@ namespace develop_common
             if (status != EUnitStatus.None)
                 UnitStatus = status;
 
-            AudioManager.Instance.OnDebugSE(code);
         }
     }
 }

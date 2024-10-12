@@ -59,7 +59,7 @@ namespace develop_common
                         //}
 
                         // モーションの終了を発行
-                        FinishMotionEvent.Invoke(MainStateName.Value, _isMotionLoop);
+                        FinishMotionEvent?.Invoke(MainStateName.Value, _isMotionLoop);
                     }
                 });
 

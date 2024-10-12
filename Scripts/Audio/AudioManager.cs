@@ -55,10 +55,5 @@ namespace develop_common
         {
             _seAudio.pitch = value;
         }
-
-        public void OnDebugSE(int num)
-        {
-            PlayOneShot(_debugSEs[num], EAudioType.Se);
-        }
     }
 }
