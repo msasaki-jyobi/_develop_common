@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Cliff
   m_EditorClassIdentifier: 
   StartPosition:
-  - {x: 0, y: 1.9, z: 0}
+  - {x: 0, y: 2, z: 0}
   - {x: 0, y: 3.5, z: 0}
   EndPosition:
-  - {x: 0, y: 1.9, z: 1}
+  - {x: 0, y: 2, z: 1}
   - {x: 0, y: 3.5, z: 1}
   LineLayer:
     serializedVersion: 2

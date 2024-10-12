@@ -3,13 +3,12 @@ using UnityEngine;
 
 namespace develop_common
 {
+    [AddComponentMenu("ActionStart：開始時")]
     public class ActionStart : MonoBehaviour
     {
         [Header("開始時：モーション関連")]
         // 再生モーション
         public string MotionName;
-        // 再生モーションのレート
-        public int MotionLate = 30;
         // ApplyRootMotion
         public bool IsApplyRootMotion;
         // モーション繰り返しの有無
@@ -22,8 +21,5 @@ namespace develop_common
         [Header("開始時：Velocity Reset")]
         // Velocity Reset
         public bool IsResetVelocity;
-        [Header("開始時：操作不可能にする")]
-        // 操作不可
-        public bool IsNotInputReader = true;
     }
 }

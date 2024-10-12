@@ -103,6 +103,7 @@ namespace develop_common
                     // Next ActionData
                     if (oldActiveActionBase.ActionFinish.NextActionData != null)
                     {
+                        Debug.Log($"NextAction:::{oldActiveActionBase.ActionFinish.NextActionData}");
                         LoadAction(oldActiveActionBase.ActionFinish.NextActionData);
                         return;
                     }
@@ -157,13 +158,13 @@ namespace develop_common
                 if (actionBase.ActionStart != null)
                 {
                     var stateName = actionBase.ActionStart.MotionName;
-                    var late = actionBase.ActionStart.MotionLate;
                     var playType = actionBase.ActionStart.StatePlayType;
                     var reset = actionBase.ActionStart.IsStateReset;
                     var root = actionBase.ActionStart.IsApplyRootMotion;
 
                     _stateController.StatePlay(stateName, playType, reset, root);
                     ChangeStatus(actionBase.ActionStart.SetStartStatus, 0);
+
                 }
                 // Frame
                 if (actionBase.ActionFrame != null)
