@@ -17,8 +17,7 @@
 
 # _develop_common 利用アセット
 - [Basic Motions FREE](https://assetstore.unity.com/packages/3d/animations/basic-motions-free-154271)
-- []()
-
-# その他 develop
-- [develop_shooter](https://github.com/msasaki-jyobi/_develop_shooter)
 - [RPG Character Mecanim Animation Pack FREE](https://assetstore.unity.com/packages/3d/animations/rpg-character-mecanim-animation-pack-free-65284)
+
+# その他 利用させていただいてるgit
+- [UniSerializableDictionary](https://github.com/baba-s/UniSerializableDictionary)

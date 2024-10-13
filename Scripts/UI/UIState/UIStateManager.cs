@@ -49,15 +49,21 @@ namespace develop_common
                 foreach (var content in States[i].UIContents)
                     content.gameObject.SetActive(false);
                 if (States[i].StateName == stateName)
+                {
                     uiStateInfo = States[i];
+                    States[i].PlayEvent?.Invoke();
+                }
             }
             // 該当のUIだけ表示
             foreach (var content in uiStateInfo.UIContents)
+            {
                 content.gameObject.SetActive(true);
+            }
             // State Save
             _currentStateName = uiStateInfo.StateName;
             // イベント呼び出し
             ChangeStateEvent?.Invoke(stateName);
+
 
         }
         /// <summary>

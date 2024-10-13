@@ -19,6 +19,7 @@ namespace develop_common
     [System.Serializable]
     public class PrefabData
     {
+        [Tooltip("名前")] public string Title;
         [Tooltip("生成するプレハブ")] public GameObject Prefab;
         [Tooltip("生成音")] public AudioClip CreateSe;
         public float DestroyTime = 1f;

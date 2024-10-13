@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Playables;
 
 namespace develop_common
 {
@@ -17,7 +18,7 @@ namespace develop_common
     {
         public Animator Animator;
         [SerializeField] private float _crossAnimationTimer = 0.2f;
-
+        [SerializeField] private string _defaultAnimatorState;
 
         public ReactiveProperty<string> MainStateName { get; private set; } = new ReactiveProperty<string>();
         public ReactiveProperty<int> Frame { get; private set; } = new ReactiveProperty<int>();
@@ -35,6 +36,9 @@ namespace develop_common
 
         private void Start()
         {
+            if (_defaultAnimatorState != "")
+                StatePlay(_defaultAnimatorState, EStatePlayType.SinglePlay, true);
+
             FrameTimer
                 .Subscribe((x) => Frame.Value = (int)(FrameTimer.Value * _frameRate));
 
