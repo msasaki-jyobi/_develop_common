@@ -10,6 +10,7 @@ namespace develop_common
         Bgm,
         Voice
     }
+    [CreateAssetMenu(fileName = "ClipData", menuName = "develop_common / ClipData")]
     public class ClipData : ScriptableObject
     {
         public List<AudioClip> AudioClips;

@@ -23,14 +23,7 @@ namespace develop_common
         // 自動実行されるEMオブジェクト たぶんこれが紛らわしい
         //public EasyMoviePlayer AutoPlayEMObject;
 
-        // 差し替えるEMオブジェクト
-        public SwitchOutlinable ReplacementEMObject;
-        // 差し替えるEMデータ
-        public EasyMoviePlayer ReplacementEMData;
-        // 差し替えるEMデータ
-        public string ReplacementEMMessage;
-        // 差し替えるEMデータ
-        public string ReplacementEMTrigger;
+        public List<ReplacementInfo> ReplacementInfos = new List<ReplacementInfo>();
 
         [Space(8)]
         // 差し替える目標名
@@ -41,4 +34,18 @@ namespace develop_common
         public string AddFlg;
 
     }
+
+    [Serializable]
+    public class ReplacementInfo
+    {
+        // 差し替えるEMオブジェクト
+        public SwitchOutlinable ReplacementEMObject;
+        // 差し替えるEMデータ
+        public EasyMoviePlayer ReplacementEMData;
+        // 差し替えるEMデータ
+        public string ReplacementEMMessage;
+        // 差し替えるEMデータ
+        public string ReplacementEMTrigger;
+    }
 }
+

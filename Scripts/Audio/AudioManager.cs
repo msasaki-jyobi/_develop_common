@@ -55,5 +55,12 @@ namespace develop_common
         {
             _seAudio.pitch = value;
         }
+
+        public void PlayBGM(AudioClip clip)
+        {
+            if(clip == null) return;
+            _bgmAudio.clip = clip;
+            _bgmAudio.Play();
+        }
     }
 }

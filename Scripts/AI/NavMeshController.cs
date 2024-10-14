@@ -42,6 +42,7 @@ namespace develop_common
         private GameObject _patrolTarget;
         private bool _isPatrolCheck;
 
+        private float distance;
         private void Start()
         {
             if (Target == null)
@@ -79,28 +80,30 @@ namespace develop_common
 
             bool check = true;
             if (IsDistance) // 距離をチェック
-                check = check && AIFunction.TargetDistance(Target, gameObject) <= Distance;
+            {
+                distance = AIFunction.TargetDistance(Target, gameObject);
+                check = check && distance <= Distance;
+            }
             if (IsLook) // 視認をチェック
                 check = check &&
-                    (AIFunction.GetRayTarget(Eye, Target, rayHeight: RayHeight) == Target ||
-                     AIFunction.GetRayTarget(Eye, Target, rayHeight: RayHeight / 2) == Target ||
-                     AIFunction.GetRayTarget(Eye, Target, rayHeight: RayHeight / 4) == Target);
+                    (AIFunction.GetRayTarget(Eye, Target, distance:Distance, rayHeight: RayHeight) == Target ||
+                     AIFunction.GetRayTarget(Eye, Target, distance: Distance, rayHeight: RayHeight / 2) == Target ||
+                     AIFunction.GetRayTarget(Eye, Target, distance: Distance, rayHeight: RayHeight / 4) == Target);
             if (IsAngle) // 角度をチェック
                 check = check && Mathf.Abs(AIFunction.TargetAngle(Eye, Target)) <= Angle;
-            if (_huntTimer > 0) // 強制的に見つけている状態にする
-                check = true;
 
             if (IsDebug)
                 Debug.Log($"Angle:{AIFunction.TargetAngle(Eye, Target)}");
 
             // ハント状態切替
             _isHunt.Value = check;
-            if (check)
+            if (check || _huntTimer > 0)
             {
                 // ターゲットを追跡するための移動を開始
                 Agent.speed = HuntSpeed;  // 追跡用のスピードに設定
                 Agent.SetDestination(Target.transform.position);  // ターゲットに向かって移動
-                _huntTimer = LostHuntTime;
+                if(check)
+                    _huntTimer = LostHuntTime;
             }
             else
             {
@@ -112,7 +115,7 @@ namespace develop_common
                 {
                     if (PatrolPositions.Count > 0)
                     {
-                        if(!_isPatrolCheck)
+                        if (!_isPatrolCheck)
                         {
                             _isPatrolCheck = true;
                             await UniTask.Delay(1000 * Random.Range(0, 5));
@@ -126,12 +129,12 @@ namespace develop_common
                 else
                 {
                     var distance = Vector3.Distance(transform.position, _patrolTarget.transform.position);
-                    if(distance <= 0.2f)
+                    if (distance <= 0.2f)
                         _patrolTarget = null;
                 }
             }
 
-            if(Animator != null)
+            if (Animator != null)
                 // 速度をAnimatorに反映する
                 Animator?.SetFloat("Speed", GetAgentSpeed(), 0.1f, Time.deltaTime);
         }

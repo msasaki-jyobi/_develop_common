@@ -55,18 +55,21 @@ namespace develop_common
                     //if (triggers.AutoPlayEMObject != null) // EM自動再生
                     //    DirectorManager.Instance.PlayEasyMovie(triggers.AutoPlayEMObject);
 
-                    if (triggers.ReplacementEMObject != null) // EM差し替え
+                    foreach(var replacement in triggers.ReplacementInfos)
                     {
-                        if (triggers.ReplacementEMObject.EasyMoviePlayer != null) // Movieがあれば差し替える
+                        if (replacement.ReplacementEMObject != null) // EM差し替え
                         {
-                            triggers.ReplacementEMObject.EasyMoviePlayer = triggers.ReplacementEMData;
-                        }
-                        else // ムービーがなければメッセージとTriggerを差し替える
-                        {
-                            if (triggers.ReplacementEMMessage != null)
-                                triggers.ReplacementEMObject.EnterMessage = triggers.ReplacementEMMessage;
-                            if (triggers.ReplacementEMTrigger != null)
-                                triggers.ReplacementEMObject.EnterTrigger = triggers.ReplacementEMTrigger;
+                            if (replacement.ReplacementEMObject.EasyMoviePlayer != null) // Movieがあれば差し替える
+                            {
+                                replacement.ReplacementEMObject.EasyMoviePlayer = replacement.ReplacementEMData;
+                            }
+                            else // ムービーがなければメッセージとTriggerを差し替える
+                            {
+                                if (replacement.ReplacementEMMessage != null)
+                                    replacement.ReplacementEMObject.EnterMessage = replacement.ReplacementEMMessage;
+                                if (replacement.ReplacementEMTrigger != null)
+                                    replacement.ReplacementEMObject.EnterTrigger = replacement.ReplacementEMTrigger;
+                            }
                         }
                     }
 
