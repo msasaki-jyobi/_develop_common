@@ -2,25 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class SceneReloader : SingletonMonoBehaviour<SceneReloader>
+namespace develop_common
 {
-    public bool IsReloadAlpha0;
-
-    private void Update()
+    public class SceneReloader : SingletonMonoBehaviour<SceneReloader>
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-            if (IsReloadAlpha0)
-                OnReloadScene();
+        public bool IsReloadAlpha0;
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+                if (IsReloadAlpha0)
+                    OnReloadScene();
+        }
+
+        public void OnReloadScene()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        public void OnLoadNameScene(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 
-    public void OnReloadScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    public void OnLoadNameScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
 }
