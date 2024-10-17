@@ -11,6 +11,11 @@ namespace develop_common
         [SerializeField] private AudioSource _voiceAudio;
         [SerializeField] private List<AudioClip> _debugSEs = new List<AudioClip>();
 
+        private void Start()
+        {
+            _voiceAudio.ignoreListenerPause = true;
+        }
+
         public void PlayOneShot(AudioClip clip, EAudioType audioType)
         {
             if (clip == null) return;
@@ -21,7 +26,9 @@ namespace develop_common
                     _seAudio.PlayOneShot(clip);
                     break;
                 case EAudioType.Bgm:
-                    _bgmAudio.PlayOneShot(clip);
+                    _bgmAudio.Stop();
+                    _bgmAudio.clip = clip;
+                    _bgmAudio.Play();
                     break;
                 case EAudioType.Voice:
                     _voiceAudio.PlayOneShot(clip);
