@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace develop_common
 {
@@ -9,6 +10,5 @@ namespace develop_common
     {
         public string EventName;
         public string EventValue;
-
     }
 }
