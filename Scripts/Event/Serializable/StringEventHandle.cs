@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace develop_timeline
+namespace develop_common
 {
     [Serializable]
     public class StringEventHandle
