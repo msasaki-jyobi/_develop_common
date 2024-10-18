@@ -144,14 +144,16 @@ public class EnemyAI : MonoBehaviour
     }
 
     // 攻撃処理
-    private async void StartAttack()
+    private async void StartAttack() 
     {
         if (isAttacking) return;
 
 
 
         //AnimatorStateController.StatePlay("Attack", EStatePlayType.SinglePlay, true); // 攻撃アニメーション
-        var skill = SearchSkill(Vector3.Distance(transform.position, player.transform.position));
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+        var skill = await SearchSkill(distance);
+
         if(skill != null)
         {
             agent.enabled = false;
@@ -271,38 +273,84 @@ public class EnemyAI : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
-    
 
-    /// <summary>
-    /// 発動スキルを一つ選定する
-    /// </summary>
-    /// <param name="targetDistance">ターゲットとの距離</param>
-    private EnemySkillInfo SearchSkill(float targetDistance)
+    private async UniTask<EnemySkillInfo> SearchSkill(float targetDistance)
     {
         int ran = Random.Range(0, SkillActions.Count);
-        return SkillActions[ran];
 
-        // LINQを使って発動可能なスキルを選定
-        var availableSkills = SkillActions
-            .Where(skill => skill.Distance >= targetDistance) // ターゲット距離以内のスキルを選定
-            .ToList(); // リストに変換
+
+        // SkillActionsリストが空でないかチェック
+        if (SkillActions == null || SkillActions.Count == 0)
+        {
+            await UniTask.DelayFrame(1);
+            Debug.LogError("SkillActionsリストが空です。");
+            return null;
+        }
+
+        // ターゲット距離以内のスキルを手動でフィルタリング
+        var availableSkills = new List<EnemySkillInfo>();
+
+        foreach (var skill in SkillActions)
+        {
+            if (skill != null && skill.Distance >= targetDistance) // nullチェックも追加
+            {
+                availableSkills.Add(skill);
+            }
+        }
+
+        //return SkillActions[ran];
 
         // 利用可能なスキルが存在する場合、その中からランダムで1つ選定
-        if (availableSkills.Any())
+        if (availableSkills.Count > 0)
         {
-            var selectedSkill = availableSkills[UnityEngine.Random.Range(0, availableSkills.Count)];
+
+            int randomIndex = UnityEngine.Random.Range(0, availableSkills.Count);
+
+            EnemySkillInfo selectedSkill = availableSkills[randomIndex];
             Debug.Log("選定されたスキル: " + selectedSkill.SkillAction.name);
 
-            // スキルを発動する処理をここに記述
-            //ActivateSkill(selectedSkill.SkillAction);
             return selectedSkill;
         }
         else
         {
             Debug.Log("発動可能なスキルがありません。");
+            await UniTask.DelayFrame(1);
             return null;
         }
     }
+
+
+
+    /// <summary>
+    /// 発動スキルを一つ選定する
+    /// </summary>
+    /// <param name="targetDistance">ターゲットとの距離</param>
+    //private EnemySkillInfo SearchSkill(float targetDistance)
+    //{
+    //    int ran = Random.Range(0, SkillActions.Count);
+    //    return SkillActions[ran];
+
+    //    // LINQを使って発動可能なスキルを選定
+    //    var availableSkills = SkillActions
+    //        .Where(skill => skill.Distance >= targetDistance) // ターゲット距離以内のスキルを選定
+    //        .ToList(); // リストに変換
+
+    //    // 利用可能なスキルが存在する場合、その中からランダムで1つ選定
+    //    if (availableSkills.Any())
+    //    {
+    //        var selectedSkill = availableSkills[UnityEngine.Random.Range(0, availableSkills.Count)];
+    //        Debug.Log("選定されたスキル: " + selectedSkill.SkillAction.name);
+
+    //        // スキルを発動する処理をここに記述
+    //        //ActivateSkill(selectedSkill.SkillAction);
+    //        return selectedSkill;
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("発動可能なスキルがありません。");
+    //        return null;
+    //    }
+    //}
     //private void Look()
     //{
     //    Vector3 direction = player.transform.position - transform.position;
