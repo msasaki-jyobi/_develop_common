@@ -70,6 +70,8 @@ public class EnemyAI : MonoBehaviour
         // 攻撃中やひるみ中なら動作を止める
         if (isAttacking || currentState == EnemyState.Staggered) return;
 
+
+
         switch (currentState)
         {
             case EnemyState.Patrolling:
@@ -128,7 +130,7 @@ public class EnemyAI : MonoBehaviour
         if (Vector3.Distance(transform.position, player.position) > attackRange)
         {
             // プレイヤーが攻撃範囲外なら追跡を続ける
-            agent.isStopped = false; // NavMeshAgentが停止している場合は再開
+            //agent.isStopped = false; // NavMeshAgentが停止している場合は再開
             agent.speed = chaseSpeed;
             agent.SetDestination(player.position);
             AnimatorStateController.StatePlay(RunMotion, EStatePlayType.SinglePlay, false); // Runアニメーション
@@ -137,7 +139,7 @@ public class EnemyAI : MonoBehaviour
         {
             // プレイヤーが攻撃範囲内にいる場合は攻撃
             currentState = EnemyState.Attacking;
-            StartAttack();
+            //StartAttack();
         }
     }
 
@@ -154,8 +156,10 @@ public class EnemyAI : MonoBehaviour
         {
             agent.enabled = false;
             UnitActionLoader.LoadAction(skill.SkillAction);
+
             isAttacking = true;
-            agent.isStopped = true; // 攻撃中は移動を停止
+
+            //agent.isStopped = true; // 攻撃中は移動を停止
         }
         else
         {
@@ -206,7 +210,7 @@ public class EnemyAI : MonoBehaviour
     private void Stagger()
     {
         currentState = EnemyState.Staggered;
-        agent.isStopped = true; // 怯み中は移動停止
+        //.isStopped = true; // 怯み中は移動停止
         AnimatorStateController.StatePlay(StaggerMotion, EStatePlayType.SinglePlay, true); // 怯みモーション
 
         // もし攻撃中であれば、その動作をキャンセル
@@ -217,7 +221,7 @@ public class EnemyAI : MonoBehaviour
     private async void Die()
     {
         currentState = EnemyState.Dead; // ステートをDeadに変更
-        agent.isStopped = true; // 移動を停止
+        //agent.isStopped = true; // 移動を停止
         AnimatorStateController.StatePlay(DieMotion, EStatePlayType.SinglePlay, true); // 死亡モーションを再生
 
         // 死亡モーションが完了するまで待機
@@ -275,6 +279,9 @@ public class EnemyAI : MonoBehaviour
     /// <param name="targetDistance">ターゲットとの距離</param>
     private EnemySkillInfo SearchSkill(float targetDistance)
     {
+        int ran = Random.Range(0, SkillActions.Count);
+        return SkillActions[ran];
+
         // LINQを使って発動可能なスキルを選定
         var availableSkills = SkillActions
             .Where(skill => skill.Distance >= targetDistance) // ターゲット距離以内のスキルを選定
@@ -345,7 +352,7 @@ public class EnemyAI : MonoBehaviour
         if (isAttacking)
         {
             agent.enabled = true;
-            agent.isStopped = false;
+            //agent.isStopped = false;
             AnimatorStateController.StatePlay(IdleMotion, EStatePlayType.SinglePlay, true); // Idleアニメーション
 
             // 攻撃後のクールダウンを設定
