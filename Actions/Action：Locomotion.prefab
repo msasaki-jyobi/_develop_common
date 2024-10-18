@@ -67,9 +67,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MotionName: Locomotion
-  IsApplyRootMotion: 1
+  IsApplyRootMotion: 0
   StatePlayType: 1
   IsStateReset: 1
   SetStartStatus: 0
   IsResetVelocity: 1
-  IsNotInputReader: 0
