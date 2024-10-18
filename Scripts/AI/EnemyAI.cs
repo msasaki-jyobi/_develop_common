@@ -49,6 +49,7 @@ public class EnemyAI : MonoBehaviour
     private Transform player;
     private int currentPatrolIndex;
     private bool isAttacking = false;
+    private bool isCheckAttacking = false;
 
     private void Start()
     {
@@ -64,11 +65,17 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.J))
+            TakeDamage(10);
+
+
         // 死亡状態なら何もしない
         if (currentState == EnemyState.Dead) return;
 
         // 攻撃中やひるみ中なら動作を止める
         if (isAttacking || currentState == EnemyState.Staggered) return;
+
+
 
 
 
@@ -147,8 +154,9 @@ public class EnemyAI : MonoBehaviour
     private async void StartAttack() 
     {
         if (isAttacking) return;
+        if (isCheckAttacking) return;
 
-
+        isCheckAttacking = true;
 
         //AnimatorStateController.StatePlay("Attack", EStatePlayType.SinglePlay, true); // 攻撃アニメーション
         float distance = Vector3.Distance(transform.position, player.transform.position);
@@ -176,6 +184,8 @@ public class EnemyAI : MonoBehaviour
                 currentState = EnemyState.Chasing;
             }
         }
+
+        isCheckAttacking = false;
 
         // 攻撃アニメーションが終了するまで待機
         //await UniTask.Delay(1000);
@@ -213,7 +223,7 @@ public class EnemyAI : MonoBehaviour
     {
         currentState = EnemyState.Staggered;
         //.isStopped = true; // 怯み中は移動停止
-        AnimatorStateController.StatePlay(StaggerMotion, EStatePlayType.SinglePlay, true); // 怯みモーション
+        AnimatorStateController.StatePlay(StaggerMotion, EStatePlayType.SinglePlay, false); // 怯みモーション
 
         // もし攻撃中であれば、その動作をキャンセル
         isAttacking = false;
