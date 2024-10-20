@@ -4,7 +4,6 @@ using DG.Tweening;
 using Cysharp.Threading.Tasks;
 using develop_common;
 using develop_tps;
-using static Thry.AnimationParser;
 using System.Collections.Generic;
 using System.Linq;
 
