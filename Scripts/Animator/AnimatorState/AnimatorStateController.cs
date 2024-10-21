@@ -18,7 +18,8 @@ namespace develop_common
     {
         public Animator Animator;
         [SerializeField] private float _crossAnimationTimer = 0.2f;
-        [SerializeField] private string _defaultAnimatorState;
+        [SerializeField] private string _defaultAnimatorState; // botu
+        [SerializeField] private List<string> _defaultRandomAnimatorState = new List<string>();
 
         public ReactiveProperty<string> MainStateName { get; private set; } = new ReactiveProperty<string>();
         public ReactiveProperty<int> Frame { get; private set; } = new ReactiveProperty<int>();
@@ -36,8 +37,15 @@ namespace develop_common
 
         private void Start()
         {
-            if (_defaultAnimatorState != "")
+            if (_defaultRandomAnimatorState.Count > 0)
+            {
+                int ran = UnityEngine.Random.Range(0, _defaultRandomAnimatorState.Count);
+                StatePlay(_defaultRandomAnimatorState[ran], EStatePlayType.SinglePlay, true);
+            }
+            else if(_defaultAnimatorState != "")
+            {
                 StatePlay(_defaultAnimatorState, EStatePlayType.SinglePlay, true);
+            }
 
             FrameTimer
                 .Subscribe((x) => Frame.Value = (int)(FrameTimer.Value * _frameRate));
