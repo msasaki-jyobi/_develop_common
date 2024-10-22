@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class ClickSceneLoader : MonoBehaviour
 {
-    public InputReader InputReader;
     public Image FadeImage;
     public int Duration = 1;
     public float TargetAlpha = 1;
@@ -18,7 +17,7 @@ public class ClickSceneLoader : MonoBehaviour
     private bool _isLoad;
     void Start()
     {
-        InputReader.StartedFireEvent += OnFireHandle;
+        //InputReader.StartedFireEvent += OnFireHandle;
     }
 
     // Update is called once per frame

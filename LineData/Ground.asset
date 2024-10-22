@@ -18,10 +18,10 @@ MonoBehaviour:
   - {x: 0.1, y: 0.05, z: 0}
   - {x: -0.1, y: 0.05, z: 0}
   EndPosition:
-  - {x: 0, y: -0.2, z: 0}
-  - {x: 0, y: -0.2, z: 0}
-  - {x: 0, y: -0.2, z: 0}
-  - {x: 0, y: -0.2, z: 0}
+  - {x: 0, y: -0.1, z: 0}
+  - {x: 0, y: -0.1, z: 0}
+  - {x: 0, y: -0.1, z: 0}
+  - {x: 0, y: -0.1, z: 0}
   LineLayer:
     serializedVersion: 2
     m_Bits: 4294967295
