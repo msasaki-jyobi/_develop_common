@@ -12,7 +12,7 @@ namespace develop_common
 
 
         // ツールバーにボタン作成
-        [MenuItem("Tools / ShapeCheck/ Shape Check", false, 1)]
+        [MenuItem("Tools / ShapeCheck/ Shape Check (develop_common)", false, 1)]
         private static void ShowWindow()
         {
             ShapeCheck window = GetWindow<ShapeCheck>();
