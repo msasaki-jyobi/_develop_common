@@ -7,7 +7,6 @@ namespace develop_common
     /// <summary>
     /// ユニットのシェイプを管理するクラス
     /// </summary>
-    [AddComponentMenu("UnitShape：表情管理")]
     public class UnitShape : MonoBehaviour
     {
         [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer; // 表情を変更するSkinMeshRenderer
