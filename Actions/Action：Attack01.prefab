@@ -119,13 +119,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrameInfo:
-  - PlayFrame: 4
+  - PlayFrame: 12
     IsResetVelocity: 0
     IsForce: 0
     FoucePower: {x: 0, y: 0, z: 0}
-    IsPrefab: 0
+    IsPrefab: 1
     PrefabNum: 0
     IsNextAction: 1
+    IsComplete: 0
+  - PlayFrame: 12
+    IsResetVelocity: 0
+    IsForce: 0
+    FoucePower: {x: 0, y: 0, z: 0}
+    IsPrefab: 1
+    PrefabNum: 1
+    IsNextAction: 0
     IsComplete: 0
 --- !u!114 &6741626706195423436
 MonoBehaviour:
@@ -147,6 +155,15 @@ MonoBehaviour:
     DestroyTime: 0.3
     LocalPosition: {x: 0, y: 1, z: 1}
     LocalEulerAngle: {x: 0, y: 45, z: 0}
+    SetScale: {x: 2, y: 2, z: 3}
+    LookType: 0
+    ParentType: 0
+  - Title: 
+    Prefab: {fileID: 1294101409476956, guid: 231e3be01ac50c047bb16d07fd8d2ba5, type: 3}
+    CreateSe: {fileID: 0}
+    DestroyTime: 0.3
+    LocalPosition: {x: 0, y: 1, z: 1}
+    LocalEulerAngle: {x: 0, y: 45, z: 0}
     SetScale: {x: 1, y: 2, z: 1}
     LookType: 0
     ParentType: 0
@@ -164,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageValue:
     AttackerUnit: {fileID: 0}
-    DamageAction: {fileID: 867914962149053577, guid: 7eba3ec710b1e1543b276182fe84aba1,
+    DamageAction: {fileID: 867914962149053577, guid: 6104cbc989f78644c8782b1273f03e60,
       type: 3}
     DeadAction: {fileID: 0}
     Amount: 1

@@ -105,7 +105,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186fbed7197d4474bb075a52e80023f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FrameInfo: []
+  FrameInfo:
+  - PlayFrame: 0
+    IsResetVelocity: 0
+    IsForce: 0
+    FoucePower: {x: 0, y: 1, z: -2}
+    IsPrefab: 0
+    PrefabNum: 0
+    IsNextAction: 0
+    IsComplete: 0
 --- !u!114 &6741626706195423436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +127,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PrefabDatas:
-  - Prefab: {fileID: 8866232049573502529, guid: 68d27f5a0c6d1b7468f8257bd65b904d,
+  - Title: 
+    Prefab: {fileID: 8866232049573502529, guid: 68d27f5a0c6d1b7468f8257bd65b904d,
       type: 3}
     CreateSe: {fileID: 0}
     DestroyTime: 0.3

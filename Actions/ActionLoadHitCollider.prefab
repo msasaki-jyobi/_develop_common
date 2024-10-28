@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8866232049573502529}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -125,13 +125,15 @@ MonoBehaviour:
     DeadAction: {fileID: 0}
     Amount: 1
     WeightDiff: 1
-    HitLimit: 1
-    UnitLimit: 5
+    HitLimit: 5
+    UnitLimit: 30
     HitSpanTime: 0.1
     HitLimitResetTime: 6
-    HitEffect: {fileID: 1250507045210962, guid: 3fe0df07025a3e747855b1bb671fc04e, type: 3}
+    HitEffect: {fileID: 1250507045210962, guid: 3fe0df07025a3e747855b1bb671fc04e,
+      type: 3}
     HitSE: {fileID: 0}
-    DestroyEffect: {fileID: 1150934714579380, guid: 779aa8c25fbd0e1488637639c9fff976, type: 3}
+    DestroyEffect: {fileID: 1150934714579380, guid: 779aa8c25fbd0e1488637639c9fff976,
+      type: 3}
     DestroySE: {fileID: 0}
     UnitHitDestroy: 0
     ObjectHitDestroy: 0
