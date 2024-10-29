@@ -18,7 +18,8 @@ namespace develop_common
     public class AnimatorStateController : MonoBehaviour
     {
         public Animator Animator;
-        [SerializeField] private float _crossAnimationTimer = 0.2f;
+        [Range(0.1f, 1)]
+        [SerializeField] private float _crossAnimationTimer = 0.1f;
         [SerializeField] private string _defaultAnimatorState; // botu
         [SerializeField] private List<string> _defaultRandomAnimatorState = new List<string>();
 
@@ -40,6 +41,9 @@ namespace develop_common
 
         private void Start()
         {
+            if (_crossAnimationTimer == 0)
+                _crossAnimationTimer = 0.1f;
+
             if (_defaultRandomAnimatorState.Count > 0)
             {
                 int ran = UnityEngine.Random.Range(0, _defaultRandomAnimatorState.Count);
@@ -126,6 +130,7 @@ namespace develop_common
             {
                 await UniTask.Yield(PlayerLoopTiming.Update);
                 nextStateInfo = Animator.GetNextAnimatorStateInfo(0);
+                Debug.Log("AA");
             }
 
             float animationLength = nextStateInfo.length;
@@ -133,7 +138,7 @@ namespace develop_common
             _totalFrames = Mathf.RoundToInt(animationLength * _frameRate);
 
             // 次のモーションの終了フレームレートを出力
-            // Debug.Log("Total frames in the next state: " + _totalFrames);
+            Debug.Log("Total frames in the next state: " + _totalFrames);
         }
 
         /// <summary>

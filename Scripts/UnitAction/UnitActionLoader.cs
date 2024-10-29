@@ -86,7 +86,8 @@ namespace develop_common
             if (_isDebugLog)
                 Debug.Log($"GameObject:{gameObject.name} State: {stateName} 終了XXX");
 
-            if (ActiveActionBase.ActionStart.MotionName != stateName) return;
+            if (ActiveActionBase != null)
+                if (ActiveActionBase.ActionStart.MotionName != stateName) return;
 
             // Frame Reset
             _loadFrameInfos?.Clear();
