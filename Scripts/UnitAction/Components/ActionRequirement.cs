@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using develop_tps;
+using System.Collections;
 using UnityEngine;
 
 namespace develop_common
@@ -21,8 +22,14 @@ namespace develop_common
         [Header("条件：キー入力受付中のみ")]
         // 追加入力状態の有無
         public bool IsWaitingForKey;
+        [Header("条件：空中にいる時のみ")]
+        // 空中にいるか？
+        public bool IsAir;
+        [Header("条件：指定キーが入力されているか？")]
+        // 空中にいるか？
+        public EInputReader Key = EInputReader.None;
 
-        public bool CheckExecute(UnitActionLoader actionLoader)
+        public bool CheckExecute(UnitActionLoader actionLoader, EInputReader key)
         {
             bool check = true;
             string errorMessage = ""; 
@@ -46,6 +53,16 @@ namespace develop_common
                 errorMessage += $", IsWaitingForKeyはFalseです.";
             }
 
+            // 地面チェック
+            if(IsAir)
+                if(actionLoader.TryGetComponent<UnitGround>(out var ground))
+                        check = check && !ground.CanJump;
+
+            // キーチェック
+            if (Key != EInputReader.None)
+                check = check && Key == key;
+
+            // Log
             if(!check)
                 Debug.Log($"実行できません. {gameObject.name} {actionLoader.name}, {errorMessage}");
 

@@ -74,6 +74,8 @@ MonoBehaviour:
   TriggerAction: {fileID: 0}
   TriggerStatus: 0
   IsWaitingForKey: 0
+  IsAir: 0
+  Key: 1
 --- !u!114 &-9094532401574635501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +160,7 @@ MonoBehaviour:
     SetScale: {x: 2, y: 2, z: 3}
     LookType: 0
     ParentType: 0
+    ParentKeyName: Hand
   - Title: 
     Prefab: {fileID: 1294101409476956, guid: 231e3be01ac50c047bb16d07fd8d2ba5, type: 3}
     CreateSe: {fileID: 0}
@@ -167,6 +170,7 @@ MonoBehaviour:
     SetScale: {x: 1, y: 2, z: 1}
     LookType: 0
     ParentType: 0
+    ParentKeyName: Hand
 --- !u!114 &5481746996292819022
 MonoBehaviour:
   m_ObjectHideFlags: 0

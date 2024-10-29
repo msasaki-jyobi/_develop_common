@@ -11,6 +11,9 @@ namespace develop_common
         public EUnitType AttackUnitType;
         public DamageValue DamageValue;
 
+        public Material PlayerMaterial;
+        public Material EnemyMaterial;
+
         // 各オブジェクトのタグ名
         private const string _unitTagName = "Unit";
 
@@ -20,6 +23,15 @@ namespace develop_common
 
         public Action<DamageValue, GameObject, GameObject> OnDamageEvent;
 
+
+        private void Start()
+        {
+            if(TryGetComponent<Renderer>(out var mat))
+            {
+                var targetMaterial = AttackUnitType == EUnitType.Player ? PlayerMaterial : EnemyMaterial;
+                mat.material = targetMaterial;
+            }
+        }
         private void OnCollisionStay(Collision collision)
         {
             HitCheck(collision.gameObject);

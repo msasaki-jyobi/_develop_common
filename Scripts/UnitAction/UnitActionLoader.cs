@@ -4,6 +4,7 @@ using UniRx;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using develop_tps;
 
 namespace develop_common
 {
@@ -122,7 +123,7 @@ namespace develop_common
 
         }
 
-        public void LoadAction(GameObject actionObject)
+        public void LoadAction(GameObject actionObject, EInputReader key = EInputReader.None)
         {
             if (actionObject.TryGetComponent<ActionBase>(out var actionBase))
             {
@@ -131,7 +132,7 @@ namespace develop_common
 
                 if (actionBase.ActionRequirement != null)
                     // アクションの条件チェック
-                    if (!actionBase.ActionRequirement.CheckExecute(this))
+                    if (!actionBase.ActionRequirement.CheckExecute(this, key))
                         return;
 
                 Debug.Log($"実行!!. {gameObject.name} {actionObject.name}");

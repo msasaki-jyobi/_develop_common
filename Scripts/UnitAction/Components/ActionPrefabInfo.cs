@@ -6,7 +6,7 @@ using UnityEngine;
 namespace develop_common
 {
     [AddComponentMenu("ActionPrefabInfo：生成Prefab")]
-    public class ActionPrefabInfo : MonoBehaviour 
+    public class ActionPrefabInfo : MonoBehaviour
     {
         public List<PrefabData> PrefabDatas = new List<PrefabData>();
 
@@ -19,6 +19,13 @@ namespace develop_common
 
             // 生成するAttackPointの特定
             GameObject pointObject = unit.gameObject;
+            if (data.ParentKeyName != "")
+                if (unit.TryGetComponent<UnitComponents>(out var unitComponents))
+                {
+                    var parent = unitComponents.UnitInstance.SearchObject(data.ParentKeyName);
+                    if (parent != null)
+                        pointObject = parent;
+                }
             //// UnitBodyのアタックポイントを一つずつチェックして、一致するものをPointObjectに設定
             //if (_unitStatus.UnitBodys.Count != 0) // count0ならオブジェクトを設定
             //{
@@ -29,7 +36,7 @@ namespace develop_common
 
             // オブジェクトの向く方向を指定
             Vector3 lookPos =
-                UtilityFunction.LocalLookPos(unit.gameObject.transform, data.LocalPosition);
+            UtilityFunction.LocalLookPos(unit.gameObject.transform, data.LocalPosition);
 
             // Position
             Vector3 pos = pointObject.transform.position + lookPos;
@@ -43,11 +50,15 @@ namespace develop_common
                 rotOrigin = Camera.main.gameObject;
             Vector3 rot = rotOrigin.transform.localEulerAngles + data.LocalEulerAngle;
             prefab.transform.rotation = Quaternion.Euler(rot);
+
             // Scale
             if (data.SetScale != Vector3.zero)
                 prefab.transform.localScale = data.SetScale;
 
-            AudioManager.Instance.PlayOneShot(data.CreateSe, EAudioType.Se); // 効果音再生
+            // 効果音再生
+            AudioManager.Instance.PlayOneShot(data.CreateSe, EAudioType.Se);
+
+            // Parent
             if (data.ParentType == EParentType.SetParent) // Parent
                 prefab.transform.parent = pointObject.transform;
 
@@ -56,6 +67,7 @@ namespace develop_common
             {
                 if (unit.TryGetComponent<IHealth>(out var health))
                     dealer.AttackUnitType = health.UnitType;
+
                 if (TryGetComponent<ActionDamageValue>(out var actionDamageValue))
                 {
                     dealer.DamageValue.OverrideDamageValue(actionDamageValue.DamageValue);

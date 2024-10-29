@@ -4,11 +4,9 @@ using UnityEngine;
 
 namespace develop_common
 {
-    public class InstanceManager : SingletonMonoBehaviour<InstanceManager>
+    public class UnitInstance : MonoBehaviour
     {
-        public UnitVoice UnitVoice;
-        public UnitActionLoader UnitActionLoader;
-        public UnitShape UnitShape;
+
         public List<StringKeyGameObjectValuePair> InstanceBodys = new List<StringKeyGameObjectValuePair>();
 
         public GameObject SearchObject(string keyName)

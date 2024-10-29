@@ -57,6 +57,8 @@ MonoBehaviour:
   ActionParent: {fileID: 0}
   ActionPrefabInfo: {fileID: 6741626706195423436}
   ActionDamageValue: {fileID: 5481746996292819022}
+  ActionStartAdditiveParameter: {fileID: 0}
+  ActionFinishAdditiveParameter: {fileID: 0}
 --- !u!114 &8276063280196032279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,13 +87,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MotionName: Attack
-  MotionLate: 30
   IsApplyRootMotion: 0
   StatePlayType: 0
   IsStateReset: 0
   SetStartStatus: 2
   IsResetVelocity: 1
-  IsNotInputReader: 1
 --- !u!114 &4454726136892598134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,8 +105,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SetFinishStatus: 1
-  NextActionData: {fileID: 867914962149053577, guid: 7cfe6830d369ee14eaa509244092f37d, type: 3}
-  IsActiveInputReader: 1
+  NextActionData: {fileID: 867914962149053577, guid: 7cfe6830d369ee14eaa509244092f37d,
+    type: 3}
 --- !u!114 &4257612234498888255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +149,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PrefabDatas:
-  - Prefab: {fileID: 8866232049573502529, guid: 68d27f5a0c6d1b7468f8257bd65b904d, type: 3}
+  - Title: 
+    Prefab: {fileID: 8866232049573502529, guid: 68d27f5a0c6d1b7468f8257bd65b904d,
+      type: 3}
     CreateSe: {fileID: 0}
     DestroyTime: 0.3
     LocalPosition: {x: 0, y: 1, z: 1}
@@ -171,7 +173,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageValue:
     AttackerUnit: {fileID: 0}
-    DamageAction: {fileID: 867914962149053577, guid: 7eba3ec710b1e1543b276182fe84aba1, type: 3}
+    DamageAction: {fileID: 867914962149053577, guid: 7eba3ec710b1e1543b276182fe84aba1,
+      type: 3}
     DeadAction: {fileID: 0}
     Amount: 1
     WeightDiff: 1

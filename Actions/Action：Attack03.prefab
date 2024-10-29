@@ -75,6 +75,8 @@ MonoBehaviour:
     type: 3}
   TriggerStatus: 1
   IsWaitingForKey: 1
+  IsAir: 0
+  Key: 1
 --- !u!114 &-9094532401574635501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +161,7 @@ MonoBehaviour:
     SetScale: {x: 2, y: 2, z: 3}
     LookType: 0
     ParentType: 1
+    ParentKeyName: 
   - Title: 
     Prefab: {fileID: 1872147318604286, guid: 5bea49531fc500c408823a2e2863106f, type: 3}
     CreateSe: {fileID: 0}
@@ -168,6 +171,7 @@ MonoBehaviour:
     SetScale: {x: 1, y: 1, z: 1}
     LookType: 0
     ParentType: 1
+    ParentKeyName: 
 --- !u!114 &5481746996292819022
 MonoBehaviour:
   m_ObjectHideFlags: 0
