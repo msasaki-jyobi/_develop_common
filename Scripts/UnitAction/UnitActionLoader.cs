@@ -66,7 +66,6 @@ namespace develop_common
                                                 ActiveActionBase.ActionPrefabInfo.CreatePrefab(frameInfo.PrefabNum, gameObject);
                                         if (frameInfo.IsNextAction)
                                             IsNextAction = true;
-
                                     }
                     }
                 });
@@ -80,7 +79,7 @@ namespace develop_common
             // 着地して攻撃すると、動けなくなるバグの臨時修正
             if(_stateController.Frame.Value == 0 &&
                 _stateController.FrameRate == 0 &&
-                _stateController.TotalFrames == 0&&
+                _stateController.TotalFrames == 0
                 //_stateController.FrameTimer.Value >= 0.5f
                 )
             {
