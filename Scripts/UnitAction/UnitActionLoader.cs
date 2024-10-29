@@ -36,6 +36,8 @@ namespace develop_common
         public event Action<string, int> StartAdditiveParameterEvent;
         public event Action<string, int> FinishAdditiveParameterEvent;
 
+        [SerializeField] private bool _isDebugLog;
+
         private void Start()
         {
             // Event Handle
@@ -81,10 +83,14 @@ namespace develop_common
             // Delay Time Return
             //if (_actionDelayTimer > 0) return;
 
-            Debug.Log($"State: {stateName} 終了XXX");
+            if (_isDebugLog)
+                Debug.Log($"GameObject:{gameObject.name} State: {stateName} 終了XXX");
+
+            if (ActiveActionBase.ActionStart.MotionName != stateName) return;
 
             // Frame Reset
             _loadFrameInfos?.Clear();
+
 
             // ActionPlay Reset
             _isExecuting = false;
@@ -121,6 +127,7 @@ namespace develop_common
                         FinishAdditiveParameterEvent?.Invoke(finishParameter.AdditiveParameterName, finishParameter.AdditiveParameterValue);
                 }
 
+
         }
 
         public void LoadAction(GameObject actionObject, EInputReader key = EInputReader.None)
@@ -136,6 +143,9 @@ namespace develop_common
                         return;
 
                 Debug.Log($"実行!!. {gameObject.name} {actionObject.name}");
+
+                _stateController.Frame.Value = 0;
+                _stateController.FrameTimer.Value = 0;
 
                 // アクションの実行
                 _isExecuting = true;
@@ -165,11 +175,11 @@ namespace develop_common
 
                     var layer = actionBase.ActionStart.AnimatorLayer;
 
-                    if(layer == 0)
+                    if (layer == 0)
                         _stateController.StatePlay(stateName, playType, reset, root);
                     else
                     {
-                        _stateController.AnimatorLayerWeightPlay(layer, stateName, 
+                        _stateController.AnimatorLayerWeightPlay(layer, stateName,
                             actionBase.ActionStart.WeightValue, actionBase.ActionStart.WeightTime);
                     }
 
