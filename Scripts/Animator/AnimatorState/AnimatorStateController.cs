@@ -31,8 +31,8 @@ namespace develop_common
         public List<string> AllStates = new List<string>();
 
         //private string _lastStateName;
-        private float _frameRate = 60f;
-        private float _totalFrames = 60f;
+        public float FrameRate = 60f;
+        public float TotalFrames = 60f;
         private bool _isMotionLoop;
 
         public event Action<string, bool> FinishMotionEvent;
@@ -55,13 +55,13 @@ namespace develop_common
             }
 
             FrameTimer
-                .Subscribe((x) => Frame.Value = (int)(FrameTimer.Value * _frameRate));
+                .Subscribe((x) => Frame.Value = (int)(FrameTimer.Value * FrameRate));
 
             Frame
                 .Subscribe((x) =>
                 {
                     // モーション終了時
-                    if (Frame.Value >= _totalFrames)
+                    if (Frame.Value >= TotalFrames)
                     {
                         Debug.Log("モーション終了");
                         FrameTimer.Value = 0;
@@ -109,7 +109,7 @@ namespace develop_common
             if (resetMotion) MainStateName.Value = "";
             MainStateName.Value = stateName;
             Animator.applyRootMotion = apply;
-            _frameRate = GetPlayStateFrameLate();
+            FrameRate = GetPlayStateFrameLate();
         }
 
         /// <summary>
@@ -135,10 +135,10 @@ namespace develop_common
 
             float animationLength = nextStateInfo.length;
             FrameTimer.Value = 0;
-            _totalFrames = Mathf.RoundToInt(animationLength * _frameRate);
+            TotalFrames = Mathf.RoundToInt(animationLength * FrameRate);
 
             // 次のモーションの終了フレームレートを出力
-            Debug.Log("Total frames in the next state: " + _totalFrames);
+            Debug.Log("Total frames in the next state: " + TotalFrames);
         }
 
         /// <summary>

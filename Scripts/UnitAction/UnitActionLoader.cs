@@ -76,6 +76,16 @@ namespace develop_common
         {
             if (_actionDelayTimer >= 0)
                 _actionDelayTimer -= Time.deltaTime;
+
+            // 着地して攻撃すると、動けなくなるバグの臨時修正
+            if(_stateController.Frame.Value == 0 &&
+                _stateController.FrameRate == 0 &&
+                _stateController.TotalFrames == 0&&
+                _stateController.FrameTimer.Value >= 0.5f
+                )
+            {
+                UnitStatus = EUnitStatus.Ready;
+            }
         }
 
         private void FinishMotionEventHandle(string stateName, bool isLoop)
