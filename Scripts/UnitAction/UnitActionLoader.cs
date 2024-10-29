@@ -52,7 +52,7 @@ namespace develop_common
                     {
                         if (_loadFrameInfos?.Count != 0)
                             foreach (var frameInfo in _loadFrameInfos)
-                                if (_stateController.Frame.Value >= frameInfo.PlayFrame)
+                                if (_stateController.Frame.Value * _stateController.GetCurrentClipSpeed() >= frameInfo.PlayFrame)
                                     if (!frameInfo.IsComplete)
                                     {
                                         frameInfo.IsComplete = true;

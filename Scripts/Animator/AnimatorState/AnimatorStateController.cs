@@ -219,5 +219,19 @@ namespace develop_common
                 ));
         }
 
+        public float GetCurrentClipSpeed()
+        {
+            // レイヤー0の現在のアニメーターステート情報を取得
+            AnimatorStateInfo stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
+
+            // ステートの速度とアニメーター全体の速度を掛け合わせて、実際の再生速度を計算
+            float currentSpeed = stateInfo.speed * Animator.speed;
+
+            // デバッグ表示
+            //Debug.Log($"現在のステート速度: {currentSpeed}");
+
+            return currentSpeed;
+        }
+
     }
 }
