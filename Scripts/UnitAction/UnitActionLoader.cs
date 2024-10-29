@@ -81,7 +81,7 @@ namespace develop_common
             if(_stateController.Frame.Value == 0 &&
                 _stateController.FrameRate == 0 &&
                 _stateController.TotalFrames == 0&&
-                _stateController.FrameTimer.Value >= 0.5f
+                //_stateController.FrameTimer.Value >= 0.5f
                 )
             {
                 UnitStatus = EUnitStatus.Ready;
