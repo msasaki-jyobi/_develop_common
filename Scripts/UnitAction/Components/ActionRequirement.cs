@@ -13,20 +13,22 @@ namespace develop_common
     [AddComponentMenu("ActionRequirement：条件")]
     public class ActionRequirement : MonoBehaviour 
     {
-        [Header("条件：トリガーアクション")]
-        // 再生するのに必要なトリガーアクション
+        [Header("条件：トリガーアクション")] // 再生するのに必要なトリガーアクション
         public GameObject TriggerAction;
-        [Header("条件：トリガーUnitStatus")]
-        // 再生に必要なステータス
+
+        [Header("条件：トリガーUnitStatus")] // 再生に必要なステータス
         public EUnitStatus TriggerStatus;
+
         [Header("条件：キー入力受付中のみ")]
-        // 追加入力状態の有無
         public bool IsWaitingForKey;
+
+        [Header("条件：地面にいる時のみ")]
+        public bool IsGround;
+
         [Header("条件：空中にいる時のみ")]
-        // 空中にいるか？
         public bool IsAir;
+
         [Header("条件：指定キーが入力されているか？")]
-        // 空中にいるか？
         public EInputReader Key = EInputReader.None;
 
         public bool CheckExecute(UnitActionLoader actionLoader, EInputReader key)
@@ -54,7 +56,12 @@ namespace develop_common
             }
 
             // 地面チェック
-            if(IsAir)
+            if (IsGround)
+                if (actionLoader.TryGetComponent<UnitGround>(out var ground))
+                    check = check && ground.CanJump;
+
+            // 空中チェック
+            if (IsAir)
                 if(actionLoader.TryGetComponent<UnitGround>(out var ground))
                         check = check && !ground.CanJump;
 

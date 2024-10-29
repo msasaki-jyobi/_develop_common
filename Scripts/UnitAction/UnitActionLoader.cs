@@ -163,7 +163,16 @@ namespace develop_common
                     var reset = actionBase.ActionStart.IsStateReset;
                     var root = actionBase.ActionStart.IsApplyRootMotion;
 
-                    _stateController.StatePlay(stateName, playType, reset, root);
+                    var layer = actionBase.ActionStart.AnimatorLayer;
+
+                    if(layer == 0)
+                        _stateController.StatePlay(stateName, playType, reset, root);
+                    else
+                    {
+                        _stateController.AnimatorLayerWeightPlay(layer, stateName, 
+                            actionBase.ActionStart.WeightValue, actionBase.ActionStart.WeightTime);
+                    }
+
                     ChangeStatus(actionBase.ActionStart.SetStartStatus, 0);
 
                 }

@@ -74,6 +74,7 @@ MonoBehaviour:
   TriggerAction: {fileID: 0}
   TriggerStatus: 0
   IsWaitingForKey: 0
+  IsGround: 1
   IsAir: 0
   Key: 1
 --- !u!114 &-9094532401574635501

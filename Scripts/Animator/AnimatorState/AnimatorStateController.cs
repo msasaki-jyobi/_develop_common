@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,6 +35,8 @@ namespace develop_common
         private bool _isMotionLoop;
 
         public event Action<string, bool> FinishMotionEvent;
+
+        private Tween _currentLayerTween;
 
         private void Start()
         {
@@ -181,5 +184,35 @@ namespace develop_common
 
             return rate;
         }
+
+        public void AnimatorLayerWeightPlay(int layerNum, string stateName, float targetWeight, float crossTime)
+        {
+            // 進行中のTweenがある場合はキャンセル
+            _currentLayerTween?.Kill();
+
+            AnimatorLayerPlay(layerNum, stateName, 0f);
+
+            // 初期のWeight値を取得しておく
+            Animator.SetLayerWeight(layerNum,0);
+            float initialWeight = Animator.GetLayerWeight(layerNum);
+
+            // 新しいシーケンスを作成し、_currentLayerTweenとして管理
+            _currentLayerTween = DOTween.Sequence()
+                // crossTime秒かけてWeightをtargetWeightまで変更
+                .Append(DOTween.To(
+                    () => Animator.GetLayerWeight(layerNum),
+                    value => Animator.SetLayerWeight(layerNum, value),
+                    targetWeight,
+                    crossTime
+                ))
+                // crossTime秒かけてWeightをinitialWeightまで戻す
+                .Append(DOTween.To(
+                    () => Animator.GetLayerWeight(layerNum),
+                    value => Animator.SetLayerWeight(layerNum, value),
+                    initialWeight,
+                    crossTime
+                ));
+        }
+
     }
 }

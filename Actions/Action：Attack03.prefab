@@ -75,6 +75,7 @@ MonoBehaviour:
     type: 3}
   TriggerStatus: 1
   IsWaitingForKey: 1
+  IsGround: 1
   IsAir: 0
   Key: 1
 --- !u!114 &-9094532401574635501

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6741626706195423436}
   - component: {fileID: 5481746996292819022}
   m_Layer: 0
-  m_Name: "Action\uFF1AAttack02"
+  m_Name: "Action\uFF1AAttack Air"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,12 +71,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6898e62c2fc62be46a96eec2aeba8107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerAction: {fileID: 867914962149053577, guid: c5acbf728588c6d42963cf7275e326b0,
-    type: 3}
-  TriggerStatus: 1
-  IsWaitingForKey: 1
-  IsGround: 1
-  IsAir: 0
+  TriggerAction: {fileID: 0}
+  TriggerStatus: 0
+  IsWaitingForKey: 0
+  IsGround: 0
+  IsAir: 1
   Key: 1
 --- !u!114 &-9094532401574635501
 MonoBehaviour:
@@ -90,12 +89,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionName: Attack02
+  MotionName: KB_p_OneTwo
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
   SetStartStatus: 2
   IsResetVelocity: 1
+  AnimatorLayer: 3
+  WeightValue: 1
+  WeightTime: 0.7
 --- !u!114 &4454726136892598134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrameInfo:
-  - PlayFrame: 10
+  - PlayFrame: 0
     IsResetVelocity: 0
     IsForce: 0
     FoucePower: {x: 0, y: 0, z: 0}
@@ -131,7 +133,7 @@ MonoBehaviour:
     PrefabNum: 0
     IsNextAction: 1
     IsComplete: 0
-  - PlayFrame: 10
+  - PlayFrame: 0
     IsResetVelocity: 0
     IsForce: 0
     FoucePower: {x: 0, y: 0, z: 0}
@@ -156,22 +158,22 @@ MonoBehaviour:
     Prefab: {fileID: 8866232049573502529, guid: 68d27f5a0c6d1b7468f8257bd65b904d,
       type: 3}
     CreateSe: {fileID: 0}
-    DestroyTime: 0.3
+    DestroyTime: 1
     LocalPosition: {x: 0, y: 1, z: 1}
     LocalEulerAngle: {x: 0, y: 45, z: 0}
     SetScale: {x: 2, y: 2, z: 3}
     LookType: 0
-    ParentType: 0
+    ParentType: 1
     ParentKeyName: 
   - Title: 
-    Prefab: {fileID: 1044528419629608, guid: 3be98662c9e7ef5468cb9c4e11010dc7, type: 3}
+    Prefab: {fileID: 1872147318604286, guid: 5bea49531fc500c408823a2e2863106f, type: 3}
     CreateSe: {fileID: 0}
-    DestroyTime: 0.3
+    DestroyTime: 1
     LocalPosition: {x: 0, y: 1, z: 1}
-    LocalEulerAngle: {x: 0, y: 45, z: 0}
-    SetScale: {x: 1, y: 2, z: 1}
+    LocalEulerAngle: {x: 0, y: 0, z: 0}
+    SetScale: {x: 1, y: 1, z: 1}
     LookType: 0
-    ParentType: 0
+    ParentType: 1
     ParentKeyName: 
 --- !u!114 &5481746996292819022
 MonoBehaviour:
@@ -192,7 +194,7 @@ MonoBehaviour:
     DeadAction: {fileID: 0}
     Amount: 1
     WeightDiff: 1
-    HitLimit: 1
+    HitLimit: 4
     UnitLimit: 5
     HitSpanTime: 0.1
     HitLimitResetTime: 6
