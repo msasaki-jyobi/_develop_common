@@ -164,7 +164,7 @@ public class EnemyAI : MonoBehaviour
         if(skill != null)
         {
             agent.enabled = false;
-            UnitActionLoader.LoadAction(skill.SkillAction);
+            UnitActionLoader.LoadAction(skill.SkillAction, EInputReader.R1);
 
             isAttacking = true;
 

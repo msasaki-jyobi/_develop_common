@@ -74,6 +74,9 @@ MonoBehaviour:
   TriggerAction: {fileID: 0}
   TriggerStatus: 0
   IsWaitingForKey: 0
+  IsGround: 1
+  IsAir: 0
+  Key: 1
 --- !u!114 &-9094532401574635501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +95,9 @@ MonoBehaviour:
   IsStateReset: 1
   SetStartStatus: 1
   IsResetVelocity: 1
+  AnimatorLayer: 0
+  WeightValue: 1
+  WeightTime: 0.5
 --- !u!114 &4454726136892598134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FrameInfo:
   - PlayFrame: 12
-    IsResetVelocity: 0
+    IsResetVelocity: 1
     IsForce: 0
     FoucePower: {x: 0, y: 0, z: 0}
     IsPrefab: 1
@@ -158,6 +164,7 @@ MonoBehaviour:
     SetScale: {x: 2, y: 2, z: 3}
     LookType: 0
     ParentType: 0
+    ParentKeyName: Hand
   - Title: 
     Prefab: {fileID: 1294101409476956, guid: 231e3be01ac50c047bb16d07fd8d2ba5, type: 3}
     CreateSe: {fileID: 0}
@@ -167,6 +174,7 @@ MonoBehaviour:
     SetScale: {x: 1, y: 2, z: 1}
     LookType: 0
     ParentType: 0
+    ParentKeyName: Hand
 --- !u!114 &5481746996292819022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageValue:
     AttackerUnit: {fileID: 0}
-    DamageAction: {fileID: 867914962149053577, guid: 6104cbc989f78644c8782b1273f03e60,
+    DamageAction: {fileID: 867914962149053577, guid: 4b935b81edfa4c54081cef48ca1bdc4d,
       type: 3}
     DeadAction: {fileID: 0}
     Amount: 1

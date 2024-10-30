@@ -92,7 +92,6 @@ MonoBehaviour:
   IsStateReset: 1
   SetStartStatus: 1
   IsResetVelocity: 1
-  IsNotInputReader: 1
 --- !u!114 &4454726136892598134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,7 +107,6 @@ MonoBehaviour:
   SetFinishStatus: 0
   NextActionData: {fileID: 867914962149053577, guid: 82a4398abc8c7514f979cb8af49a9679,
     type: 3}
-  IsActiveInputReader: 1
 --- !u!114 &4257612234498888255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,23 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186fbed7197d4474bb075a52e80023f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FrameInfo:
-  - PlayFrame: 999
-    IsResetVelocity: 1
-    IsForce: 1
-    FoucePower: {x: 1, y: 30, z: 20}
-    IsPrefab: 1
-    PrefabNum: 0
-    IsNextAction: 0
-    IsComplete: 0
-  - PlayFrame: 9999
-    IsResetVelocity: 1
-    IsForce: 1
-    FoucePower: {x: 0, y: -20, z: 0}
-    IsPrefab: 1
-    PrefabNum: 0
-    IsNextAction: 0
-    IsComplete: 0
+  FrameInfo: []
 --- !u!114 &6741626706195423436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +133,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PrefabDatas:
-  - Prefab: {fileID: 8866232049573502529, guid: 68d27f5a0c6d1b7468f8257bd65b904d,
+  - Title: 
+    Prefab: {fileID: 8866232049573502529, guid: 68d27f5a0c6d1b7468f8257bd65b904d,
       type: 3}
     CreateSe: {fileID: 0}
     DestroyTime: 0.3
@@ -160,6 +143,7 @@ MonoBehaviour:
     SetScale: {x: 1, y: 2, z: 1}
     LookType: 0
     ParentType: 0
+    ParentKeyName: 
 --- !u!114 &5481746996292819022
 MonoBehaviour:
   m_ObjectHideFlags: 0

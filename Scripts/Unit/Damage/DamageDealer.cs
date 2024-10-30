@@ -7,9 +7,11 @@ namespace develop_common
 {
     public class DamageDealer : MonoBehaviour
     {
-
         public EUnitType AttackUnitType;
         public DamageValue DamageValue;
+
+        public Material PlayerMaterial;
+        public Material EnemyMaterial;
 
         // 各オブジェクトのタグ名
         private const string _unitTagName = "Unit";
@@ -20,6 +22,15 @@ namespace develop_common
 
         public Action<DamageValue, GameObject, GameObject> OnDamageEvent;
 
+
+        private void Start()
+        {
+            if(TryGetComponent<Renderer>(out var mat))
+            {
+                var targetMaterial = AttackUnitType == EUnitType.Player ? PlayerMaterial : EnemyMaterial;
+                mat.material = targetMaterial;
+            }
+        }
         private void OnCollisionStay(Collision collision)
         {
             HitCheck(collision.gameObject);
@@ -59,8 +70,13 @@ namespace develop_common
 
                 if (damageUnit.UnitObject.TryGetComponent<IHealth>(out var health))
                 {
+                    LogManager.Instance.AddLog(gameObject, "ダメージ実行");
                     // 同じキャラクタ同士ならReturn
-                    if (health.UnitType == AttackUnitType) return;
+                    if (health.UnitType == AttackUnitType)
+                    {
+                        LogManager.Instance.AddLog(gameObject, "同じキャラクタ同士ならReturn");
+                        return;
+                    }
 
                     // ヒット可能
                     damageUnit.HitCount++; // 回数加算

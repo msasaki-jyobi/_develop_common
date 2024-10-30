@@ -10,14 +10,15 @@ GameObject:
   m_Component:
   - component: {fileID: 1964579485700207550}
   - component: {fileID: 5017441459642140199}
-  - component: {fileID: 8276063280196032279}
   - component: {fileID: -9094532401574635501}
   - component: {fileID: 4454726136892598134}
   - component: {fileID: 4257612234498888255}
   - component: {fileID: 6741626706195423436}
-  - component: {fileID: 5481746996292819022}
+  - component: {fileID: 5256749802811664146}
+  - component: {fileID: 6986013468331365574}
+  - component: {fileID: 1318679288756685457}
   m_Layer: 0
-  m_Name: "Action\uFF1A\u6295\u3052\u6280"
+  m_Name: "Action\uFF1ADamage\u6253\u3061\u4E0A\u30521"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,30 +51,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458d7337e8ce6ff4f86d2423b88e6c92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActionRequirement: {fileID: 8276063280196032279}
+  ActionRequirement: {fileID: 0}
   ActionStart: {fileID: -9094532401574635501}
   ActionFrame: {fileID: 4257612234498888255}
   ActionFinish: {fileID: 4454726136892598134}
   ActionParent: {fileID: 0}
   ActionPrefabInfo: {fileID: 6741626706195423436}
-  ActionDamageValue: {fileID: 5481746996292819022}
-  ActionStartAdditiveParameter: {fileID: 0}
-  ActionFinishAdditiveParameter: {fileID: 0}
---- !u!114 &8276063280196032279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867914962149053577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6898e62c2fc62be46a96eec2aeba8107, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TriggerAction: {fileID: 0}
-  TriggerStatus: 1
-  IsWaitingForKey: 0
+  ActionDamageValue: {fileID: 0}
+  ActionStartAdditiveParameter: {fileID: 6986013468331365574}
+  ActionFinishAdditiveParameter: {fileID: 1318679288756685457}
 --- !u!114 &-9094532401574635501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,12 +72,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionName: Attack
-  IsApplyRootMotion: 0
+  MotionName: "\u6253\u3061\u4E0A\u30521"
+  IsApplyRootMotion: 1
   StatePlayType: 0
-  IsStateReset: 0
-  SetStartStatus: 2
+  IsStateReset: 1
+  SetStartStatus: 1
   IsResetVelocity: 1
+  AnimatorLayer: 0
+  WeightValue: 1
+  WeightTime: 0.5
 --- !u!114 &4454726136892598134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SetFinishStatus: 1
-  NextActionData: {fileID: 867914962149053577, guid: 7cfe6830d369ee14eaa509244092f37d,
+  NextActionData: {fileID: 867914962149053577, guid: 115288da95848744f8dd3ede21189354,
     type: 3}
 --- !u!114 &4257612234498888255
 MonoBehaviour:
@@ -120,19 +109,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrameInfo:
-  - PlayFrame: 5
+  - PlayFrame: 1
     IsResetVelocity: 0
     IsForce: 1
-    FoucePower: {x: 1, y: 30, z: 20}
-    IsPrefab: 1
-    PrefabNum: 0
-    IsNextAction: 0
-    IsComplete: 0
-  - PlayFrame: 9
-    IsResetVelocity: 1
-    IsForce: 1
-    FoucePower: {x: 0, y: -20, z: 0}
-    IsPrefab: 1
+    FoucePower: {x: 0, y: 8, z: 0}
+    IsPrefab: 0
     PrefabNum: 0
     IsNextAction: 0
     IsComplete: 0
@@ -159,7 +140,8 @@ MonoBehaviour:
     SetScale: {x: 1, y: 2, z: 1}
     LookType: 0
     ParentType: 0
---- !u!114 &5481746996292819022
+    ParentKeyName: 
+--- !u!114 &5256749802811664146
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,3 +170,37 @@ MonoBehaviour:
     DestroySE: {fileID: 0}
     UnitHitDestroy: 0
     ObjectHitDestroy: 0
+--- !u!114 &6986013468331365574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867914962149053577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1ad53a2af5bad43a8aace237485c59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartAdditiveParameters:
+  - AdditiveParameterName: damage
+    AdditiveParameterValue: 1
+  - AdditiveParameterName: Kousoku
+    AdditiveParameterValue: 10
+--- !u!114 &1318679288756685457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867914962149053577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df177fa47c471ab43ab30be404b85a72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FinishAdditiveParameters:
+  - AdditiveParameterName: Sample
+    AdditiveParameterValue: 3
+  - AdditiveParameterName: Kousoku
+    AdditiveParameterValue: 10

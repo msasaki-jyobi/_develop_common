@@ -4,6 +4,7 @@ using UniRx;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using develop_tps;
 
 namespace develop_common
 {
@@ -16,6 +17,9 @@ namespace develop_common
         public GameObject ActiveActionObject { get; private set; }
         public ActionBase ActiveActionBase { get; private set; }
         public bool IsNextAction { get; private set; }
+
+        // 攻撃判定
+        public bool IsAttack;
 
         // private Frame Parameter
         private List<FrameInfo> _loadFrameInfos;
@@ -35,6 +39,8 @@ namespace develop_common
         public event Action<string, int> StartAdditiveParameterEvent;
         public event Action<string, int> FinishAdditiveParameterEvent;
 
+        [SerializeField] private bool _isDebugLog;
+
         private void Start()
         {
             // Event Handle
@@ -49,7 +55,7 @@ namespace develop_common
                     {
                         if (_loadFrameInfos?.Count != 0)
                             foreach (var frameInfo in _loadFrameInfos)
-                                if (_stateController.Frame.Value >= frameInfo.PlayFrame)
+                                if (_stateController.Frame.Value * _stateController.GetCurrentClipSpeed() >= frameInfo.PlayFrame)
                                     if (!frameInfo.IsComplete)
                                     {
                                         frameInfo.IsComplete = true;
@@ -63,7 +69,6 @@ namespace develop_common
                                                 ActiveActionBase.ActionPrefabInfo.CreatePrefab(frameInfo.PrefabNum, gameObject);
                                         if (frameInfo.IsNextAction)
                                             IsNextAction = true;
-
                                     }
                     }
                 });
@@ -73,6 +78,16 @@ namespace develop_common
         {
             if (_actionDelayTimer >= 0)
                 _actionDelayTimer -= Time.deltaTime;
+
+            // 着地して攻撃すると、動けなくなるバグの臨時修正
+            if(_stateController.Frame.Value == 0 &&
+                _stateController.FrameRate == 0 &&
+                _stateController.TotalFrames == 0
+                //_stateController.FrameTimer.Value >= 0.5f
+                )
+            {
+                UnitStatus = EUnitStatus.Ready;
+            }
         }
 
         private void FinishMotionEventHandle(string stateName, bool isLoop)
@@ -80,10 +95,15 @@ namespace develop_common
             // Delay Time Return
             //if (_actionDelayTimer > 0) return;
 
-            Debug.Log($"State: {stateName} 終了XXX");
+            if (_isDebugLog)
+                Debug.Log($"GameObject:{gameObject.name} State: {stateName} 終了XXX");
+
+            if (ActiveActionBase != null)
+                if (ActiveActionBase.ActionStart.MotionName != stateName) return;
 
             // Frame Reset
             _loadFrameInfos?.Clear();
+
 
             // ActionPlay Reset
             _isExecuting = false;
@@ -120,9 +140,10 @@ namespace develop_common
                         FinishAdditiveParameterEvent?.Invoke(finishParameter.AdditiveParameterName, finishParameter.AdditiveParameterValue);
                 }
 
+
         }
 
-        public void LoadAction(GameObject actionObject)
+        public void LoadAction(GameObject actionObject, EInputReader key = EInputReader.None)
         {
             if (actionObject.TryGetComponent<ActionBase>(out var actionBase))
             {
@@ -131,10 +152,13 @@ namespace develop_common
 
                 if (actionBase.ActionRequirement != null)
                     // アクションの条件チェック
-                    if (!actionBase.ActionRequirement.CheckExecute(this))
+                    if (!actionBase.ActionRequirement.CheckExecute(this, key))
                         return;
 
                 Debug.Log($"実行!!. {gameObject.name} {actionObject.name}");
+
+                _stateController.Frame.Value = 0;
+                _stateController.FrameTimer.Value = 0;
 
                 // アクションの実行
                 _isExecuting = true;
@@ -162,7 +186,16 @@ namespace develop_common
                     var reset = actionBase.ActionStart.IsStateReset;
                     var root = actionBase.ActionStart.IsApplyRootMotion;
 
-                    _stateController.StatePlay(stateName, playType, reset, root);
+                    var layer = actionBase.ActionStart.AnimatorLayer;
+
+                    if (layer == 0)
+                        _stateController.StatePlay(stateName, playType, reset, root);
+                    else
+                    {
+                        _stateController.AnimatorLayerWeightPlay(layer, stateName,
+                            actionBase.ActionStart.WeightValue, actionBase.ActionStart.WeightTime);
+                    }
+
                     ChangeStatus(actionBase.ActionStart.SetStartStatus, 0);
 
                 }

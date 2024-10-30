@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +18,8 @@ namespace develop_common
     public class AnimatorStateController : MonoBehaviour
     {
         public Animator Animator;
-        [SerializeField] private float _crossAnimationTimer = 0.2f;
+        [Range(0.1f, 1)]
+        [SerializeField] private float _crossAnimationTimer = 0.1f;
         [SerializeField] private string _defaultAnimatorState; // botu
         [SerializeField] private List<string> _defaultRandomAnimatorState = new List<string>();
 
@@ -29,14 +31,19 @@ namespace develop_common
         public List<string> AllStates = new List<string>();
 
         //private string _lastStateName;
-        private float _frameRate = 60f;
-        private float _totalFrames = 60f;
+        public float FrameRate = 60f;
+        public float TotalFrames = 60f;
         private bool _isMotionLoop;
 
         public event Action<string, bool> FinishMotionEvent;
 
+        private Tween _currentLayerTween;
+
         private void Start()
         {
+            if (_crossAnimationTimer == 0)
+                _crossAnimationTimer = 0.1f;
+
             if (_defaultRandomAnimatorState.Count > 0)
             {
                 int ran = UnityEngine.Random.Range(0, _defaultRandomAnimatorState.Count);
@@ -48,13 +55,13 @@ namespace develop_common
             }
 
             FrameTimer
-                .Subscribe((x) => Frame.Value = (int)(FrameTimer.Value * _frameRate));
+                .Subscribe((x) => Frame.Value = (int)(FrameTimer.Value * FrameRate));
 
             Frame
                 .Subscribe((x) =>
                 {
                     // モーション終了時
-                    if (Frame.Value >= _totalFrames)
+                    if (Frame.Value >= TotalFrames)
                     {
                         Debug.Log("モーション終了");
                         FrameTimer.Value = 0;
@@ -102,7 +109,7 @@ namespace develop_common
             if (resetMotion) MainStateName.Value = "";
             MainStateName.Value = stateName;
             Animator.applyRootMotion = apply;
-            _frameRate = GetPlayStateFrameLate();
+            FrameRate = GetPlayStateFrameLate();
         }
 
         /// <summary>
@@ -123,14 +130,15 @@ namespace develop_common
             {
                 await UniTask.Yield(PlayerLoopTiming.Update);
                 nextStateInfo = Animator.GetNextAnimatorStateInfo(0);
+                Debug.Log("AA");
             }
 
             float animationLength = nextStateInfo.length;
             FrameTimer.Value = 0;
-            _totalFrames = Mathf.RoundToInt(animationLength * _frameRate);
+            TotalFrames = Mathf.RoundToInt(animationLength * FrameRate);
 
             // 次のモーションの終了フレームレートを出力
-            // Debug.Log("Total frames in the next state: " + _totalFrames);
+            Debug.Log("Total frames in the next state: " + TotalFrames);
         }
 
         /// <summary>
@@ -181,5 +189,49 @@ namespace develop_common
 
             return rate;
         }
+
+        public void AnimatorLayerWeightPlay(int layerNum, string stateName, float targetWeight, float crossTime)
+        {
+            // 進行中のTweenがある場合はキャンセル
+            _currentLayerTween?.Kill();
+
+            AnimatorLayerPlay(layerNum, stateName, 0f);
+
+            // 初期のWeight値を取得しておく
+            Animator.SetLayerWeight(layerNum,0);
+            float initialWeight = Animator.GetLayerWeight(layerNum);
+
+            // 新しいシーケンスを作成し、_currentLayerTweenとして管理
+            _currentLayerTween = DOTween.Sequence()
+                // crossTime秒かけてWeightをtargetWeightまで変更
+                .Append(DOTween.To(
+                    () => Animator.GetLayerWeight(layerNum),
+                    value => Animator.SetLayerWeight(layerNum, value),
+                    targetWeight,
+                    crossTime
+                ))
+                // crossTime秒かけてWeightをinitialWeightまで戻す
+                .Append(DOTween.To(
+                    () => Animator.GetLayerWeight(layerNum),
+                    value => Animator.SetLayerWeight(layerNum, value),
+                    initialWeight,
+                    crossTime
+                ));
+        }
+
+        public float GetCurrentClipSpeed()
+        {
+            // レイヤー0の現在のアニメーターステート情報を取得
+            AnimatorStateInfo stateInfo = Animator.GetCurrentAnimatorStateInfo(0);
+
+            // ステートの速度とアニメーター全体の速度を掛け合わせて、実際の再生速度を計算
+            float currentSpeed = stateInfo.speed * Animator.speed;
+
+            // デバッグ表示
+            //Debug.Log($"現在のステート速度: {currentSpeed}");
+
+            return currentSpeed;
+        }
+
     }
 }

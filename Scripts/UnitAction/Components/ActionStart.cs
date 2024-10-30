@@ -21,5 +21,11 @@ namespace develop_common
         [Header("開始時：Velocity Reset")]
         // Velocity Reset
         public bool IsResetVelocity;
+
+        // レイヤー用
+        [Header("レイヤー指定がある場合")]
+        public int AnimatorLayer = 0;
+        public float WeightValue = 1;
+        public float WeightTime = 0.5f;
     }
 }

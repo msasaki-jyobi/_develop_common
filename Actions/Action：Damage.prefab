@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 4454726136892598134}
   - component: {fileID: 4257612234498888255}
   - component: {fileID: 6741626706195423436}
-  - component: {fileID: 5481746996292819022}
   - component: {fileID: 6986013468331365574}
   - component: {fileID: 1318679288756685457}
+  - component: {fileID: -5589088101678744373}
   m_Layer: 0
   m_Name: "Action\uFF1ADamage"
   m_TagString: Untagged
@@ -57,7 +57,7 @@ MonoBehaviour:
   ActionFinish: {fileID: 4454726136892598134}
   ActionParent: {fileID: 0}
   ActionPrefabInfo: {fileID: 6741626706195423436}
-  ActionDamageValue: {fileID: 5481746996292819022}
+  ActionDamageValue: {fileID: -5589088101678744373}
   ActionStartAdditiveParameter: {fileID: 6986013468331365574}
   ActionFinishAdditiveParameter: {fileID: 1318679288756685457}
 --- !u!114 &-9094532401574635501
@@ -78,6 +78,9 @@ MonoBehaviour:
   IsStateReset: 1
   SetStartStatus: 1
   IsResetVelocity: 1
+  AnimatorLayer: 0
+  WeightValue: 1
+  WeightTime: 0.5
 --- !u!114 &4454726136892598134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,35 +140,7 @@ MonoBehaviour:
     SetScale: {x: 1, y: 2, z: 1}
     LookType: 0
     ParentType: 0
---- !u!114 &5481746996292819022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867914962149053577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3577c668b3346e3408312df74be589f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageValue:
-    AttackerUnit: {fileID: 0}
-    DamageAction: {fileID: 867914962149053577, guid: 7eba3ec710b1e1543b276182fe84aba1,
-      type: 3}
-    DeadAction: {fileID: 0}
-    Amount: 1
-    WeightDiff: 1
-    HitLimit: 1
-    UnitLimit: 5
-    HitSpanTime: 0.1
-    HitLimitResetTime: 6
-    HitEffect: {fileID: 0}
-    HitSE: {fileID: 0}
-    DestroyEffect: {fileID: 0}
-    DestroySE: {fileID: 0}
-    UnitHitDestroy: 0
-    ObjectHitDestroy: 0
+    ParentKeyName: 
 --- !u!114 &6986013468331365574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,3 +175,31 @@ MonoBehaviour:
     AdditiveParameterValue: 3
   - AdditiveParameterName: Kousoku
     AdditiveParameterValue: 10
+--- !u!114 &-5589088101678744373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867914962149053577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3577c668b3346e3408312df74be589f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageValue:
+    AttackerUnit: {fileID: 0}
+    DamageAction: {fileID: 867914962149053577}
+    DeadAction: {fileID: 0}
+    Amount: 1
+    WeightDiff: 1
+    HitLimit: 1
+    UnitLimit: 5
+    HitSpanTime: 0.1
+    HitLimitResetTime: 6
+    HitEffect: {fileID: 0}
+    HitSE: {fileID: 0}
+    DestroyEffect: {fileID: 0}
+    DestroySE: {fileID: 0}
+    UnitHitDestroy: 0
+    ObjectHitDestroy: 0
