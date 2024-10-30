@@ -7,7 +7,6 @@ namespace develop_common
 {
     public class DamageDealer : MonoBehaviour
     {
-
         public EUnitType AttackUnitType;
         public DamageValue DamageValue;
 

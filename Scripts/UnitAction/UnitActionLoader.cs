@@ -18,6 +18,9 @@ namespace develop_common
         public ActionBase ActiveActionBase { get; private set; }
         public bool IsNextAction { get; private set; }
 
+        // 攻撃判定
+        public bool IsAttack;
+
         // private Frame Parameter
         private List<FrameInfo> _loadFrameInfos;
 
