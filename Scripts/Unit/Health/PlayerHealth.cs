@@ -1,3 +1,4 @@
+using _develop_common;
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
@@ -14,7 +15,7 @@ namespace develop_common
     // PlayerHealth クラス
     public class PlayerHealth : MonoBehaviour, IHealth
     {
-        [SerializeField] private UnitActionLoader _unitActionLoader;
+        [SerializeField] private UnitComponents _unitComponents;
         [SerializeField] private Rigidbody _rigidBody;
         [SerializeField] private AnimatorStateController _animatorStateController;
 
@@ -29,19 +30,37 @@ namespace develop_common
 
         private void Start()
         {
-            _unitActionLoader.FrameFouceEvent += OnFrameFouceHandle;
+            _unitComponents.UnitActionLoader.FrameFouceEvent += OnFrameFouceHandle;
         }
 
-
-
-        public void TakeDamage(DamageValue damageValue)
+        public void TakeDamage(HitCollider hitCollider, int totalDamage)
         {
-            CurrentHealth -= damageValue.Amount * damageValue.WeightDiff;
+            CurrentHealth -= totalDamage;
 
-            if (damageValue.DamageAction.TryGetComponent<ActionBase>(out var actionBase))
-                if (actionBase.ActionStart != null)
-                    if(_unitActionLoader != null) 
-                        _unitActionLoader.LoadAction(damageValue.DamageAction);
+            // ダメージモーション関連
+            if(!hitCollider.IsPull)
+            {
+                // モーション再生を確定
+
+                // ノーマルモーション・グラップモーションを再生
+                _unitComponents.UnitActionLoader.LoadAction(hitCollider.DamageAction);
+                // Additiveモーションを再生
+
+            }
+            else // 固定化モーションを再生
+            {
+                _unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Executing;
+                _unitComponents.AnimatorStateController.StatePlay("", EStatePlayType.Loop, true);
+            }
+
+            var unitShape = _unitComponents.UnitShape;
+            if (unitShape != null)
+            {
+                ShapeWordData word = new ShapeWordData();
+                word.WordData = "Da";
+                word.NotWardData = new List<string>() { "通常" };
+                unitShape.SetShapeWard(word);
+            }
 
             if (CurrentHealth <= 0)
             {

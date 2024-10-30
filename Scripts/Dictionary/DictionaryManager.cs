@@ -17,5 +17,11 @@ namespace develop_common
     public class StringKeyGameObjectValuePair : SerializableKeyValuePair<string, GameObject> { }
     [Serializable]
     public class DictionaryStringGameObject : SerializableDictionary<string, GameObject, StringKeyGameObjectValuePair> { }
+
+    // String, List<Vector3>
+    [Serializable]
+    public class StringKeyListVector3tValuePair : SerializableKeyValuePair<string, List<Vector3>> { }
+    [Serializable]
+    public class DictionaryStringListVector3 : SerializableDictionary<string, List<Vector3>, StringKeyListVector3tValuePair> { }
 }
 

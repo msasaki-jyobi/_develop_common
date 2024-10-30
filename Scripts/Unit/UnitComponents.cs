@@ -6,7 +6,9 @@ namespace develop_common
     public class UnitComponents : MonoBehaviour
     {
         public Animator Animator;
+        public AnimatorStateController AnimatorStateController;
         public UnitActionLoader UnitActionLoader;
+        public BattleDealer AttackDealer;
         [Space(10)]
         public UnitInstance UnitInstance;
         public Animator UnitAvatar;

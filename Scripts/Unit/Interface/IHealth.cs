@@ -1,3 +1,4 @@
+using _develop_common;
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
@@ -12,7 +13,7 @@ namespace develop_common
         ReactiveProperty<EUnitStatus> UnitStatus { get; }
         int CurrentHealth { get; }
         int MaxHealth { get; }
-        void TakeDamage(DamageValue damageValue = null);
+        void TakeDamage(HitCollider hitCollider, int totalDamage);
         void Heal(float amount);
         void ChangeStatus(EUnitStatus status);
 

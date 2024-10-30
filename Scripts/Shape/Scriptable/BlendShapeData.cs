@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace develop_common
 {
-    [CreateAssetMenu(fileName = "ShapeData", menuName = "Shape / ShapeData")]
+    [CreateAssetMenu(fileName = "ShapeData", menuName = "develop_common / ShapeData")]
     public class BlendShapeData : ScriptableObject
     {
         public List<BlandValue> BlendShapeList = new List<BlandValue>();

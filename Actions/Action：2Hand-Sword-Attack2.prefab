@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 4454726136892598134}
   - component: {fileID: 4257612234498888255}
   - component: {fileID: 6741626706195423436}
-  - component: {fileID: 5481746996292819022}
+  - component: {fileID: 6294782521696834209}
   m_Layer: 0
-  m_Name: "Action\uFF1AAttack Air"
+  m_Name: "Action\uFF1A2Hand-Sword-Attack2"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,8 @@ MonoBehaviour:
   ActionFinish: {fileID: 4454726136892598134}
   ActionParent: {fileID: 0}
   ActionPrefabInfo: {fileID: 6741626706195423436}
-  ActionDamageValue: {fileID: 5481746996292819022}
+  ActionActiveAttackBody: {fileID: 6294782521696834209}
+  ActionDamageData: {fileID: 0}
   ActionStartAdditiveParameter: {fileID: 0}
   ActionFinishAdditiveParameter: {fileID: 0}
 --- !u!114 &8276063280196032279
@@ -71,11 +72,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6898e62c2fc62be46a96eec2aeba8107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerAction: {fileID: 0}
-  TriggerStatus: 0
-  IsWaitingForKey: 0
-  IsGround: 0
-  IsAir: 1
+  TriggerAction: {fileID: 867914962149053577, guid: c5acbf728588c6d42963cf7275e326b0,
+    type: 3}
+  TriggerStatus: 1
+  IsWaitingForKey: 1
+  IsGround: 1
+  IsAir: 0
   Key: 1
 --- !u!114 &-9094532401574635501
 MonoBehaviour:
@@ -89,15 +91,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionName: KB_p_OneTwo
+  MotionName: 2Hand-Sword-Attack2
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
   SetStartStatus: 2
   IsResetVelocity: 1
-  AnimatorLayer: 3
+  AnimatorLayer: 0
   WeightValue: 1
-  WeightTime: 0.7
+  WeightTime: 0.5
 --- !u!114 &4454726136892598134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +134,7 @@ MonoBehaviour:
     IsPrefab: 1
     PrefabNum: 0
     IsNextAction: 0
+    IsActiveAttack: 1
     IsComplete: 0
 --- !u!114 &6741626706195423436
 MonoBehaviour:
@@ -156,7 +159,7 @@ MonoBehaviour:
     LookType: 0
     ParentType: 1
     ParentKeyName: Hand
---- !u!114 &5481746996292819022
+--- !u!114 &6294782521696834209
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,26 +168,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 867914962149053577}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3577c668b3346e3408312df74be589f6, type: 3}
+  m_Script: {fileID: 11500000, guid: c9536b60f7adbc642b71b8ca480caf07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageValue:
-    IsCheckAttackMode: 0
-    AttackUnitLoader: {fileID: 0}
-    DamageUnitLoader: {fileID: 0}
-    AttackerUnit: {fileID: 0}
-    DamageAction: {fileID: 867914962149053577, guid: 6104cbc989f78644c8782b1273f03e60,
-      type: 3}
-    DeadAction: {fileID: 0}
-    Amount: 1
-    WeightDiff: 1
-    HitLimit: 4
-    UnitLimit: 5
-    HitSpanTime: 0.1
-    HitLimitResetTime: 6
-    HitEffect: {fileID: 0}
-    HitSE: {fileID: 0}
-    DestroyEffect: {fileID: 0}
-    DestroySE: {fileID: 0}
-    UnitHitDestroy: 0
-    ObjectHitDestroy: 0
+  AttackBodyNames:
+  - Hand
+  - Weapon
+  AttackLifeTime: 1
+  DamageAction: {fileID: 867914962149053577, guid: a0a7df04e4f16344ebe4e93a8a422acd,
+    type: 3}

@@ -63,7 +63,7 @@ namespace develop_common
                     // モーション終了時
                     if (Frame.Value >= TotalFrames)
                     {
-                        Debug.Log("モーション終了");
+                        //Debug.Log("モーション終了");
                         FrameTimer.Value = 0;
                         if (_isMotionLoop) // モーションを繰り返す
                         {
@@ -130,7 +130,7 @@ namespace develop_common
             {
                 await UniTask.Yield(PlayerLoopTiming.Update);
                 nextStateInfo = Animator.GetNextAnimatorStateInfo(0);
-                Debug.Log("AA");
+                //Debug.Log("AA");
             }
 
             float animationLength = nextStateInfo.length;
@@ -138,7 +138,7 @@ namespace develop_common
             TotalFrames = Mathf.RoundToInt(animationLength * FrameRate);
 
             // 次のモーションの終了フレームレートを出力
-            Debug.Log("Total frames in the next state: " + TotalFrames);
+            //Debug.Log("Total frames in the next state: " + TotalFrames);
         }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace develop_common
             {
                 // 取得したAnimationClipからフレームレートを表示
                 AnimationClip clip = clipInfos[0].clip;
-                Debug.Log("Animation Clip: " + clip.name + " | Frame Rate: " + clip.frameRate);
+                //Debug.Log("Animation Clip: " + clip.name + " | Frame Rate: " + clip.frameRate);
                 rate = clip.frameRate;
             }
 

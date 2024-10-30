@@ -63,17 +63,17 @@ namespace develop_common
                 prefab.transform.parent = pointObject.transform;
 
             // ダメージの設定
-            if (prefab.TryGetComponent<DamageDealer>(out var dealer))
-            {
-                if (unit.TryGetComponent<IHealth>(out var health))
-                    dealer.AttackUnitType = health.UnitType;
+            //if (prefab.TryGetComponent<DamageDealer>(out var dealer))
+            //{
+            //    if (unit.TryGetComponent<IHealth>(out var health))
+            //        dealer.AttackUnitType = health.UnitType;
 
-                if (TryGetComponent<ActionDamageValue>(out var actionDamageValue))
-                {
-                    dealer.DamageValue.OverrideDamageValue(actionDamageValue.DamageValue);
-                    dealer.DamageValue.AttackerUnit = unit;
-                }
-            }
+            //    if (TryGetComponent<ActionDamageValue>(out var actionDamageValue))
+            //    {
+            //        dealer.DamageValue.OverrideDamageValue(actionDamageValue.DamageValue);
+            //        dealer.DamageValue.AttackerUnit = unit;
+            //    }
+            //}
 
             Destroy(prefab, data.DestroyTime);
         }

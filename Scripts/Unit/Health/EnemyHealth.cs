@@ -1,3 +1,4 @@
+using _develop_common;
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
@@ -24,15 +25,11 @@ namespace develop_common
         {
             _unitActionLoader.FrameFouceEvent += OnFrameFouceHandle;
         }
-        public void TakeDamage(DamageValue damageValue)
+        public void TakeDamage(HitCollider hitCollider, int totalDamage)
         {
+            CurrentHealth -= totalDamage;
 
-            CurrentHealth -= damageValue.Amount * damageValue.WeightDiff;
-
-            if (damageValue.DamageAction.TryGetComponent<ActionBase>(out var actionBase))
-                if (actionBase.ActionStart != null)
-                    if (_unitActionLoader != null)
-                        _unitActionLoader.LoadAction(damageValue.DamageAction);
+            _unitActionLoader.LoadAction(hitCollider.DamageAction);
 
             if (CurrentHealth <= 0)
             {

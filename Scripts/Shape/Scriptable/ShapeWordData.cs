@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace develop_common
 {
-    [CreateAssetMenu(menuName = "Shape / WordData")]
+    [CreateAssetMenu(menuName = "develop_common / WordData")]
     public class ShapeWordData : ScriptableObject
     {
         [Multiline]

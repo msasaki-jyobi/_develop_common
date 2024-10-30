@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using develop_tps;
+using SimuProject;
+using Cysharp.Threading.Tasks;
 
 namespace develop_common
 {
     public class UnitActionLoader : MonoBehaviour
     {
-        [SerializeField] private AnimatorStateController _stateController;
+        [SerializeField] private UnitComponents _unitComponents;
         public EUnitStatus UnitStatus;
 
         // Property
@@ -31,6 +33,10 @@ namespace develop_common
         private float _actionDelayTimer;
         private float _actionDelayTime = 0.1f;
 
+        // components
+        private AnimatorStateController _stateController;
+        private BattleDealer _attackDealer;
+
         // Event
         public event Action<ActionBase> PlayActionEvent;
         public event Action<ActionBase> FinishActionEvent;
@@ -39,16 +45,21 @@ namespace develop_common
         public event Action<string, int> StartAdditiveParameterEvent;
         public event Action<string, int> FinishAdditiveParameterEvent;
 
-        [SerializeField] private bool _isDebugLog;
+        public EUnitType UnitType;
 
         private void Start()
         {
+            _stateController = _unitComponents.AnimatorStateController;
+            _attackDealer = _unitComponents.AttackDealer;
+            if (TryGetComponent<IHealth>(out var health))
+                UnitType = health.UnitType;
+
             // Event Handle
             _stateController.FinishMotionEvent += FinishMotionEventHandle;
 
             // Frame 
             _stateController.FrameTimer
-                .Subscribe((x) =>
+                .Subscribe(async (x) =>
                 {
                     // FrameInfo動作用
                     if (_isExecuting)
@@ -60,15 +71,61 @@ namespace develop_common
                                     {
                                         frameInfo.IsComplete = true;
 
+                                        // 速度リセット
                                         if (frameInfo.IsResetVelocity)
                                             FrameResetVelocityEvent?.Invoke();
+                                        // 力を加える
                                         if (frameInfo.IsForce)
                                             FrameFouceEvent?.Invoke(frameInfo.FoucePower);
+                                        // Prefab生成
                                         if (frameInfo.IsPrefab)
                                             if (ActiveActionBase.ActionPrefabInfo != null)
                                                 ActiveActionBase.ActionPrefabInfo.CreatePrefab(frameInfo.PrefabNum, gameObject);
+                                        // 追加入力受付をON
                                         if (frameInfo.IsNextAction)
                                             IsNextAction = true;
+
+                                        // 攻撃判定をONにする
+                                        if (frameInfo.IsActiveAttack)
+                                        {
+                                            List<PullData> pulls = new List<PullData>();
+                                            if (ActiveActionBase.ActionPullData != null)
+                                                pulls = ActiveActionBase.ActionPullData.PullDatas;
+                                            //// 固定化情報を変更する
+                                            //if (frameInfo.IsPull)
+                                            //{
+                                            //    if (pulls.Count > frameInfo.PullNum + 1)
+                                            //    {
+                                            //        // 指定部位を基準に敵をコライダーに固定させるようにダメージ情報を変更する
+                                            //        ActiveActionBase.ActionActiveAttackBody.IsPull = true;
+                                            //        ActiveActionBase.ActionActiveAttackBody.PullData = pulls[frameInfo.PullNum];
+                                            //    }
+                                            //}
+
+                                            List<GameObject> changeActions = new List<GameObject>();
+                                            if (ActiveActionBase.ActionActiveAttackChange != null)
+                                                changeActions = ActiveActionBase.ActionActiveAttackChange.ChangeDamageActions;
+                                            //// ダメージ情報を変更する
+                                            //if (frameInfo.IsChangeDamage)
+                                            //{
+                                            //    if (changeActions.Count > frameInfo.ChangeDamageActionNum + 1)
+                                            //    {
+                                            //        // 技を変更する
+                                            //        ActiveActionBase.ActionActiveAttackBody.DamageAction = changeActions[frameInfo.ChangeDamageActionNum];
+                                            //    }
+                                            //}
+                                            LogManager.Instance.AddLog(gameObject, $"IsPull:{frameInfo.IsPull}, IsChangeDamage:{frameInfo.IsChangeDamage}", 1);
+                                            var actionActiveAttackBody = ActiveActionBase.ActionActiveAttackBody;
+                                            foreach (var attackBodyName in actionActiveAttackBody.AttackBodyNames)
+                                            {
+                                                _attackDealer.SetAttack
+                                                (attackBodyName,
+                                                actionActiveAttackBody.AttackLifeTime,
+                                                frameInfo.IsChangeDamage ? changeActions[frameInfo.ChangeDamageActionNum] : actionActiveAttackBody.DamageAction,
+                                                frameInfo.IsPull,
+                                                pulls.Count == 0 ? null : pulls[frameInfo.PullNum]);
+                                            }
+                                        }
                                     }
                     }
                 });
@@ -80,7 +137,7 @@ namespace develop_common
                 _actionDelayTimer -= Time.deltaTime;
 
             // 着地して攻撃すると、動けなくなるバグの臨時修正
-            if(_stateController.Frame.Value == 0 &&
+            if (_stateController.Frame.Value == 0 &&
                 _stateController.FrameRate == 0 &&
                 _stateController.TotalFrames == 0
                 //_stateController.FrameTimer.Value >= 0.5f
@@ -95,8 +152,7 @@ namespace develop_common
             // Delay Time Return
             //if (_actionDelayTimer > 0) return;
 
-            if (_isDebugLog)
-                Debug.Log($"GameObject:{gameObject.name} State: {stateName} 終了XXX");
+            //Debug.Log($"GameObject:{gameObject.name} State: {stateName} 終了XXX");
 
             if (ActiveActionBase != null)
                 if (ActiveActionBase.ActionStart.MotionName != stateName) return;
@@ -155,7 +211,7 @@ namespace develop_common
                     if (!actionBase.ActionRequirement.CheckExecute(this, key))
                         return;
 
-                Debug.Log($"実行!!. {gameObject.name} {actionObject.name}");
+                //Debug.Log($"実行!!. {gameObject.name} {actionObject.name}");
 
                 _stateController.Frame.Value = 0;
                 _stateController.FrameTimer.Value = 0;

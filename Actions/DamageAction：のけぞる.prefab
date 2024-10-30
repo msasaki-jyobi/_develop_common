@@ -10,14 +10,15 @@ GameObject:
   m_Component:
   - component: {fileID: 1964579485700207550}
   - component: {fileID: 5017441459642140199}
-  - component: {fileID: 8276063280196032279}
   - component: {fileID: -9094532401574635501}
   - component: {fileID: 4454726136892598134}
   - component: {fileID: 4257612234498888255}
   - component: {fileID: 6741626706195423436}
-  - component: {fileID: 5481746996292819022}
+  - component: {fileID: 6986013468331365574}
+  - component: {fileID: 1318679288756685457}
+  - component: {fileID: -1375330392209254722}
   m_Layer: 0
-  m_Name: "Action\uFF1AAttack Air"
+  m_Name: "DamageAction\uFF1A\u306E\u3051\u305E\u308B"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,33 +51,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458d7337e8ce6ff4f86d2423b88e6c92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActionRequirement: {fileID: 8276063280196032279}
+  ActionRequirement: {fileID: 0}
   ActionStart: {fileID: -9094532401574635501}
   ActionFrame: {fileID: 4257612234498888255}
   ActionFinish: {fileID: 4454726136892598134}
   ActionParent: {fileID: 0}
   ActionPrefabInfo: {fileID: 6741626706195423436}
-  ActionDamageValue: {fileID: 5481746996292819022}
-  ActionStartAdditiveParameter: {fileID: 0}
-  ActionFinishAdditiveParameter: {fileID: 0}
---- !u!114 &8276063280196032279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867914962149053577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6898e62c2fc62be46a96eec2aeba8107, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TriggerAction: {fileID: 0}
-  TriggerStatus: 0
-  IsWaitingForKey: 0
-  IsGround: 0
-  IsAir: 1
-  Key: 1
+  ActionActiveAttackBody: {fileID: 0}
+  ActionDamageData: {fileID: -1375330392209254722}
+  ActionStartAdditiveParameter: {fileID: 6986013468331365574}
+  ActionFinishAdditiveParameter: {fileID: 1318679288756685457}
 --- !u!114 &-9094532401574635501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,15 +73,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionName: KB_p_OneTwo
+  MotionName: Damage
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
-  SetStartStatus: 2
+  SetStartStatus: 1
   IsResetVelocity: 1
-  AnimatorLayer: 3
+  AnimatorLayer: 0
   WeightValue: 1
-  WeightTime: 0.7
+  WeightTime: 0.5
 --- !u!114 &4454726136892598134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SetFinishStatus: 0
-  NextActionData: {fileID: 0}
+  NextActionData: {fileID: 867914962149053577, guid: 82a4398abc8c7514f979cb8af49a9679,
+    type: 3}
 --- !u!114 &4257612234498888255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,13 +110,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrameInfo:
-  - PlayFrame: 12
+  - PlayFrame: 0
     IsResetVelocity: 0
     IsForce: 0
-    FoucePower: {x: 0, y: 0, z: 0}
-    IsPrefab: 1
+    FoucePower: {x: 0, y: 1, z: -2}
+    IsPrefab: 0
     PrefabNum: 0
     IsNextAction: 0
+    IsActiveAttack: 0
     IsComplete: 0
 --- !u!114 &6741626706195423436
 MonoBehaviour:
@@ -147,16 +133,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrefabDatas:
   - Title: 
-    Prefab: {fileID: 1294101409476956, guid: 231e3be01ac50c047bb16d07fd8d2ba5, type: 3}
+    Prefab: {fileID: 8866232049573502529, guid: 68d27f5a0c6d1b7468f8257bd65b904d,
+      type: 3}
     CreateSe: {fileID: 0}
     DestroyTime: 0.3
     LocalPosition: {x: 0, y: 1, z: 1}
     LocalEulerAngle: {x: 0, y: 45, z: 0}
     SetScale: {x: 1, y: 2, z: 1}
     LookType: 0
-    ParentType: 1
-    ParentKeyName: Hand
---- !u!114 &5481746996292819022
+    ParentType: 0
+    ParentKeyName: 
+--- !u!114 &6986013468331365574
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,26 +152,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 867914962149053577}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3577c668b3346e3408312df74be589f6, type: 3}
+  m_Script: {fileID: 11500000, guid: bb1ad53a2af5bad43a8aace237485c59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageValue:
-    IsCheckAttackMode: 0
-    AttackUnitLoader: {fileID: 0}
-    DamageUnitLoader: {fileID: 0}
-    AttackerUnit: {fileID: 0}
-    DamageAction: {fileID: 867914962149053577, guid: 6104cbc989f78644c8782b1273f03e60,
-      type: 3}
-    DeadAction: {fileID: 0}
-    Amount: 1
-    WeightDiff: 1
-    HitLimit: 4
-    UnitLimit: 5
-    HitSpanTime: 0.1
-    HitLimitResetTime: 6
-    HitEffect: {fileID: 0}
-    HitSE: {fileID: 0}
-    DestroyEffect: {fileID: 0}
-    DestroySE: {fileID: 0}
-    UnitHitDestroy: 0
-    ObjectHitDestroy: 0
+  StartAdditiveParameters:
+  - AdditiveParameterName: damage
+    AdditiveParameterValue: 1
+  - AdditiveParameterName: Kousoku
+    AdditiveParameterValue: 10
+--- !u!114 &1318679288756685457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867914962149053577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df177fa47c471ab43ab30be404b85a72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FinishAdditiveParameters:
+  - AdditiveParameterName: Sample
+    AdditiveParameterValue: 3
+  - AdditiveParameterName: Kousoku
+    AdditiveParameterValue: 10
+--- !u!114 &-1375330392209254722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867914962149053577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db6f45d21a1f5254b871647f4efee388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MotionDamage: 0
+  DeadAction: {fileID: 0}
+  DamageType: 1

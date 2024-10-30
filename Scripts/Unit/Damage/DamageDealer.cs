@@ -85,7 +85,7 @@ namespace develop_common
                     HitEffect(DamageValue.HitEffect);
 
                     // ダメージを与える
-                    health.TakeDamage(DamageValue);
+                    //health.TakeDamage(DamageValue);
 
                     // 追加ダメージハンドラ
                     OnDamageEvent?.Invoke(DamageValue, damageUnit.UnitObject, gameObject);

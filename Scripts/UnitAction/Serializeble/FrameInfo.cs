@@ -23,6 +23,15 @@ namespace develop_common
         public int PrefabNum;
         [Header("追加入力が可能になる")]
         public bool IsNextAction;
+        [Header("攻撃判定が発生する")]
+        public bool IsActiveAttack;
+        [Header("固定が発生する")]
+        public bool IsPull;
+        public int PullNum;
+        [Header("与えるダメージを変更する")]
+        public bool IsChangeDamage;
+        public int ChangeDamageActionNum;
+
 
         //[Header("オブジェクト生成")]
         //public List<PrefabData> Prefabs;
@@ -55,6 +64,16 @@ namespace develop_common
             this.PrefabNum = other.PrefabNum;
 
             this.IsNextAction = other.IsNextAction;
+
+            this.IsActiveAttack = other.IsActiveAttack;
+
+            this.IsPull = other.IsPull;
+            this.PullNum = other.PullNum;
+
+            this.IsChangeDamage = other.IsChangeDamage;
+            this.ChangeDamageActionNum = other.ChangeDamageActionNum;
+
+
 
 
 

@@ -20,23 +20,23 @@ namespace develop_common
 
         public void OnHit(GameObject hit)
         {
-            if (hit.TryGetComponent<UnitActionLoader>(out var hitActionLoader))
-            {
-                if (DamageAction.TryGetComponent<ActionBase>(out var actionBase))
-                {
-                    // ダメージ演出を実行する
-                    hitActionLoader.LoadAction(DamageAction);
+            //if (hit.TryGetComponent<UnitActionLoader>(out var hitActionLoader))
+            //{
+            //    if (DamageAction.TryGetComponent<ActionBase>(out var actionBase))
+            //    {
+            //        // ダメージ演出を実行する
+            //        hitActionLoader.LoadAction(DamageAction);
 
-                    var actionDamageValue = actionBase.ActionDamageValue;
-                    if (actionDamageValue != null)
-                    {
-                        var damageValue = actionDamageValue.DamageValue;
-                        // ダメージ量
-                        int damage = damageValue.Amount * damageValue.WeightDiff;
-                    }
+            //        var actionDamageValue = actionBase.ActionDamageValue;
+            //        if (actionDamageValue != null)
+            //        {
+            //            var damageValue = actionDamageValue.DamageValue;
+            //            // ダメージ量
+            //            int damage = damageValue.Amount * damageValue.WeightDiff;
+            //        }
 
-                }
-            }
+            //    }
+            //}
         }
     }
 

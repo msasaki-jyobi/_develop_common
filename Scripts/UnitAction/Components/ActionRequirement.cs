@@ -11,7 +11,7 @@ namespace develop_common
         None,       // 未定義の状態
     }
     [AddComponentMenu("ActionRequirement：条件")]
-    public class ActionRequirement : MonoBehaviour 
+    public class ActionRequirement : MonoBehaviour
     {
         [Header("条件：トリガーアクション")] // 再生するのに必要なトリガーアクション
         public GameObject TriggerAction;
@@ -34,7 +34,7 @@ namespace develop_common
         public bool CheckExecute(UnitActionLoader actionLoader, EInputReader key)
         {
             bool check = true;
-            string errorMessage = ""; 
+            string errorMessage = "";
 
             // トリガーアクションは実行されているか？
             if (TriggerAction != null)
@@ -58,20 +58,26 @@ namespace develop_common
             // 地面チェック
             if (IsGround)
                 if (actionLoader.TryGetComponent<UnitGround>(out var ground))
+                {
                     check = check && ground.CanJump;
+                    errorMessage += $", 地面に足がついていません.";
+                }
 
             // 空中チェック
             if (IsAir)
-                if(actionLoader.TryGetComponent<UnitGround>(out var ground))
-                        check = check && !ground.CanJump;
+                if (actionLoader.TryGetComponent<UnitGround>(out var ground))
+                {
+                    check = check && !ground.CanJump;
+                    errorMessage += $", 空中にいません.";
+                }
 
             // キーチェック
             if (Key != EInputReader.None)
                 check = check && Key == key;
 
             // Log
-            if(!check)
-                Debug.Log($"実行できません. {gameObject.name} {actionLoader.name}, {errorMessage}");
+            if (!check)
+                Debug.LogWarning($"実行できません. {gameObject.name} {actionLoader.name}, {errorMessage}");
 
             // True:実行可能 False:実行不可
             return check;
