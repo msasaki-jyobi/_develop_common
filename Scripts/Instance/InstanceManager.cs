@@ -26,7 +26,7 @@ namespace develop_common
             {
                 if (body.Key == keyName)
                 {
-                    var ef = GameObject.Instantiate(prefab, body.Value.transform.position, Quaternion.identity);
+                    var ef = Instantiate(prefab, body.Value.transform.position, Quaternion.identity);
                     Destroy(ef, destroyTime);
 
                 }
