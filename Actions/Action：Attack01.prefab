@@ -95,6 +95,9 @@ MonoBehaviour:
   IsStateReset: 1
   SetStartStatus: 1
   IsResetVelocity: 1
+  AnimatorLayer: 0
+  WeightValue: 1
+  WeightTime: 0.5
 --- !u!114 &4454726136892598134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FrameInfo:
   - PlayFrame: 12
-    IsResetVelocity: 0
+    IsResetVelocity: 1
     IsForce: 0
     FoucePower: {x: 0, y: 0, z: 0}
     IsPrefab: 1
@@ -186,7 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageValue:
     AttackerUnit: {fileID: 0}
-    DamageAction: {fileID: 867914962149053577, guid: 6104cbc989f78644c8782b1273f03e60,
+    DamageAction: {fileID: 867914962149053577, guid: 4b935b81edfa4c54081cef48ca1bdc4d,
       type: 3}
     DeadAction: {fileID: 0}
     Amount: 1

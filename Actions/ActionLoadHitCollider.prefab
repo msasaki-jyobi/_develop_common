@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5010530511612321821}
   - component: {fileID: 7575370849208195397}
   - component: {fileID: 4520008154436074741}
+  - component: {fileID: -5577630056290934014}
   m_Layer: 0
   m_Name: ActionLoadHitCollider
   m_TagString: Untagged
@@ -139,3 +140,30 @@ MonoBehaviour:
     ObjectHitDestroy: 0
   PlayerMaterial: {fileID: 2100000, guid: 3c2477dce69e34d488c8e52f38741c3a, type: 2}
   EnemyMaterial: {fileID: 2100000, guid: cdd0a5dcd6fd41f4d8c69e4dc93fa391, type: 2}
+--- !u!54 &-5577630056290934014
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8866232049573502529}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

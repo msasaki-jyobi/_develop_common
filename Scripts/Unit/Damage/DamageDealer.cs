@@ -71,8 +71,13 @@ namespace develop_common
 
                 if (damageUnit.UnitObject.TryGetComponent<IHealth>(out var health))
                 {
+                    LogManager.Instance.AddLog(gameObject, "ダメージ実行");
                     // 同じキャラクタ同士ならReturn
-                    if (health.UnitType == AttackUnitType) return;
+                    if (health.UnitType == AttackUnitType)
+                    {
+                        LogManager.Instance.AddLog(gameObject, "同じキャラクタ同士ならReturn");
+                        return;
+                    }
 
                     // ヒット可能
                     damageUnit.HitCount++; // 回数加算

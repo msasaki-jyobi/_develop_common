@@ -96,6 +96,9 @@ MonoBehaviour:
   IsStateReset: 1
   SetStartStatus: 2
   IsResetVelocity: 1
+  AnimatorLayer: 0
+  WeightValue: 1
+  WeightTime: 0.5
 --- !u!114 &4454726136892598134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageValue:
     AttackerUnit: {fileID: 0}
-    DamageAction: {fileID: 867914962149053577, guid: 6104cbc989f78644c8782b1273f03e60,
+    DamageAction: {fileID: 867914962149053577, guid: 8604ec616ea7a4046b738568b6e71acf,
       type: 3}
     DeadAction: {fileID: 0}
     Amount: 1

@@ -25,17 +25,16 @@ namespace develop_common
                 if (DamageAction.TryGetComponent<ActionBase>(out var actionBase))
                 {
                     // ダメージ演出を実行する
-                    if(actionBase.ActionDamageValue != null)
-                        hitActionLoader.LoadAction(DamageAction);
+                    hitActionLoader.LoadAction(DamageAction);
 
                     var actionDamageValue = actionBase.ActionDamageValue;
-                    if(actionDamageValue != null)
+                    if (actionDamageValue != null)
                     {
                         var damageValue = actionDamageValue.DamageValue;
                         // ダメージ量
                         int damage = damageValue.Amount * damageValue.WeightDiff;
                     }
-                    
+
                 }
             }
         }

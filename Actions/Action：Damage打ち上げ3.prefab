@@ -16,9 +16,8 @@ GameObject:
   - component: {fileID: 6741626706195423436}
   - component: {fileID: 6986013468331365574}
   - component: {fileID: 1318679288756685457}
-  - component: {fileID: -5589088101678744373}
   m_Layer: 0
-  m_Name: "Action\uFF1ADamage"
+  m_Name: "Action\uFF1ADamage\u6253\u3061\u4E0A\u30523"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +56,7 @@ MonoBehaviour:
   ActionFinish: {fileID: 4454726136892598134}
   ActionParent: {fileID: 0}
   ActionPrefabInfo: {fileID: 6741626706195423436}
-  ActionDamageValue: {fileID: -5589088101678744373}
+  ActionDamageValue: {fileID: 0}
   ActionStartAdditiveParameter: {fileID: 6986013468331365574}
   ActionFinishAdditiveParameter: {fileID: 1318679288756685457}
 --- !u!114 &-9094532401574635501
@@ -72,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionName: Damage
+  MotionName: "\u6253\u3061\u4E0A\u30523"
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
@@ -93,8 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6089b1ca23130ca4295a1b9c41cac0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SetFinishStatus: 0
-  NextActionData: {fileID: 867914962149053577, guid: 82a4398abc8c7514f979cb8af49a9679,
+  SetFinishStatus: 1
+  NextActionData: {fileID: 867914962149053577, guid: 115288da95848744f8dd3ede21189354,
     type: 3}
 --- !u!114 &4257612234498888255
 MonoBehaviour:
@@ -109,10 +108,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrameInfo:
-  - PlayFrame: 0
+  - PlayFrame: 1
     IsResetVelocity: 0
-    IsForce: 0
-    FoucePower: {x: 0, y: 1, z: -2}
+    IsForce: 1
+    FoucePower: {x: 0, y: 8, z: 0}
     IsPrefab: 0
     PrefabNum: 0
     IsNextAction: 0
@@ -175,31 +174,3 @@ MonoBehaviour:
     AdditiveParameterValue: 3
   - AdditiveParameterName: Kousoku
     AdditiveParameterValue: 10
---- !u!114 &-5589088101678744373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867914962149053577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3577c668b3346e3408312df74be589f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageValue:
-    AttackerUnit: {fileID: 0}
-    DamageAction: {fileID: 867914962149053577}
-    DeadAction: {fileID: 0}
-    Amount: 1
-    WeightDiff: 1
-    HitLimit: 1
-    UnitLimit: 5
-    HitSpanTime: 0.1
-    HitLimitResetTime: 6
-    HitEffect: {fileID: 0}
-    HitSE: {fileID: 0}
-    DestroyEffect: {fileID: 0}
-    DestroySE: {fileID: 0}
-    UnitHitDestroy: 0
-    ObjectHitDestroy: 0
