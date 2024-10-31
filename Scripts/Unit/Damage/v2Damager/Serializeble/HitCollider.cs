@@ -1,6 +1,4 @@
-﻿using Common.Unit;
-using develop_common;
-using Gamekit3D;
+﻿using develop_common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -124,7 +122,7 @@ namespace _develop_common
                     health.TakeDamage(this, totalDamage);
 
                     // 固定化ONの場合：ヒットしたユニットを固定化する
-                    if(damageUnit.UnitObject.TryGetComponent<UnitComponents>(out var unitComponents))
+                    if(damageUnit.UnitObject.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
                     {
                         var ran = UnityEngine.Random.Range(0, PullData.PullRots.Count);
                         unitComponents.PartAttachment.AttachTarget(transform, PullData.MotionName, rotationOffset: PullData.PullRots[ran]);

@@ -9,6 +9,7 @@ namespace develop_common
         public AnimatorStateController AnimatorStateController;
         public UnitActionLoader UnitActionLoader;
         public BattleDealer AttackDealer;
+        public PartAttachment PartAttachment;
         [Space(10)]
         public UnitInstance UnitInstance;
         public Animator UnitAvatar;
