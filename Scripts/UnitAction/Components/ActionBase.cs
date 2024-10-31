@@ -23,6 +23,8 @@ namespace develop_common
         [Space(10)]
         public ActionDamageData ActionDamageData;
         [Space(10)]
+        public ActionRePlay ActionRePlay;
+        [Space(10)]
         public ActionStartAdditiveParameter ActionStartAdditiveParameter;
         public ActionFinishAdditiveParameter ActionFinishAdditiveParameter;
 

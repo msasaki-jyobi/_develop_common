@@ -1,5 +1,7 @@
 using _develop_common;
 using Cysharp.Threading.Tasks;
+using develop_tps;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
@@ -16,9 +18,11 @@ namespace develop_common
     // PlayerHealth クラス
     public class PlayerHealth : MonoBehaviour, IHealth
     {
+        [SerializeField] private InputReader _inputReader;
         [SerializeField] private UnitComponents _unitComponents;
         [SerializeField] private Rigidbody _rigidBody;
         [SerializeField] private AnimatorStateController _animatorStateController;
+        public GameObject GetUpAction;
 
         [SerializeField]
         private EUnitType _unitType = EUnitType.Player;
@@ -32,37 +36,56 @@ namespace develop_common
         private void Start()
         {
             _unitComponents.UnitActionLoader.FrameFouceEvent += OnFrameFouceHandle;
+            _inputReader.PrimaryActionCrossEvent += OnCrossHandle;
+        }
+
+        private async void OnCrossHandle(bool arg1, EInputReader reader)
+        {
+            if (_unitComponents.PartAttachment.IsPull)
+            {
+                _unitComponents.PartAttachment.SetEntityParent();
+                await UniTask.Delay(1);
+                _unitComponents.PartAttachment.SetEntityParent(); // なぜかここでも呼ばないと親オブジェクト解除されない
+                _rigidBody.isKinematic = false;
+                // 角度を修正
+                Vector3 rot = transform.rotation.eulerAngles;
+                transform.rotation = Quaternion.Euler(0, rot.y, 0);
+                // 起き上がりモーションを実行
+                _unitComponents.UnitActionLoader.LoadAction(GetUpAction);
+            }
         }
 
         public async void TakeDamage(HitCollider hitCollider, int totalDamage)
         {
             CurrentHealth -= totalDamage;
 
-            // ダメージモーション関連
-            if(!hitCollider.IsPull)
+            if (!hitCollider.IsPull) // 固定化モーション以外を再生の場合
             {
                 // Additiveを考慮する必要があるが、とりあえず引き離す必要がある吹き飛ばす
                 _rigidBody.isKinematic = false;
-                transform.parent = null;
-                Vector3 rot = transform.rotation.eulerAngles;
-                transform.rotation = Quaternion.Euler(0, rot.y, 0);
+                _unitComponents.PartAttachment.SetEntityParent();
+                //Vector3 rot = transform.rotation.eulerAngles;
+                //transform.rotation = Quaternion.Euler(0, rot.y, 0);
 
-                // モーション再生を確定
+                // グラップモーションの場合　座標と回転値を考慮する必要がある　or グラップモーションをPullとして扱う
 
                 // ノーマルモーション・グラップモーションを再生
                 _unitComponents.UnitActionLoader.LoadAction(hitCollider.DamageAction);
-                // Additiveモーションを再生
+                // Additiveモーションを再生パターン
 
             }
-            else // 固定化モーションを再生
+            else // 固定化モーションを再生の場合
             {
-                _rigidBody.isKinematic = true;
-                _unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Executing;
-                _unitComponents.AnimatorStateController.StatePlay(hitCollider.PullData.MotionName, EStatePlayType.Loop, true);
-
-                // 仮実装：モーション終了時にすること Ready, Kinematic:False
-                //await UniTask.Delay(2000);
-                //_unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Ready;
+                if(!_unitComponents.PartAttachment.IsPull)
+                {
+                    _rigidBody.isKinematic = true;
+                    _unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Executing;
+                    _unitComponents.AnimatorStateController.StatePlay(hitCollider.PullData.MotionName, EStatePlayType.SinglePlay, true);
+                }
+                else // すでに固定化済み
+                {
+                    _animatorStateController.AnimatorLayerPlay(1, "Additive1", 0);
+                }
 
             }
 

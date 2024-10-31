@@ -57,6 +57,9 @@ MonoBehaviour:
   ActionParent: {fileID: 0}
   ActionPrefabInfo: {fileID: 6741626706195423436}
   ActionActiveAttackBody: {fileID: -5726963625329531833}
+  ActionActiveAttackChange: {fileID: 0}
+  ActionPullData: {fileID: 0}
+  ActionDamageData: {fileID: 0}
   ActionStartAdditiveParameter: {fileID: 0}
   ActionFinishAdditiveParameter: {fileID: 0}
 --- !u!114 &8276063280196032279
@@ -111,7 +114,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SetFinishStatus: 0
-  NextActionData: {fileID: 0}
+  NextActionData: {fileID: 867914962149053577, guid: 44e3377b856aa484c86343476b9b6282,
+    type: 3}
 --- !u!114 &4257612234498888255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,6 +137,10 @@ MonoBehaviour:
     PrefabNum: 0
     IsNextAction: 0
     IsActiveAttack: 1
+    IsPull: 0
+    PullNum: 0
+    IsChangeDamage: 0
+    ChangeDamageActionNum: 0
     IsComplete: 0
 --- !u!114 &6741626706195423436
 MonoBehaviour:
@@ -173,5 +181,10 @@ MonoBehaviour:
   - Hand
   - Weapon
   AttackLifeTime: 1
-  DamageAction: {fileID: 867914962149053577, guid: 4b935b81edfa4c54081cef48ca1bdc4d,
+  DamageAction: {fileID: 867914962149053577, guid: 6104cbc989f78644c8782b1273f03e60,
     type: 3}
+  IsPull: 0
+  PullData:
+    MotionName: 
+    BodyKeyName: 
+    PullRots: []

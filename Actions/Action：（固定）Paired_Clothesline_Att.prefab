@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -2291968907792028403}
   - component: {fileID: 3301496032097347289}
   m_Layer: 0
-  m_Name: "Action\uFF1A2Hand-Sword-Attack9(\u56FA\u5B9A\u30FB\u5909\u66F4)"
+  m_Name: "Action\uFF1A\uFF08\u56FA\u5B9A\uFF09Paired_Clothesline_Att"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionName: 2Hand-Sword-Attack9
+  MotionName: Paired_Clothesline_Att
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
@@ -124,19 +124,6 @@ MonoBehaviour:
     IsChangeDamage: 0
     ChangeDamageActionNum: 0
     IsComplete: 0
-  - PlayFrame: 30
-    IsResetVelocity: 0
-    IsForce: 0
-    FoucePower: {x: 0, y: 0, z: 0}
-    IsPrefab: 1
-    PrefabNum: 0
-    IsNextAction: 0
-    IsActiveAttack: 1
-    IsPull: 0
-    PullNum: 0
-    IsChangeDamage: 1
-    ChangeDamageActionNum: 0
-    IsComplete: 0
 --- !u!114 &6741626706195423436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,15 +160,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackBodyNames:
-  - Hand
-  - Weapon
+  - Root
   AttackLifeTime: 1
-  DamageAction: {fileID: 867914962149053577, guid: 8604ec616ea7a4046b738568b6e71acf,
+  DamageAction: {fileID: 867914962149053577, guid: 6104cbc989f78644c8782b1273f03e60,
     type: 3}
   IsPull: 1
   PullData:
-    MotionName: 
-    BodyKeyName: 
+    MotionName: Paired_Clothesline_Vic
+    BodyKeyName: Root
+    PullPos: {x: 0, y: 0, z: 0}
     PullRots:
     - {x: 0, y: 0, z: 0}
 --- !u!114 &-2291968907792028403
@@ -197,8 +184,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PullDatas:
-  - MotionName: Dead
-    BodyKeyName: Leg
+  - MotionName: Paired_Clothesline_Vic
+    BodyKeyName: Root
+    PullPos: {x: 0, y: 0, z: -1}
     PullRots:
     - {x: 0, y: 0, z: 0}
 --- !u!114 &3301496032097347289

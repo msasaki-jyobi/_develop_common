@@ -38,6 +38,8 @@ namespace _develop_common
         public bool IsPull;
         [Header("自動設定：Pull情報")]
         public PullData PullData;
+        [Header("自動設定：ActionLoader")]
+        public UnitActionLoader AttakerActionLoader;
 
 
         // 触れたオブジェクトのダメージ管理
@@ -119,26 +121,44 @@ namespace _develop_common
                 check = check && damageUnit.HitTimer >= 0; // ヒットタイマーがリセットされていない
                 if (!check) return;
 
-                // ヒット可能
-                damageUnit.HitCount++; // 回数加算
-                damageUnit.HitTimer = DamageData.HitSpanTime; // ダメージ間隔を上書き
+                // エフェクト再生
                 HitEffect(DamageData.HitEffect);
 
                 if (DamageAction.TryGetComponent<ActionBase>(out var actionBase))
                 {
-                    int totalDamage = DamageWeight * actionBase.ActionDamageData.MotionDamage;
-                    // ダメージを与える
-                    health.TakeDamage(this, totalDamage);
-
-                    if(IsPull)
+                    // 即切り替えアクションがあるか？
+                    var replay = actionBase.ActionRePlay;
+                    GameObject replayAction = null;
+                    if (replay != null)
+                        replayAction = replay.RePlayAction;
+                    if(replayAction != null && AttakerActionLoader != null)
                     {
-                        // 固定化ONの場合：ヒットしたユニットを固定化する
-                        if (damageUnit.UnitObject.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
+                        AttakerActionLoader.LoadAction(replayAction);
+                    }
+                    else
+                    {
+                        // ヒット可能
+                        damageUnit.HitCount++; // 回数加算
+                        damageUnit.HitTimer = DamageData.HitSpanTime; // ダメージ間隔を上書き
+
+                        int totalDamage = DamageWeight * actionBase.ActionDamageData.MotionDamage;
+                        // ダメージを与える
+                        health.TakeDamage(this, totalDamage);
+
+                        if (IsPull) // 固定化ONの場合
                         {
-                            var ran = UnityEngine.Random.Range(0, PullData.PullRots.Count);
-                            unitComponents.PartAttachment.AttachTarget(transform, PullData.BodyKeyName, rotationOffset: PullData.PullRots[ran]);
+                            if (damageUnit.UnitObject.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
+                            {
+                                var ran = UnityEngine.Random.Range(0, PullData.PullRots.Count);
+                                var pos = PullData.PullPos;
+                                unitComponents.PartAttachment.AttachTarget
+                                    (transform, PullData.BodyKeyName,
+                                    positionOffset: pos, rotationOffset: PullData.PullRots[ran]);
+                            }
                         }
                     }
+
+
                 }
             }
            
