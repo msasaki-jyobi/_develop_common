@@ -1,4 +1,5 @@
 using _develop_common;
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
@@ -33,13 +34,19 @@ namespace develop_common
             _unitComponents.UnitActionLoader.FrameFouceEvent += OnFrameFouceHandle;
         }
 
-        public void TakeDamage(HitCollider hitCollider, int totalDamage)
+        public async void TakeDamage(HitCollider hitCollider, int totalDamage)
         {
             CurrentHealth -= totalDamage;
 
             // ダメージモーション関連
             if(!hitCollider.IsPull)
             {
+                // Additiveを考慮する必要があるが、とりあえず引き離す必要がある吹き飛ばす
+                _rigidBody.isKinematic = false;
+                transform.parent = null;
+                Vector3 rot = transform.rotation.eulerAngles;
+                transform.rotation = Quaternion.Euler(0, rot.y, 0);
+
                 // モーション再生を確定
 
                 // ノーマルモーション・グラップモーションを再生
@@ -49,8 +56,14 @@ namespace develop_common
             }
             else // 固定化モーションを再生
             {
+                _rigidBody.isKinematic = true;
                 _unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Executing;
-                _unitComponents.AnimatorStateController.StatePlay("", EStatePlayType.Loop, true);
+                _unitComponents.AnimatorStateController.StatePlay(hitCollider.PullData.MotionName, EStatePlayType.Loop, true);
+
+                // 仮実装：モーション終了時にすること Ready, Kinematic:False
+                //await UniTask.Delay(2000);
+                //_unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Ready;
+
             }
 
             var unitShape = _unitComponents.UnitShape;

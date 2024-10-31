@@ -41,26 +41,36 @@ namespace develop_common
             // Position
             Vector3 pos = pointObject.transform.position + lookPos;
 
+            GameObject prefab = null;
+            if(data.Prefab != null)
             // Instantiate
-            GameObject prefab = Instantiate(data.Prefab, pos, Quaternion.identity);
+                prefab = Instantiate(data.Prefab, pos, Quaternion.identity);
 
             // Rotation
             GameObject rotOrigin = gameObject;
             if (data.LookType == ELookType.Camera) // カメラならカメラの向きに依存
                 rotOrigin = Camera.main.gameObject;
             Vector3 rot = rotOrigin.transform.localEulerAngles + data.LocalEulerAngle;
-            prefab.transform.rotation = Quaternion.Euler(rot);
+            
 
-            // Scale
-            if (data.SetScale != Vector3.zero)
-                prefab.transform.localScale = data.SetScale;
+   
 
             // 効果音再生
             AudioManager.Instance.PlayOneShot(data.CreateSe, EAudioType.Se);
 
-            // Parent
-            if (data.ParentType == EParentType.SetParent) // Parent
-                prefab.transform.parent = pointObject.transform;
+            if(prefab != null)
+            {
+                prefab.transform.rotation = Quaternion.Euler(rot);
+                // Scale
+                if (data.SetScale != Vector3.zero)
+                    prefab.transform.localScale = data.SetScale;
+                // Parent
+                if (data.ParentType == EParentType.SetParent) // Parent
+                    prefab.transform.parent = pointObject.transform;
+
+                Destroy(prefab, data.DestroyTime);
+
+            }
 
             // ダメージの設定
             //if (prefab.TryGetComponent<DamageDealer>(out var dealer))
@@ -75,7 +85,6 @@ namespace develop_common
             //    }
             //}
 
-            Destroy(prefab, data.DestroyTime);
         }
     }
 }

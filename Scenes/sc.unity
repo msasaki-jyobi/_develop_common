@@ -177,6 +177,12 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8528152861632340492, guid: 93c5d5c5cb268994ab52e6e3e5a9b351, type: 3}
+--- !u!1 &77569855 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2686890238580948208, guid: 7856c197eb4c77840878eba92e1c48b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 334934777}
+  m_PrefabAsset: {fileID: 0}
 --- !u!64 &92402693
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -409,7 +415,8 @@ MonoBehaviour:
   DamageWeight: 3
   DamageData: {fileID: 11400000, guid: b8d9cc1c882744c48b751b52f8b18bf7, type: 2}
   AttackerUnitType: 0
-  IsAttack: 0
+  IsAttack:
+    value: 0
   AttackLifeTime: 0
   DamageAction: {fileID: 0}
   IsPull: 0
@@ -1042,7 +1049,8 @@ MonoBehaviour:
   DamageWeight: 5
   DamageData: {fileID: 11400000, guid: c5515f08b3bd6f640a94e40a7e1e58c8, type: 2}
   AttackerUnitType: 0
-  IsAttack: 0
+  IsAttack:
+    value: 0
   AttackLifeTime: 100000000
   DamageAction: {fileID: 0}
   IsPull: 0
@@ -1576,10 +1584,8 @@ MonoBehaviour:
   PartToAttach: {fileID: 0}
   TargetObject: {fileID: 0}
   BodyTargets:
-  - m_key: 
-    m_value: {fileID: 0}
-  - m_key: 
-    m_value: {fileID: 0}
+  - m_key: Leg
+    m_value: {fileID: 77569855}
   PositionOffset: {x: 0, y: 0, z: 0}
   RotationOffset: {x: 0, y: 0, z: 0}
   IsDebugK: 0
@@ -2394,7 +2400,7 @@ Transform:
   m_GameObject: {fileID: 522066315}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22.194944, y: 0.7816179, z: -23.471954}
+  m_LocalPosition: {x: 16.084213, y: 0.7816179, z: -22.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2973,7 +2979,7 @@ GameObject:
   - component: {fileID: 680506956}
   - component: {fileID: 680506944}
   - component: {fileID: 680506951}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Unit
   m_Icon: {fileID: 0}
@@ -2989,7 +2995,7 @@ Transform:
   m_GameObject: {fileID: 680506942}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22.000732, y: 0, z: -20.111954}
+  m_LocalPosition: {x: 15.89, y: 0, z: -18.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3222,6 +3228,7 @@ MonoBehaviour:
   AnimatorStateController: {fileID: 680506945}
   UnitActionLoader: {fileID: 680506948}
   AttackDealer: {fileID: 680506956}
+  PartAttachment: {fileID: 334934782}
   UnitInstance: {fileID: 334934780}
   UnitAvatar: {fileID: 334934781}
   UnitVoice: {fileID: 0}
@@ -3308,7 +3315,8 @@ MonoBehaviour:
   DamageWeight: 5
   DamageData: {fileID: 11400000, guid: c5515f08b3bd6f640a94e40a7e1e58c8, type: 2}
   AttackerUnitType: 0
-  IsAttack: 0
+  IsAttack:
+    value: 0
   AttackLifeTime: 0
   DamageAction: {fileID: 0}
   IsPull: 0
@@ -4900,7 +4908,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926e01caf39fb244da994609a4ade2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _size: 0.1
 --- !u!1 &1056874176
 GameObject:
   m_ObjectHideFlags: 0
@@ -6471,7 +6478,8 @@ MonoBehaviour:
   DamageWeight: 1
   DamageData: {fileID: 11400000, guid: 81f11c84215a3d7469d53d625965f058, type: 2}
   AttackerUnitType: 0
-  IsAttack: 0
+  IsAttack:
+    value: 0
   AttackLifeTime: 0
   DamageAction: {fileID: 0}
   IsPull: 0
@@ -7496,7 +7504,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926e01caf39fb244da994609a4ade2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _size: 1
 --- !u!1 &1766395357
 GameObject:
   m_ObjectHideFlags: 0
@@ -7605,9 +7612,9 @@ GameObject:
   - component: {fileID: 1829743674}
   - component: {fileID: 1829743666}
   - component: {fileID: 1829743672}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy(SandBack)
-  m_TagString: Player
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7827,6 +7834,7 @@ MonoBehaviour:
   AnimatorStateController: {fileID: 1829743668}
   UnitActionLoader: {fileID: 1829743667}
   AttackDealer: {fileID: 1829743672}
+  PartAttachment: {fileID: 0}
   UnitInstance: {fileID: 1805876707}
   UnitAvatar: {fileID: 1805876706}
   UnitVoice: {fileID: 0}
@@ -8900,7 +8908,7 @@ Transform:
   m_GameObject: {fileID: 2056411773}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0221813, y: -0.025893824, z: -0.00057380367, w: -0.99941844}
-  m_LocalPosition: {x: 22.194944, y: 0.7816179, z: -23.471954}
+  m_LocalPosition: {x: 16.084213, y: 0.7816179, z: -22.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 //using DamageValue = develop_common.DamageValue;
 
@@ -28,7 +29,7 @@ namespace _develop_common
         [Header("自動設定：攻撃者タイプ")]
         public develop_common.EUnitType AttackerUnitType;
         [Header("自動設定：攻撃判定")]
-        public bool IsAttack;
+        public ReactiveProperty<bool> IsAttack = new ReactiveProperty<bool>();
         [Header("自動設定：攻撃判定時間")]
         public float AttackLifeTime;
         [Header("自動設定：ダメージアクション")]
@@ -59,10 +60,17 @@ namespace _develop_common
 
         // 変数
         // ダメージが発生するHitColliderリスト string:EDamageMode
-
+        private void Start()
+        {
+            IsAttack
+                .Subscribe((x) => 
+                {
+                    _damageUnits.Clear();
+                });
+        }
         private void Update()
         {
-            IsAttack = AttackLifeTime > 0;
+            IsAttack.Value = AttackLifeTime > 0;
             if (AttackLifeTime > 0)
                 AttackLifeTime -= Time.deltaTime;
 
@@ -70,19 +78,20 @@ namespace _develop_common
             HitTimeSubtraction();
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnCollisionStay(Collision collision)
         {
             OnHit(collision.gameObject);
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerStay(Collider other)
         {
             OnHit(other.gameObject);
         }
 
         public void OnHit(GameObject hit)
         {
-            if (!IsAttack) return;
+            LogManager.Instance.AddLog(hit.gameObject, $"${gameObject.name} Damage0:{IsAttack.Value}, {AttackLifeTime}");
+            if (!IsAttack.Value) return;
 
             // HitCheckを行う
             bool check = true;
@@ -121,11 +130,14 @@ namespace _develop_common
                     // ダメージを与える
                     health.TakeDamage(this, totalDamage);
 
-                    // 固定化ONの場合：ヒットしたユニットを固定化する
-                    if(damageUnit.UnitObject.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
+                    if(IsPull)
                     {
-                        var ran = UnityEngine.Random.Range(0, PullData.PullRots.Count);
-                        unitComponents.PartAttachment.AttachTarget(transform, PullData.MotionName, rotationOffset: PullData.PullRots[ran]);
+                        // 固定化ONの場合：ヒットしたユニットを固定化する
+                        if (damageUnit.UnitObject.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
+                        {
+                            var ran = UnityEngine.Random.Range(0, PullData.PullRots.Count);
+                            unitComponents.PartAttachment.AttachTarget(transform, PullData.BodyKeyName, rotationOffset: PullData.PullRots[ran]);
+                        }
                     }
                 }
             }
@@ -196,33 +208,33 @@ namespace _develop_common
             AudioManager.Instance.PlayOneShotClipData(DamageData.HitSE);
         }
 
-        protected virtual bool OnReturnCheck(GameObject hit)
-        {
-            bool check = true;
-            // ダメージ回数などキャラクター情報を確認
-            DamageUnit damageUnit = CheckDamageInfos(hit);
+        //protected virtual bool OnReturnCheck(GameObject hit)
+        //{
+        //    bool check = true;
+        //    // ダメージ回数などキャラクター情報を確認
+        //    DamageUnit damageUnit = CheckDamageInfos(hit);
 
-            // オブジェクトに触れたら消える場合
-            if (DamageData.ObjectHitOff)
-            {
-                // タグがユニットじゃないならReturn
-                check = check && !hit.gameObject.CompareTag(_unitTagName);
-                if (!check)
-                {
-                    // Effect
-                    Destroy(gameObject);
-                    HitEffect(DamageData.DestroyEffect);
-                }
-            }
+        //    // オブジェクトに触れたら消える場合
+        //    if (DamageData.ObjectHitOff)
+        //    {
+        //        // タグがユニットじゃないならReturn
+        //        check = check && !hit.gameObject.CompareTag(_unitTagName);
+        //        if (!check)
+        //        {
+        //            // Effect
+        //            Destroy(gameObject);
+        //            HitEffect(DamageData.DestroyEffect);
+        //        }
+        //    }
 
-            if (damageUnit.TryGetComponent<IHealth>(out var health))
-                check = check && health.UnitType == AttackerUnitType; // 同じキャラクター同士
-            check = check && damageUnit.HitCount >= DamageData.UnitLimit; // 上限超えてたらReturn
-            check = check && damageUnit.HitTimer <= 0; // ヒットタイマーがリセットされていない
+        //    if (damageUnit.UnitObject.TryGetComponent<IHealth>(out var health))
+        //        check = check && health.UnitType == AttackerUnitType; // 同じキャラクター同士
+        //    check = check && damageUnit.HitCount >= DamageData.UnitLimit; // 上限超えてたらReturn
+        //    check = check && damageUnit.HitTimer <= 0; // ヒットタイマーがリセットされていない
 
 
-            return check;
-        }
+        //    return check;
+        //}
     }
 
 }

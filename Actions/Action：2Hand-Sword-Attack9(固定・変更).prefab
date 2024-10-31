@@ -124,7 +124,7 @@ MonoBehaviour:
     IsChangeDamage: 0
     ChangeDamageActionNum: 0
     IsComplete: 0
-  - PlayFrame: 14
+  - PlayFrame: 30
     IsResetVelocity: 0
     IsForce: 0
     FoucePower: {x: 0, y: 0, z: 0}
@@ -132,7 +132,7 @@ MonoBehaviour:
     PrefabNum: 0
     IsNextAction: 0
     IsActiveAttack: 1
-    IsPull: 1
+    IsPull: 0
     PullNum: 0
     IsChangeDamage: 1
     ChangeDamageActionNum: 0
