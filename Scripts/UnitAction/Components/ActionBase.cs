@@ -14,15 +14,9 @@ namespace develop_common
         [Space(10)]
         public ActionFinish ActionFinish;
         [Space(10)]
-        public ActionParent ActionParent;
-        public ActionPrefabInfo ActionPrefabInfo;
-        [Space(10)]
-        public ActionActiveAttackBody ActionActiveAttackBody;
-        public ActionActiveAttackChange ActionActiveAttackChange;
-        public ActionPullData ActionPullData;
-        [Space(10)]
         public ActionDamageData ActionDamageData;
         [Space(10)]
+        public ActionGrap ActionGrap;
         public ActionRePlay ActionRePlay;
         [Space(10)]
         public ActionStartAdditiveParameter ActionStartAdditiveParameter;

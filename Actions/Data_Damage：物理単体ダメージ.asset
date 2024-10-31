@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e38508d30d2d4a4186d9bd97ef50543, type: 3}
-  m_Name: "\u7269\u7406\u5358\u4F53\u30C0\u30E1\u30FC\u30B8"
+  m_Name: "Data_Damage\uFF1A\u7269\u7406\u5358\u4F53\u30C0\u30E1\u30FC\u30B8"
   m_EditorClassIdentifier: 
   HitLimit: 77
   UnitLimit: 5

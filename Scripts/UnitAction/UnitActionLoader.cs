@@ -70,26 +70,27 @@ namespace develop_common
                                     {
                                         frameInfo.IsComplete = true;
 
-                                        // 速度リセット
-                                        if (frameInfo.IsResetVelocity)
-                                            FrameResetVelocityEvent?.Invoke();
-                                        // 力を加える
-                                        if (frameInfo.IsForce)
-                                            FrameFouceEvent?.Invoke(frameInfo.FoucePower);
-                                        // Prefab生成
-                                        if (frameInfo.IsPrefab)
-                                            if (ActiveActionBase.ActionPrefabInfo != null)
-                                                ActiveActionBase.ActionPrefabInfo.CreatePrefab(frameInfo.PrefabNum, gameObject);
-                                        // 追加入力受付をON
-                                        if (frameInfo.IsNextAction)
-                                            IsNextAction = true;
-
-                                        // 攻撃判定をONにする
-                                        if (frameInfo.IsActiveAttack)
+                                        if (frameInfo.NormalData != null)
                                         {
-                                            List<PullData> pulls = new List<PullData>();
-                                            if (ActiveActionBase.ActionPullData != null)
-                                                pulls = ActiveActionBase.ActionPullData.PullDatas;
+                                            if (frameInfo.NormalData.IsResetVelocity) // 速度リセット
+                                                FrameResetVelocityEvent?.Invoke();
+
+                                            if (frameInfo.NormalData.IsForce)　// 力を加える
+                                                FrameFouceEvent?.Invoke(frameInfo.NormalData.ForcePower);
+
+                                            if (frameInfo.NormalData.IsKey)　// 追加入力受付をON
+                                                IsNextAction = true;
+                                        }
+
+                                        if (frameInfo.PrefabData != null) // Prefab生成
+                                            CreatePrefab(frameInfo.PrefabData, gameObject);
+
+                                        if (frameInfo.ActiveAttackData != null) // Task:攻撃判定をONにする
+                                        {
+                                            // Pull
+                                            //List<PullData> pulls = new List<PullData>();
+                                            //if (frameInfo.PullData != null)
+                                            //    pulls = frameInfo.PullData.PullDatas;
                                             //// 固定化情報を変更する
                                             //if (frameInfo.IsPull)
                                             //{
@@ -101,9 +102,11 @@ namespace develop_common
                                             //    }
                                             //}
 
-                                            List<GameObject> changeActions = new List<GameObject>();
-                                            if (ActiveActionBase.ActionActiveAttackChange != null)
-                                                changeActions = ActiveActionBase.ActionActiveAttackChange.ChangeDamageActions;
+                                            // ActionChange
+                                            //List<GameObject> changeActions = new List<GameObject>();
+                                            //if (frameInfo.ActiveAttackData != null)
+                                            //    changeActions = frameInfo.AttackChangeData.ChangeDamageActions;
+
                                             //// ダメージ情報を変更する
                                             //if (frameInfo.IsChangeDamage)
                                             //{
@@ -113,16 +116,17 @@ namespace develop_common
                                             //        ActiveActionBase.ActionActiveAttackBody.DamageAction = changeActions[frameInfo.ChangeDamageActionNum];
                                             //    }
                                             //}
-                                            LogManager.Instance.AddLog(gameObject, $"IsPull:{frameInfo.IsPull}, IsChangeDamage:{frameInfo.IsChangeDamage}", 1);
-                                            var actionActiveAttackBody = ActiveActionBase.ActionActiveAttackBody;
-                                            foreach (var attackBodyName in actionActiveAttackBody.AttackBodyNames)
+
+                                            // AttackBodyName
+                                            //LogManager.Instance.AddLog(gameObject, $"IsPull:{frameInfo.IsPull}, IsChangeDamage:{frameInfo.IsChangeDamage}", 1);
+                                            foreach (var attackBodyName in frameInfo.ActiveAttackData.AttackBodyNames)
                                             {
                                                 _attackDealer.SetAttack
                                                 (attackBodyName,
-                                                actionActiveAttackBody.AttackLifeTime,
-                                                frameInfo.IsChangeDamage ? changeActions[frameInfo.ChangeDamageActionNum] : actionActiveAttackBody.DamageAction,
-                                                frameInfo.IsPull,
-                                                pulls.Count == 0 ? null : pulls[frameInfo.PullNum]);
+                                                frameInfo.ActiveAttackData.AttackLifeTime,
+                                                frameInfo.Attack_DamageData,
+                                                frameInfo.PullData != null,
+                                                frameInfo.PullData != null ? frameInfo.PullData.PullDatas : null);
                                             }
                                         }
                                     }
@@ -198,12 +202,12 @@ namespace develop_common
 
         }
 
-        public void LoadAction(GameObject actionObject, EInputReader key = EInputReader.None)
+        public void LoadAction(GameObject actionObject, EInputReader key = EInputReader.None, bool ignoreDelayTime = false)
         {
             if (actionObject.TryGetComponent<ActionBase>(out var actionBase))
             {
                 // Delay Time Return
-                if (_actionDelayTimer > 0) return;
+                if (!ignoreDelayTime && _actionDelayTimer > 0) return;
 
                 if (actionBase.ActionRequirement != null)
                     // アクションの条件チェック
@@ -265,6 +269,83 @@ namespace develop_common
         {
             if (status != EUnitStatus.None)
                 UnitStatus = status;
+
+        }
+
+        public async void CreatePrefab(FramePrefabData framePrefabData, GameObject unit)
+        {
+            //if (PrefabDatas.Count == 0) return;
+            //if (PrefabDatas.Count <= listIndex) return;
+
+            var data = framePrefabData.PrefabData;
+
+            // 生成するAttackPointの特定
+            GameObject pointObject = unit.gameObject;
+            if (data.ParentKeyName != "")
+                if (unit.TryGetComponent<UnitComponents>(out var unitComponents))
+                {
+                    var parent = unitComponents.UnitInstance.SearchObject(data.ParentKeyName);
+                    if (parent != null)
+                        pointObject = parent;
+                }
+            //// UnitBodyのアタックポイントを一つずつチェックして、一致するものをPointObjectに設定
+            //if (_unitStatus.UnitBodys.Count != 0) // count0ならオブジェクトを設定
+            //{
+            //    foreach (var unitBody in _unitStatus.UnitBodys)
+            //        if (data.BodyPoint == unitBody.BodyPoint)
+            //            pointObject = unitBody.BodyObject;
+            //}
+
+            // オブジェクトの向く方向を指定
+            Vector3 lookPos =
+            UtilityFunction.LocalLookPos(unit.gameObject.transform, data.LocalPosition);
+
+            // Position
+            Vector3 pos = pointObject.transform.position + lookPos;
+
+            GameObject prefab = null;
+            if (data.Prefab != null)
+                // Instantiate
+                prefab = Instantiate(data.Prefab, pos, Quaternion.identity);
+
+            // Rotation
+            GameObject rotOrigin = gameObject;
+            if (data.LookType == ELookType.Camera) // カメラならカメラの向きに依存
+                rotOrigin = Camera.main.gameObject;
+            Vector3 rot = rotOrigin.transform.localEulerAngles + data.LocalEulerAngle;
+
+
+
+
+            // 効果音再生
+            AudioManager.Instance.PlayOneShot(data.CreateSe, EAudioType.Se);
+
+            if (prefab != null)
+            {
+                prefab.transform.rotation = Quaternion.Euler(rot);
+                // Scale
+                if (data.SetScale != Vector3.zero)
+                    prefab.transform.localScale = data.SetScale;
+                // Parent
+                if (data.ParentType == EParentType.SetParent) // Parent
+                    prefab.transform.parent = pointObject.transform;
+
+                Destroy(prefab, data.DestroyTime);
+
+            }
+
+            // ダメージの設定
+            //if (prefab.TryGetComponent<DamageDealer>(out var dealer))
+            //{
+            //    if (unit.TryGetComponent<IHealth>(out var health))
+            //        dealer.AttackUnitType = health.UnitType;
+
+            //    if (TryGetComponent<ActionDamageValue>(out var actionDamageValue))
+            //    {
+            //        dealer.DamageValue.OverrideDamageValue(actionDamageValue.DamageValue);
+            //        dealer.DamageValue.AttackerUnit = unit;
+            //    }
+            //}
 
         }
     }

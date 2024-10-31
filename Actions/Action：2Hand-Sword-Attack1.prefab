@@ -14,8 +14,6 @@ GameObject:
   - component: {fileID: -9094532401574635501}
   - component: {fileID: 4454726136892598134}
   - component: {fileID: 4257612234498888255}
-  - component: {fileID: 6741626706195423436}
-  - component: {fileID: -5726963625329531833}
   m_Layer: 0
   m_Name: "Action\uFF1A2Hand-Sword-Attack1"
   m_TagString: Untagged
@@ -54,12 +52,8 @@ MonoBehaviour:
   ActionStart: {fileID: -9094532401574635501}
   ActionFrame: {fileID: 4257612234498888255}
   ActionFinish: {fileID: 4454726136892598134}
-  ActionParent: {fileID: 0}
-  ActionPrefabInfo: {fileID: 6741626706195423436}
-  ActionActiveAttackBody: {fileID: -5726963625329531833}
-  ActionActiveAttackChange: {fileID: 0}
-  ActionPullData: {fileID: 0}
   ActionDamageData: {fileID: 0}
+  ActionRePlay: {fileID: 0}
   ActionStartAdditiveParameter: {fileID: 0}
   ActionFinishAdditiveParameter: {fileID: 0}
 --- !u!114 &8276063280196032279
@@ -130,61 +124,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FrameInfo:
   - PlayFrame: 5
-    IsResetVelocity: 0
-    IsForce: 1
-    FoucePower: {x: 0, y: 3, z: 0}
-    IsPrefab: 1
-    PrefabNum: 0
-    IsNextAction: 0
-    IsActiveAttack: 1
-    IsPull: 0
-    PullNum: 0
-    IsChangeDamage: 0
-    ChangeDamageActionNum: 0
+    NormalData: {fileID: 11400000, guid: 9907c62d2c09d2a48849d526f7385b14, type: 2}
+    PrefabData: {fileID: 11400000, guid: 63daa595cc9466c44a4be8e167e0c9c4, type: 2}
+    Attack_DamageData: {fileID: 867914962149053577, guid: 6104cbc989f78644c8782b1273f03e60,
+      type: 3}
+    ActiveAttackData: {fileID: 11400000, guid: ea3eab3564c80534fb094fda5fd3c4b6, type: 2}
+    PullData: {fileID: 0}
+    AttackChange_DamageData: {fileID: 0}
     IsComplete: 0
---- !u!114 &6741626706195423436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867914962149053577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e283f7cdd946b7b40ae62b5ffdf4bee2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PrefabDatas:
-  - Title: 
-    Prefab: {fileID: 1294101409476956, guid: 231e3be01ac50c047bb16d07fd8d2ba5, type: 3}
-    CreateSe: {fileID: 0}
-    DestroyTime: 0.3
-    LocalPosition: {x: 0, y: 1, z: 1}
-    LocalEulerAngle: {x: 0, y: 45, z: 0}
-    SetScale: {x: 1, y: 2, z: 1}
-    LookType: 0
-    ParentType: 1
-    ParentKeyName: Hand
---- !u!114 &-5726963625329531833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867914962149053577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9536b60f7adbc642b71b8ca480caf07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackBodyNames:
-  - Hand
-  - Weapon
-  AttackLifeTime: 1
-  DamageAction: {fileID: 867914962149053577, guid: 6104cbc989f78644c8782b1273f03e60,
-    type: 3}
-  IsPull: 0
-  PullData:
-    MotionName: 
-    BodyKeyName: 
-    PullRots: []

@@ -25,11 +25,11 @@ namespace develop_common
         {
             _unitActionLoader.FrameFouceEvent += OnFrameFouceHandle;
         }
-        public void TakeDamage(HitCollider hitCollider, int totalDamage)
+        public void TakeDamage(GameObject damageAction, bool isPull, int totalDamage)
         {
             CurrentHealth -= totalDamage;
 
-            _unitActionLoader.LoadAction(hitCollider.DamageAction);
+            _unitActionLoader.LoadAction(damageAction);
 
             if (CurrentHealth <= 0)
             {

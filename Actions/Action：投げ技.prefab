@@ -13,10 +13,6 @@ GameObject:
   - component: {fileID: -9094532401574635501}
   - component: {fileID: 4454726136892598134}
   - component: {fileID: 4257612234498888255}
-  - component: {fileID: 6741626706195423436}
-  - component: {fileID: 525657341174040006}
-  - component: {fileID: -2291968907792028403}
-  - component: {fileID: 3301496032097347289}
   - component: {fileID: -4551261338203220581}
   m_Layer: 0
   m_Name: "Action\uFF1A\u6295\u3052\u6280"
@@ -56,12 +52,8 @@ MonoBehaviour:
   ActionStart: {fileID: -9094532401574635501}
   ActionFrame: {fileID: 4257612234498888255}
   ActionFinish: {fileID: 4454726136892598134}
-  ActionParent: {fileID: 0}
-  ActionPrefabInfo: {fileID: 6741626706195423436}
-  ActionActiveAttackBody: {fileID: 525657341174040006}
-  ActionActiveAttackChange: {fileID: 3301496032097347289}
-  ActionPullData: {fileID: -2291968907792028403}
   ActionDamageData: {fileID: 0}
+  ActionGrap: {fileID: 0}
   ActionRePlay: {fileID: -4551261338203220581}
   ActionStartAdditiveParameter: {fileID: 0}
   ActionFinishAdditiveParameter: {fileID: 0}
@@ -77,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionName: Paired_Clothesline_Att
+  MotionName: "\u3064\u304B\u3080"
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
@@ -114,97 +106,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FrameInfo:
   - PlayFrame: 1
-    IsResetVelocity: 0
-    IsForce: 0
-    FoucePower: {x: 0, y: 0, z: 0}
-    IsPrefab: 0
-    PrefabNum: 0
-    IsNextAction: 0
-    IsActiveAttack: 1
-    IsPull: 1
-    PullNum: 0
-    IsChangeDamage: 0
-    ChangeDamageActionNum: 0
+    NormalData: {fileID: 11400000, guid: 9907c62d2c09d2a48849d526f7385b14, type: 2}
+    PrefabData: {fileID: 0}
+    Attack_DamageData: {fileID: 867914962149053577, guid: 07e09739b13149c4da96c8eaa6759d32,
+      type: 3}
+    ActiveAttackData: {fileID: 11400000, guid: d706a210eeb4c31418047bada432d8f9, type: 2}
+    PullData: {fileID: 0}
     IsComplete: 0
---- !u!114 &6741626706195423436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867914962149053577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e283f7cdd946b7b40ae62b5ffdf4bee2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PrefabDatas:
-  - Title: 
-    Prefab: {fileID: 100004, guid: b46890100828db6429ff69c322b45893, type: 3}
-    CreateSe: {fileID: 0}
-    DestroyTime: 0.3
-    LocalPosition: {x: 0, y: 1, z: 1}
-    LocalEulerAngle: {x: 0, y: 45, z: 0}
-    SetScale: {x: 1, y: 2, z: 1}
-    LookType: 0
-    ParentType: 1
-    ParentKeyName: Hand
---- !u!114 &525657341174040006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867914962149053577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9536b60f7adbc642b71b8ca480caf07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackBodyNames:
-  - Root
-  AttackLifeTime: 1
-  DamageAction: {fileID: 867914962149053577, guid: 6104cbc989f78644c8782b1273f03e60,
-    type: 3}
-  IsPull: 1
-  PullData:
-    MotionName: Paired_Clothesline_Vic
-    BodyKeyName: Root
-    PullPos: {x: 0, y: 0, z: 0}
-    PullRots:
-    - {x: 0, y: 0, z: 0}
---- !u!114 &-2291968907792028403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867914962149053577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a72bb87a7410944eb15e20c99e909e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PullDatas:
-  - MotionName: Paired_Clothesline_Vic
-    BodyKeyName: Root
-    PullPos: {x: 0, y: 0, z: -1}
-    PullRots:
-    - {x: 0, y: 0, z: 0}
---- !u!114 &3301496032097347289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867914962149053577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03740d165c81a2240accb41f98dfc3ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ChangeDamageActions:
-  - {fileID: 867914962149053577, guid: 715b445faaefd384da0ef9deb0c4320e, type: 3}
 --- !u!114 &-4551261338203220581
 MonoBehaviour:
   m_ObjectHideFlags: 0

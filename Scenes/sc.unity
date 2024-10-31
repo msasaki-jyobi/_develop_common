@@ -324,6 +324,7 @@ MonoBehaviour:
     BodyKeyName: 
     PullPos: {x: 0, y: 0, z: 0}
     PullRots: []
+  AttakerActionLoader: {fileID: 0}
 --- !u!65 &74324585
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -810,6 +811,7 @@ MonoBehaviour:
     PullPos: {x: 0, y: 0, z: 0}
     PullRots:
     - {x: 0, y: 0, z: 0}
+  AttakerActionLoader: {fileID: 0}
 --- !u!65 &103092316
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2979,6 +2981,7 @@ MonoBehaviour:
     BodyKeyName: 
     PullPos: {x: 0, y: 0, z: 0}
     PullRots: []
+  AttakerActionLoader: {fileID: 0}
 --- !u!65 &447052342
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3926,7 +3929,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -3960,8 +3963,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 522066315}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.23733674, y: 0.17969011, z: -0.044118546, w: -0.95364374}
-  m_LocalPosition: {x: 3.0479405, y: 3.4525414, z: -4.5217857}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16.084213, y: 0.7816179, z: -22.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4988,6 +4991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e11a2487dba5987458071e72ac401c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UnitComponents: {fileID: 0}
   AttackBodyInfos: []
   AdditiveDamages:
   - Additive1
@@ -6476,6 +6480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926e01caf39fb244da994609a4ade2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _size: 1
 --- !u!1 &1056874176
 GameObject:
   m_ObjectHideFlags: 0
@@ -8465,6 +8470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e11a2487dba5987458071e72ac401c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UnitComponents: {fileID: 0}
   AttackBodyInfos:
   - AttackBodyName: 
     HitCollider: {fileID: 0}
@@ -8582,6 +8588,7 @@ MonoBehaviour:
     BodyKeyName: 
     PullPos: {x: 0, y: 0, z: 0}
     PullRots: []
+  AttakerActionLoader: {fileID: 0}
 --- !u!65 &1633232144
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9293,6 +9300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926e01caf39fb244da994609a4ade2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _size: 1
 --- !u!1 &1766395357
 GameObject:
   m_ObjectHideFlags: 0
@@ -9561,6 +9569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e11a2487dba5987458071e72ac401c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UnitComponents: {fileID: 0}
   AttackBodyInfos:
   - AttackBodyName: Weapon
     HitCollider: {fileID: 1633232143}
@@ -9589,7 +9598,8 @@ MonoBehaviour:
   - {fileID: 867914962149053577, guid: 44e3377b856aa484c86343476b9b6282, type: 3}
   _actionDataL1:
   - {fileID: 867914962149053577, guid: 34039bee83bbded4da6f7d49f180c0cb, type: 3}
-  _actionDataL2: []
+  _actionDataL2:
+  - {fileID: 867914962149053577, guid: 35daf91d7b2f008498532baa55a0528a, type: 3}
   _actionDataCross: []
   _actionDataSquare: []
   _actionDataTriangle: []

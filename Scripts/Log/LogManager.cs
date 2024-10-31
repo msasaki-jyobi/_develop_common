@@ -53,6 +53,27 @@ namespace develop_common
             _gameLogs.Add(gameLog);
         }
 
+        public void ConsoleLog(GameObject logObject, string log, int priority = 0)
+        {
+            // 機能OFFならReturn
+            if (!_isPlayLog) return;
+
+            // 表示優先度が低いならReturn
+            if (priority < _priority) return;
+
+            // 指定したオブジェクトだけログに追加する場合
+            if (_enableGameObjects.Count > 0)
+            {
+                bool check = false;
+                foreach (GameObject go in _enableGameObjects)
+                    if (go == logObject) check = true; // 一致オブジェクトなら進行
+                if (!check) return;
+            }
+
+            // Debug
+            Debug.Log($"Obj:{logObject} ::: ${log}");
+        }
+
     }
     [Serializable]
     public class GameLog

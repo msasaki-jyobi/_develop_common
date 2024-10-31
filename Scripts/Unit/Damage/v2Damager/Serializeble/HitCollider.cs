@@ -1,4 +1,7 @@
-﻿using develop_common;
+﻿using Common.Unit;
+using Cysharp.Threading.Tasks;
+using develop_common;
+using Gamekit3D;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -65,7 +68,7 @@ namespace _develop_common
         private void Start()
         {
             IsAttack
-                .Subscribe((x) => 
+                .Subscribe((x) =>
                 {
                     _damageUnits.Clear();
                 });
@@ -90,7 +93,7 @@ namespace _develop_common
             OnHit(other.gameObject);
         }
 
-        public void OnHit(GameObject hit)
+        public async void OnHit(GameObject hit)
         {
             LogManager.Instance.AddLog(hit.gameObject, $"${gameObject.name} Damage0:{IsAttack.Value}, {AttackLifeTime}");
             if (!IsAttack.Value) return;
@@ -123,45 +126,13 @@ namespace _develop_common
 
                 // エフェクト再生
                 HitEffect(DamageData.HitEffect);
+                // ヒット可能
+                damageUnit.HitCount++; // 回数加算
+                damageUnit.HitTimer = DamageData.HitSpanTime; // ダメージ間隔を上書き
 
-                if (DamageAction.TryGetComponent<ActionBase>(out var actionBase))
-                {
-                    // 即切り替えアクションがあるか？
-                    var replay = actionBase.ActionRePlay;
-                    GameObject replayAction = null;
-                    if (replay != null)
-                        replayAction = replay.RePlayAction;
-                    if(replayAction != null && AttakerActionLoader != null)
-                    {
-                        AttakerActionLoader.LoadAction(replayAction);
-                    }
-                    else
-                    {
-                        // ヒット可能
-                        damageUnit.HitCount++; // 回数加算
-                        damageUnit.HitTimer = DamageData.HitSpanTime; // ダメージ間隔を上書き
-
-                        int totalDamage = DamageWeight * actionBase.ActionDamageData.MotionDamage;
-                        // ダメージを与える
-                        health.TakeDamage(this, totalDamage);
-
-                        if (IsPull) // 固定化ONの場合
-                        {
-                            if (damageUnit.UnitObject.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
-                            {
-                                var ran = UnityEngine.Random.Range(0, PullData.PullRots.Count);
-                                var pos = PullData.PullPos;
-                                unitComponents.PartAttachment.AttachTarget
-                                    (transform, PullData.BodyKeyName,
-                                    positionOffset: pos, rotationOffset: PullData.PullRots[ran]);
-                            }
-                        }
-                    }
-
-
-                }
+                DamagePlay(health, damageUnit.UnitObject);
             }
-           
+
 
 
 
@@ -171,6 +142,80 @@ namespace _develop_common
             //if (DamageData.UnitHitDestroy && damageUnit.UnitObject.CompareTag(_unitTagName))
             //    Destroy(gameObject);
         }
+
+        public async void DamagePlay(IHealth health, GameObject damageUnit)
+        {
+            if (DamageAction.TryGetComponent<ActionBase>(out var actionBase))
+            {
+                // Task: HitCollider 技を受け取って、TakeDamageに渡す、固定化を行う
+                //Debug.Log($"a::::{AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction}");
+                //Debug.Log($"b::::{AttakerActionLoader.ActiveActionBase.name}");
+                // のけぞる渡されとる！
+                //LogManager.Instance.AddLog(gameObject, $"{actionBase.ActionRePlay != null} x", 3);
+                // 即切り替えアクションがあるか？
+                if (AttakerActionLoader.ActiveActionBase.ActionRePlay != null && AttakerActionLoader != null)
+                {
+                    if (AttakerActionLoader == null) return;
+                    if (AttakerActionLoader.ActiveActionBase == null) return;
+                    //LogManager.Instance.ConsoleLog(gameObject, $"{AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction.name} x", 3);
+
+                    if (AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction.TryGetComponent<ActionGrap>(out var grep))
+                    {
+                        Debug.Log($"a::::{AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction}");
+                        Debug.Log($"b::::{AttakerActionLoader.ActiveActionBase.name}");
+                        // 攻撃者投げ
+                        AttakerActionLoader.LoadAction(AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction, ignoreDelayTime:true );
+
+                        var stateName = grep.GrapVicStateName;
+                        var pos = grep.OffsetPos;
+                        var rotOffset = grep.OffsetRot;
+
+                        // ダメージ側もダメージモーション実行
+                        if (damageUnit.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
+                        {
+                            // AttakerActionLoader.ActiveActionBase.ActionRePlay この時点でかわってしまう Attに
+
+                            unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Executing;
+                            unitComponents.AnimatorStateController.StatePlay(stateName, EStatePlayType.SinglePlay, true);
+
+                            damageUnit.transform.position = transform.position + UtilityFunction.LocalLookPos(transform, pos);
+                            Vector3 rot = transform.rotation.eulerAngles;
+                            damageUnit.transform.rotation = Quaternion.Euler(rot + rotOffset);
+
+                            // Task:これをモーション終了時に付与すれば良い
+                            unitComponents.PartAttachment.IsDown = true;
+                        }
+                    }
+
+
+
+
+
+                }
+                else
+                {
+                    int totalDamage = DamageWeight * actionBase.ActionDamageData.MotionDamage;
+                    // ダメージを与える
+                    health.TakeDamage(DamageAction, IsPull, totalDamage);
+
+                    if (IsPull) // 固定化ONの場合
+                    {
+                        if (damageUnit.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
+                        {
+                            // Pull
+                            var ran = UnityEngine.Random.Range(0, PullData.PullRots.Count);
+                            var pos = PullData.PullPos;
+                            unitComponents.PartAttachment.AttachTarget
+                                (transform, PullData.BodyKeyName,
+                                positionOffset: pos, rotationOffset: PullData.PullRots[ran]);
+                        }
+                    }
+                }
+
+
+            }
+        }
+
         /// <summary>
         /// ResetTimeに達したらダメージユニットをクリアする
         /// </summary>

@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 4257612234498888255}
   - component: {fileID: 6986013468331365574}
   - component: {fileID: 1318679288756685457}
-  - component: {fileID: -3813764267688708768}
+  - component: {fileID: -1375330392209254722}
   m_Layer: 0
-  m_Name: "DamageAction\uFF1A\u6253\u3061\u4E0A\u30523"
+  m_Name: "DamageAction\uFF1Ax"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
   ActionStart: {fileID: -9094532401574635501}
   ActionFrame: {fileID: 4257612234498888255}
   ActionFinish: {fileID: 4454726136892598134}
-  ActionDamageData: {fileID: -3813764267688708768}
+  ActionDamageData: {fileID: -1375330392209254722}
   ActionRePlay: {fileID: 0}
   ActionStartAdditiveParameter: {fileID: 6986013468331365574}
   ActionFinishAdditiveParameter: {fileID: 1318679288756685457}
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionName: "\u6253\u3061\u4E0A\u30523"
+  MotionName: x
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
@@ -91,8 +91,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6089b1ca23130ca4295a1b9c41cac0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SetFinishStatus: 1
-  NextActionData: {fileID: 867914962149053577, guid: 115288da95848744f8dd3ede21189354,
+  SetFinishStatus: 0
+  NextActionData: {fileID: 867914962149053577, guid: 82a4398abc8c7514f979cb8af49a9679,
     type: 3}
 --- !u!114 &4257612234498888255
 MonoBehaviour:
@@ -107,12 +107,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrameInfo:
-  - PlayFrame: 1
-    NormalData: {fileID: 11400000, guid: 034263ed0d5cc3442bfe6e6ee6a0b1c4, type: 2}
+  - PlayFrame: 0
+    NormalData: {fileID: 0}
     PrefabData: {fileID: 0}
+    Attack_DamageData: {fileID: 0}
     ActiveAttackData: {fileID: 0}
     PullData: {fileID: 0}
-    AttackChangeData: {fileID: 0}
     IsComplete: 0
 --- !u!114 &6986013468331365574
 MonoBehaviour:
@@ -148,7 +148,7 @@ MonoBehaviour:
     AdditiveParameterValue: 3
   - AdditiveParameterName: Kousoku
     AdditiveParameterValue: 10
---- !u!114 &-3813764267688708768
+--- !u!114 &-1375330392209254722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,4 +162,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MotionDamage: 0
   DeadAction: {fileID: 0}
-  DamageType: 0
+  DamageType: 1
