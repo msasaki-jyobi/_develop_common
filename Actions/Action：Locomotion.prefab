@@ -49,9 +49,9 @@ MonoBehaviour:
   ActionStart: {fileID: -9094532401574635501}
   ActionFrame: {fileID: 0}
   ActionFinish: {fileID: 0}
-  ActionParent: {fileID: 0}
-  ActionPrefabInfo: {fileID: 0}
-  ActionDamageValue: {fileID: 0}
+  ActionDamageData: {fileID: 0}
+  ActionGrap: {fileID: 0}
+  ActionRePlay: {fileID: 0}
   ActionStartAdditiveParameter: {fileID: 0}
   ActionFinishAdditiveParameter: {fileID: 0}
 --- !u!114 &-9094532401574635501
@@ -66,9 +66,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionName: Locomotion
+  PlayClip: {fileID: 7400000, guid: b42c5e0b0de84a642a925a4b7803d45c, type: 2}
   IsApplyRootMotion: 0
   StatePlayType: 1
   IsStateReset: 1
   SetStartStatus: 0
   IsResetVelocity: 1
+  AnimatorLayer: 0
+  WeightValue: 1
+  WeightTime: 0.5

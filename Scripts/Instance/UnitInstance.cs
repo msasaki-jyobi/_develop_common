@@ -6,7 +6,7 @@ namespace develop_common
 {
     public class UnitInstance : MonoBehaviour
     {
-        [Header("Timeline用")]
+        [Header("Body参照用 (Timeline, Body登録（ターゲット部位として相手に参照される用)")]
         public List<StringKeyGameObjectValuePair> InstanceBodys = new List<StringKeyGameObjectValuePair>();
 
         public GameObject SearchObject(string keyName)

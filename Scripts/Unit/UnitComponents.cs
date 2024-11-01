@@ -13,8 +13,9 @@ namespace develop_common
         public PartAttachment PartAttachment;
         public UnitInstance UnitInstance;
         public Animator UnitAvatar;
-        public UnitVoice UnitVoice;
         public UnitShape UnitShape;
+        public IKController iKController;
+        public UnitVoice UnitVoice;
 
         [Space(10)]
         public bool IsSetAvatar; 

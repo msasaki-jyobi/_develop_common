@@ -23,5 +23,7 @@ namespace develop_common
     public class StringKeyListVector3tValuePair : SerializableKeyValuePair<string, List<Vector3>> { }
     [Serializable]
     public class DictionaryStringListVector3 : SerializableDictionary<string, List<Vector3>, StringKeyListVector3tValuePair> { }
+
+   
 }
 

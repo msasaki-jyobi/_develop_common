@@ -1,7 +1,5 @@
-﻿using Common.Unit;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using develop_common;
-using Gamekit3D;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -166,7 +164,7 @@ namespace _develop_common
                         // 攻撃者投げ
                         AttakerActionLoader.LoadAction(AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction, ignoreDelayTime:true );
 
-                        var stateName = grep.GrapVicStateName;
+                        var stateName = grep.GrapClip.name;
                         var pos = grep.OffsetPos;
                         var rotOffset = grep.OffsetRot;
 

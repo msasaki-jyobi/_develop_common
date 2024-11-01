@@ -55,6 +55,7 @@ MonoBehaviour:
   ActionFrame: {fileID: 4257612234498888255}
   ActionFinish: {fileID: 4454726136892598134}
   ActionDamageData: {fileID: -3813764267688708768}
+  ActionGrap: {fileID: 0}
   ActionRePlay: {fileID: 0}
   ActionStartAdditiveParameter: {fileID: 6986013468331365574}
   ActionFinishAdditiveParameter: {fileID: 1318679288756685457}
@@ -70,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionName: "\u6253\u3061\u4E0A\u30523"
+  PlayClip: {fileID: 7400054, guid: 932279eb1c22db24385eb04c03856eb1, type: 3}
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
@@ -110,9 +111,10 @@ MonoBehaviour:
   - PlayFrame: 1
     NormalData: {fileID: 11400000, guid: 034263ed0d5cc3442bfe6e6ee6a0b1c4, type: 2}
     PrefabData: {fileID: 0}
+    Attack_DamageData: {fileID: 0}
     ActiveAttackData: {fileID: 0}
     PullData: {fileID: 0}
-    AttackChangeData: {fileID: 0}
+    IKData: {fileID: 0}
     IsComplete: 0
 --- !u!114 &6986013468331365574
 MonoBehaviour:

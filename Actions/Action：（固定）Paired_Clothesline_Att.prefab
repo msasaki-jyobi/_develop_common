@@ -69,7 +69,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionName: Paired_Clothesline_Att
+  PlayClip: {fileID: 1827226128182048838, guid: 6be375117030db84e905414bace7852c,
+    type: 3}
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
@@ -111,6 +112,7 @@ MonoBehaviour:
     Attack_DamageData: {fileID: 0}
     ActiveAttackData: {fileID: 0}
     PullData: {fileID: 0}
+    IKData: {fileID: 0}
     IsComplete: 0
 --- !u!114 &217763541324700092
 MonoBehaviour:
@@ -124,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7941659a2ebc8fc43ab0de6564155cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrapVicStateName: Paired_Clothesline_Vic
+  GrapClip: {fileID: 1827226128182048838, guid: 5c907c4ed54194b4fbcf81858547aa36,
+    type: 3}
   OffsetPos: {x: 0, y: 0, z: -2}
   OffsetRot: {x: 0, y: 0, z: 0}

@@ -45,9 +45,17 @@ namespace develop_common
         public event Action<string, int> FinishAdditiveParameterEvent;
 
         public EUnitType UnitType;
+        [Header("攻撃対象IK用")]
+        public string TargetObjectName = "Player";
+        public UnitComponents TargetComponents;
 
         private void Start()
         {
+            // IK攻撃用ターゲットを取得
+            var target = GameObject.Find(TargetObjectName);
+            if (target != null)
+                TargetComponents = target.GetComponent<UnitComponents>();
+
             _stateController = _unitComponents.AnimatorStateController;
             _attackDealer = _unitComponents.AttackDealer;
             if (TryGetComponent<IHealth>(out var health))
@@ -84,6 +92,17 @@ namespace develop_common
 
                                         if (frameInfo.PrefabData != null) // Prefab生成
                                             CreatePrefab(frameInfo.PrefabData, gameObject);
+
+                                        if (frameInfo.IKData != null) // IKの設定
+                                        {
+                                            // このタイミングはモーション中なのでここでONにする必要がある
+                                            // ここで攻撃対象のIK取得が必要
+                                            _unitComponents.iKController.SetTargetEnableIK(
+                                                 frameInfo.IKData.IKKeyName,
+                                                 frameInfo.IKData.IKLifeTime,
+                                                 TargetComponents.UnitInstance.SearchObject(frameInfo.IKData.IKTargetKeyName).transform
+                                                );
+                                        }
 
                                         if (frameInfo.ActiveAttackData != null) // Task:攻撃判定をONにする
                                         {
@@ -158,7 +177,7 @@ namespace develop_common
             //Debug.Log($"GameObject:{gameObject.name} State: {stateName} 終了XXX");
 
             if (ActiveActionBase != null)
-                if (ActiveActionBase.ActionStart.MotionName != stateName) return;
+                if (ActiveActionBase.ActionStart.PlayClip.name != stateName) return;
 
             // Frame Reset
             _loadFrameInfos?.Clear();
@@ -240,7 +259,7 @@ namespace develop_common
                 // Start
                 if (actionBase.ActionStart != null)
                 {
-                    var stateName = actionBase.ActionStart.MotionName;
+                    var stateName = actionBase.ActionStart.PlayClip.name;
                     var playType = actionBase.ActionStart.StatePlayType;
                     var reset = actionBase.ActionStart.IsStateReset;
                     var root = actionBase.ActionStart.IsApplyRootMotion;

@@ -8,13 +8,14 @@ namespace develop_common
     [System.Serializable]
     public class FrameInfo
     {
-        [Tooltip("発動フレーム")]
+        [Tooltip("発動フレーム")] // 追加したら下部のコピーメソッドに処理を追加すること！
         public float PlayFrame;
         public FrameNormalData NormalData;
         public FramePrefabData PrefabData;
         public GameObject Attack_DamageData;
         public FrameActiveAttackData ActiveAttackData;
         public FramePullData PullData;
+        public FrameIKData IKData;
 
         //[Tooltip("Velocity Reset")]
         //public bool IsResetVelocity;
@@ -71,6 +72,7 @@ namespace develop_common
             this.ActiveAttackData = other.ActiveAttackData;
             this.Attack_DamageData = other.Attack_DamageData;
             this.PullData = other.PullData;
+            this.IKData = other.IKData;
 
             //this.IsResetVelocity = other.IsResetVelocity;
 

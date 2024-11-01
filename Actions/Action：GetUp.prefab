@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: -9094532401574635501}
   - component: {fileID: 4454726136892598134}
   - component: {fileID: 4257612234498888255}
-  - component: {fileID: 6741626706195423436}
   - component: {fileID: 6986013468331365574}
   - component: {fileID: 1318679288756685457}
   m_Layer: 0
@@ -54,9 +53,9 @@ MonoBehaviour:
   ActionStart: {fileID: -9094532401574635501}
   ActionFrame: {fileID: 4257612234498888255}
   ActionFinish: {fileID: 4454726136892598134}
-  ActionParent: {fileID: 0}
-  ActionPrefabInfo: {fileID: 6741626706195423436}
-  ActionDamageValue: {fileID: 0}
+  ActionDamageData: {fileID: 0}
+  ActionGrap: {fileID: 0}
+  ActionRePlay: {fileID: 0}
   ActionStartAdditiveParameter: {fileID: 6986013468331365574}
   ActionFinishAdditiveParameter: {fileID: 1318679288756685457}
 --- !u!114 &-9094532401574635501
@@ -71,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionName: GetUp
+  PlayClip: {fileID: 7400000, guid: d63c8b6f3173d5e4f94e4df99263a5bf, type: 3}
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
@@ -108,30 +107,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrameInfo: []
---- !u!114 &6741626706195423436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867914962149053577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e283f7cdd946b7b40ae62b5ffdf4bee2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PrefabDatas:
-  - Title: 
-    Prefab: {fileID: 8866232049573502529, guid: 68d27f5a0c6d1b7468f8257bd65b904d,
-      type: 3}
-    CreateSe: {fileID: 0}
-    DestroyTime: 0.3
-    LocalPosition: {x: 0, y: 1, z: 1}
-    LocalEulerAngle: {x: 0, y: 45, z: 0}
-    SetScale: {x: 1, y: 2, z: 1}
-    LookType: 0
-    ParentType: 0
-    ParentKeyName: 
 --- !u!114 &6986013468331365574
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1964579485700207550}
   - component: {fileID: 5017441459642140199}
+  - component: {fileID: 8276063280196032279}
   - component: {fileID: -9094532401574635501}
   - component: {fileID: 4454726136892598134}
   - component: {fileID: 4257612234498888255}
-  - component: {fileID: -4551261338203220581}
   m_Layer: 0
-  m_Name: "Action\uFF1A\u6295\u3052\u6280"
+  m_Name: "Action\uFF1A2Hand-Sword-Attack1_Combo_Attack9"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,15 +48,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458d7337e8ce6ff4f86d2423b88e6c92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActionRequirement: {fileID: 0}
+  ActionRequirement: {fileID: 8276063280196032279}
   ActionStart: {fileID: -9094532401574635501}
   ActionFrame: {fileID: 4257612234498888255}
   ActionFinish: {fileID: 4454726136892598134}
   ActionDamageData: {fileID: 0}
   ActionGrap: {fileID: 0}
-  ActionRePlay: {fileID: -4551261338203220581}
+  ActionRePlay: {fileID: 0}
   ActionStartAdditiveParameter: {fileID: 0}
   ActionFinishAdditiveParameter: {fileID: 0}
+--- !u!114 &8276063280196032279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867914962149053577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6898e62c2fc62be46a96eec2aeba8107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TriggerAction: {fileID: 0}
+  TriggerStatus: 0
+  IsWaitingForKey: 0
+  IsGround: 1
+  IsAir: 0
+  Key: 0
 --- !u!114 &-9094532401574635501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,11 +87,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayClip: {fileID: 7400036, guid: 7934f1476fe2c6e458c230f491769c34, type: 3}
+  PlayClip: {fileID: 7400000, guid: dce280ced5e006c4cb0eb0fab2f51b75, type: 3}
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
-  SetStartStatus: 2
+  SetStartStatus: 1
   IsResetVelocity: 1
   AnimatorLayer: 0
   WeightValue: 1
@@ -91,7 +109,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SetFinishStatus: 0
-  NextActionData: {fileID: 0}
+  NextActionData: {fileID: 867914962149053577, guid: 44e3377b856aa484c86343476b9b6282,
+    type: 3}
 --- !u!114 &4257612234498888255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,26 +124,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrameInfo:
-  - PlayFrame: 1
+  - PlayFrame: 5
     NormalData: {fileID: 11400000, guid: 9907c62d2c09d2a48849d526f7385b14, type: 2}
-    PrefabData: {fileID: 0}
-    Attack_DamageData: {fileID: 867914962149053577, guid: 07e09739b13149c4da96c8eaa6759d32,
+    PrefabData: {fileID: 11400000, guid: 63daa595cc9466c44a4be8e167e0c9c4, type: 2}
+    Attack_DamageData: {fileID: 867914962149053577, guid: 6104cbc989f78644c8782b1273f03e60,
       type: 3}
-    ActiveAttackData: {fileID: 11400000, guid: d706a210eeb4c31418047bada432d8f9, type: 2}
+    ActiveAttackData: {fileID: 11400000, guid: ea3eab3564c80534fb094fda5fd3c4b6, type: 2}
     PullData: {fileID: 0}
-    IKData: {fileID: 0}
+    IKData: {fileID: 11400000, guid: 9bcea15543ed66f4692331971363237b, type: 2}
     IsComplete: 0
---- !u!114 &-4551261338203220581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867914962149053577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b355b15c25a1ba043b9e696f2061f257, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RePlayAction: {fileID: 867914962149053577, guid: 34039bee83bbded4da6f7d49f180c0cb,
-    type: 3}

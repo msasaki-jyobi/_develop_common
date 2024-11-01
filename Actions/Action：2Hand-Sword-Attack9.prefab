@@ -52,6 +52,7 @@ MonoBehaviour:
   ActionFrame: {fileID: 4257612234498888255}
   ActionFinish: {fileID: 4454726136892598134}
   ActionDamageData: {fileID: 0}
+  ActionGrap: {fileID: 0}
   ActionRePlay: {fileID: 0}
   ActionStartAdditiveParameter: {fileID: 0}
   ActionFinishAdditiveParameter: {fileID: 0}
@@ -67,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionName: 2Hand-Sword-Attack9
+  PlayClip: {fileID: 7400000, guid: 06e24acb759a2ac4c965d56b0101f8ba, type: 3}
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
@@ -105,10 +106,10 @@ MonoBehaviour:
   FrameInfo:
   - PlayFrame: 6
     NormalData: {fileID: 11400000, guid: 9907c62d2c09d2a48849d526f7385b14, type: 2}
-    PrefabData: {fileID: 0}
+    PrefabData: {fileID: 11400000, guid: 63daa595cc9466c44a4be8e167e0c9c4, type: 2}
     Attack_DamageData: {fileID: 867914962149053577, guid: 715b445faaefd384da0ef9deb0c4320e,
       type: 3}
     ActiveAttackData: {fileID: 11400000, guid: ea3eab3564c80534fb094fda5fd3c4b6, type: 2}
     PullData: {fileID: 0}
-    AttackChange_DamageData: {fileID: 0}
+    IKData: {fileID: 11400000, guid: 9bcea15543ed66f4692331971363237b, type: 2}
     IsComplete: 0

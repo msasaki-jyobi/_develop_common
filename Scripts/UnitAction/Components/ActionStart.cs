@@ -8,7 +8,7 @@ namespace develop_common
     {
         [Header("開始時：モーション関連")]
         // 再生モーション
-        public string MotionName;
+        public AnimationClip PlayClip;
         // ApplyRootMotion
         public bool IsApplyRootMotion;
         // モーション繰り返しの有無
