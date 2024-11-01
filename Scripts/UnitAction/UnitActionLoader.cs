@@ -98,11 +98,12 @@ namespace develop_common
                                             // このタイミングはモーション中なのでここでONにする必要がある
                                             // ここで攻撃対象のIK取得が必要
                                             if (_unitComponents.iKController != null)
-                                                _unitComponents.iKController.SetTargetEnableIK(
-                                                     frameInfo.IKData.IKKeyName,
-                                                     frameInfo.IKData.IKLifeTime,
-                                                     TargetComponents.UnitInstance.SearchObject(frameInfo.IKData.IKTargetKeyName).transform
-                                                    );
+                                                if (frameInfo.IKData != null)
+                                                    _unitComponents.iKController.SetTargetEnableIK(
+                                                         frameInfo.IKData.IKKeyName,
+                                                         frameInfo.IKData.IKLifeTime,
+                                                         TargetComponents.UnitInstance.SearchObject(frameInfo.IKData.IKTargetKeyName).transform
+                                                        );
                                         }
 
                                         if (frameInfo.ActiveAttackData != null) // Task:攻撃判定をONにする

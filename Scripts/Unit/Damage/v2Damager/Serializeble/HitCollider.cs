@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using develop_body;
 using develop_common;
 using System;
 using System.Collections;
@@ -93,14 +94,12 @@ namespace _develop_common
 
         public async void OnHit(GameObject hit)
         {
-            LogManager.Instance.AddLog(hit.gameObject, $"${gameObject.name} Damage0:{IsAttack.Value}, {AttackLifeTime}");
-            if (!IsAttack.Value) return;
+            //LogManager.Instance.AddLog(hit.gameObject, $"${gameObject.name} Damage0:{IsAttack.Value}, {AttackLifeTime}");
 
-            // HitCheckを行う
-            bool check = true;
-            // ダメージ回数などキャラクター情報を確認
-            DamageUnit damageUnit = CheckDamageInfos(hit);
-            LogManager.Instance.AddLog(damageUnit.UnitObject, "Damage1");
+            if (!IsAttack.Value) return;
+            bool check = true; // HitCheckを行う
+            DamageUnit damageUnit = CheckDamageInfos(hit); // ダメージ回数などキャラクター情報を確認
+            //LogManager.Instance.AddLog(damageUnit.UnitObject, "Damage1");
 
             // オブジェクトに触れたら消える場合
             if (DamageData.ObjectHitOff)
@@ -115,24 +114,25 @@ namespace _develop_common
                 }
             }
 
-            if (damageUnit.UnitObject.TryGetComponent<IHealth>(out var health))
+            if(damageUnit.UnitObject.TryGetComponent<BodyCollider>(out var bodyCollider))
             {
-                check = check && health.UnitType != AttackerUnitType; // 同じキャラクター同士じゃない
-                check = check && damageUnit.HitCount <= DamageData.UnitLimit; // 上限超えてない
-                check = check && damageUnit.HitTimer >= 0; // ヒットタイマーがリセットされていない
-                if (!check) return;
+                if (bodyCollider.RootObject.TryGetComponent<IHealth>(out var health))
+                {
+                    check = check && health.UnitType != AttackerUnitType; // 同じキャラクター同士じゃない
+                    check = check && damageUnit.HitCount <= DamageData.UnitLimit; // 上限超えてない
+                    check = check && damageUnit.HitTimer >= 0; // ヒットタイマーがリセットされていない
+                    if (!check) return;
 
-                // エフェクト再生
-                HitEffect(DamageData.HitEffect);
-                // ヒット可能
-                damageUnit.HitCount++; // 回数加算
-                damageUnit.HitTimer = DamageData.HitSpanTime; // ダメージ間隔を上書き
+                    // エフェクト再生
+                    HitEffect(DamageData.HitEffect);
+                    // ヒット可能
+                    damageUnit.HitCount++; // 回数加算
+                    damageUnit.HitTimer = DamageData.HitSpanTime; // ダメージ間隔を上書き
 
-                DamagePlay(health, damageUnit.UnitObject);
+                    //DamagePlay(health, damageUnit.UnitObject); // 触れたオブジェクトを渡す
+                    DamagePlay(health, bodyCollider.RootObject); // 触れたBodyの親オブジェクトを渡す
+                }
             }
-
-
-
 
             // 追加ダメージハンドラ
             //OnDamageEvent?.Invoke(DamageData, damageUnit.UnitObject, gameObject);
@@ -195,28 +195,21 @@ namespace _develop_common
                 {
                     int totalDamage = DamageWeight * actionBase.ActionDamageData.MotionDamage;
 
-                    //if(actionBase.ActionDamageData.DamageType == EDamageType.Additive)
-                    //{
-                        // Task. Additive追加ダメージ
-                    //}
-                    //else
-                    //{
-                        // ダメージを与えモーションも実行してもらう
-                        health.TakeDamage(DamageAction, IsPull, totalDamage);
+                    // ダメージを与えモーションも実行してもらう
+                    health.TakeDamage(DamageAction, IsPull, totalDamage);
 
-                        if (IsPull) // 固定化ONの場合
+                    if (IsPull) // 固定化ONの場合
+                    {
+                        if (damageUnit.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
                         {
-                            if (damageUnit.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
-                            {
-                                // Pull
-                                var ran = UnityEngine.Random.Range(0, PullData.PullRots.Count);
-                                var pos = PullData.PullPos;
-                                unitComponents.PartAttachment.AttachTarget
-                                    (transform, PullData.BodyKeyName,
-                                    positionOffset: pos, rotationOffset: PullData.PullRots[ran]);
-                            }
+                            // Pull
+                            var ran = UnityEngine.Random.Range(0, PullData.PullRots.Count);
+                            var pos = PullData.PullPos;
+                            unitComponents.PartAttachment.AttachTarget
+                                (transform, PullData.BodyKeyName,
+                                positionOffset: pos, rotationOffset: PullData.PullRots[ran]);
                         }
-                    //}
+                    }
                 }
             }
         }

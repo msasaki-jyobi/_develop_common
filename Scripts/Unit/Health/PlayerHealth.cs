@@ -62,6 +62,11 @@ namespace develop_common
             CurrentHealth -= totalDamage;
 
             // Task: ダメージを受け取ってモーション再生を行う・シェイプ再生など
+            if(damageAction.TryGetComponent<ActionBase>(out var actionBase)) 
+            {
+                if (actionBase.ActionDamageData.DamageType == EDamageType.Additive)
+                    _animatorStateController.AnimatorLayerPlay(1, actionBase.ActionStart.PlayClip.name, 0f);
+            }
 
             if (!isPull) // 固定化モーション以外を再生の場合
             {

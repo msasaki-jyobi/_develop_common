@@ -37,5 +37,11 @@ namespace Kogane
 			m_key   = key;
 			m_value = value;
 		}
+
+		public void SetPair( TKey key, TValue value ) 
+		{
+            m_key = key;
+            m_value = value;
+        }
 	}
 }

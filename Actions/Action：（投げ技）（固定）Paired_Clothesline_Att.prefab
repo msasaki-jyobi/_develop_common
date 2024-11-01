@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4257612234498888255}
   - component: {fileID: 217763541324700092}
   m_Layer: 0
-  m_Name: "Action\uFF1A\uFF08\u56FA\u5B9A\uFF09Paired_Clothesline_Att"
+  m_Name: "Action\uFF1A\uFF08\u6295\u3052\u6280\uFF09\uFF08\u56FA\u5B9A\uFF09Paired_Clothesline_Att"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
