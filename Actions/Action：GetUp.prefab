@@ -76,6 +76,7 @@ MonoBehaviour:
   IsStateReset: 1
   SetStartStatus: 1
   IsResetVelocity: 1
+  IsParentEntity: 1
   AnimatorLayer: 0
   WeightValue: 1
   WeightTime: 0.5

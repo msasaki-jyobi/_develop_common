@@ -97,11 +97,12 @@ namespace develop_common
                                         {
                                             // このタイミングはモーション中なのでここでONにする必要がある
                                             // ここで攻撃対象のIK取得が必要
-                                            _unitComponents.iKController.SetTargetEnableIK(
-                                                 frameInfo.IKData.IKKeyName,
-                                                 frameInfo.IKData.IKLifeTime,
-                                                 TargetComponents.UnitInstance.SearchObject(frameInfo.IKData.IKTargetKeyName).transform
-                                                );
+                                            if (_unitComponents.iKController != null)
+                                                _unitComponents.iKController.SetTargetEnableIK(
+                                                     frameInfo.IKData.IKKeyName,
+                                                     frameInfo.IKData.IKLifeTime,
+                                                     TargetComponents.UnitInstance.SearchObject(frameInfo.IKData.IKTargetKeyName).transform
+                                                    );
                                         }
 
                                         if (frameInfo.ActiveAttackData != null) // Task:攻撃判定をONにする
@@ -205,6 +206,9 @@ namespace develop_common
                         LoadAction(oldActiveActionBase.ActionFinish.NextActionData);
                         return;
                     }
+
+                    if (oldActiveActionBase.ActionFinish.IsDown)
+                        _unitComponents.PartAttachment.IsDown = true;
                 }
 
             // Finish Event
@@ -273,6 +277,9 @@ namespace develop_common
                         _stateController.AnimatorLayerWeightPlay(layer, stateName,
                             actionBase.ActionStart.WeightValue, actionBase.ActionStart.WeightTime);
                     }
+
+                    if (actionBase.ActionStart.IsParentEntity)
+                        _unitComponents.PartAttachment.SetEntityParent();
 
                     ChangeStatus(actionBase.ActionStart.SetStartStatus, 0);
 

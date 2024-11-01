@@ -21,6 +21,8 @@ namespace develop_common
         [Header("開始時：Velocity Reset")]
         // Velocity Reset
         public bool IsResetVelocity;
+        // Velocity Reset
+        public bool IsParentEntity; // 親オブジェクトをデフォルトに戻す
 
         // レイヤー用
         [Header("レイヤー指定がある場合")]

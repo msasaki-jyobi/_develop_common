@@ -77,6 +77,7 @@ MonoBehaviour:
   IsStateReset: 1
   SetStartStatus: 1
   IsResetVelocity: 1
+  IsParentEntity: 0
   AnimatorLayer: 0
   WeightValue: 1
   WeightTime: 0.5
@@ -93,8 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SetFinishStatus: 1
-  NextActionData: {fileID: 867914962149053577, guid: 115288da95848744f8dd3ede21189354,
-    type: 3}
+  NextActionData: {fileID: 0}
+  IsDown: 1
 --- !u!114 &4257612234498888255
 MonoBehaviour:
   m_ObjectHideFlags: 0

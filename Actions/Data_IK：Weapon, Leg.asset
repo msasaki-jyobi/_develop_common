@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IKKeyName: Weapon
   IKTargetKeyName: Leg
-  IKLifeTime: 0.1
+  IKLifeTime: 0.6

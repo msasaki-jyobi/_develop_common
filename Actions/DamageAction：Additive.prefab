@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayClip: {fileID: 0}
+  PlayClip: {fileID: 7400000, guid: 77214854f62866c4db0d2b1999fcdf96, type: 3}
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
@@ -164,4 +164,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MotionDamage: 0
   DeadAction: {fileID: 0}
-  DamageType: 0
+  DamageType: 1

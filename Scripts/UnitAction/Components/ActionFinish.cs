@@ -13,5 +13,6 @@ namespace develop_common
         [Header("I—¹FŸ‚ÌActionData")]
         // Next Action
         public GameObject NextActionData;
+        public bool IsDown;
     }
 }

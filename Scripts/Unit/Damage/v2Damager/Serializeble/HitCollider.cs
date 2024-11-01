@@ -18,7 +18,7 @@ namespace _develop_common
         //public UnitActionLoader DamageUnitLoader;
 
         // 各オブジェクトのタグ名
-        private const string _unitTagName = "Unit";
+        private const string _bodyTagName = "Body";
 
         [Header("攻撃者")]
         public GameObject AttackerUnit;
@@ -106,7 +106,7 @@ namespace _develop_common
             if (DamageData.ObjectHitOff)
             {
                 // タグがユニットじゃないならReturn
-                check = check && !hit.gameObject.CompareTag(_unitTagName);
+                check = check && !hit.gameObject.CompareTag(_bodyTagName);
                 if (!check)
                 {
                     // Effect
@@ -141,6 +141,11 @@ namespace _develop_common
             //    Destroy(gameObject);
         }
 
+        /// <summary>
+        /// ダメージ処理を実行させる
+        /// </summary>
+        /// <param name="health"></param>
+        /// <param name="damageUnit"></param>
         public async void DamagePlay(IHealth health, GameObject damageUnit)
         {
             if (DamageAction.TryGetComponent<ActionBase>(out var actionBase))
@@ -150,6 +155,7 @@ namespace _develop_common
                 //Debug.Log($"b::::{AttakerActionLoader.ActiveActionBase.name}");
                 // のけぞる渡されとる！
                 //LogManager.Instance.AddLog(gameObject, $"{actionBase.ActionRePlay != null} x", 3);
+
                 // 即切り替えアクションがあるか？
                 if (AttakerActionLoader.ActiveActionBase.ActionRePlay != null && AttakerActionLoader != null)
                 {
@@ -184,33 +190,34 @@ namespace _develop_common
                             unitComponents.PartAttachment.IsDown = true;
                         }
                     }
-
-
-
-
-
                 }
-                else
+                else // 投げ技ではないダメージ判定
                 {
                     int totalDamage = DamageWeight * actionBase.ActionDamageData.MotionDamage;
-                    // ダメージを与える
-                    health.TakeDamage(DamageAction, IsPull, totalDamage);
 
-                    if (IsPull) // 固定化ONの場合
-                    {
-                        if (damageUnit.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
+                    //if(actionBase.ActionDamageData.DamageType == EDamageType.Additive)
+                    //{
+                        // Task. Additive追加ダメージ
+                    //}
+                    //else
+                    //{
+                        // ダメージを与えモーションも実行してもらう
+                        health.TakeDamage(DamageAction, IsPull, totalDamage);
+
+                        if (IsPull) // 固定化ONの場合
                         {
-                            // Pull
-                            var ran = UnityEngine.Random.Range(0, PullData.PullRots.Count);
-                            var pos = PullData.PullPos;
-                            unitComponents.PartAttachment.AttachTarget
-                                (transform, PullData.BodyKeyName,
-                                positionOffset: pos, rotationOffset: PullData.PullRots[ran]);
+                            if (damageUnit.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
+                            {
+                                // Pull
+                                var ran = UnityEngine.Random.Range(0, PullData.PullRots.Count);
+                                var pos = PullData.PullPos;
+                                unitComponents.PartAttachment.AttachTarget
+                                    (transform, PullData.BodyKeyName,
+                                    positionOffset: pos, rotationOffset: PullData.PullRots[ran]);
+                            }
                         }
-                    }
+                    //}
                 }
-
-
             }
         }
 

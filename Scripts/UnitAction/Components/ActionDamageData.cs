@@ -8,7 +8,6 @@ namespace develop_common
     {
         Normal,
         Additive,
-        Grap,
     }
     [AddComponentMenu("ActionDamageData：このモーションダメージを実行する基礎情報")]
     public class ActionDamageData : MonoBehaviour
