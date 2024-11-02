@@ -92,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SetFinishStatus: 0
   NextActionData: {fileID: 0}
+  IsDown: 0
 --- !u!114 &4257612234498888255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,7 +109,7 @@ MonoBehaviour:
   - PlayFrame: 12
     NormalData: {fileID: 11400000, guid: 9907c62d2c09d2a48849d526f7385b14, type: 2}
     PrefabData: {fileID: 11400000, guid: 63daa595cc9466c44a4be8e167e0c9c4, type: 2}
-    Attack_DamageData: {fileID: 867914962149053577, guid: 715b445faaefd384da0ef9deb0c4320e,
+    Attack_DamageData: {fileID: 867914962149053577, guid: 8604ec616ea7a4046b738568b6e71acf,
       type: 3}
     ActiveAttackData: {fileID: 11400000, guid: ea3eab3564c80534fb094fda5fd3c4b6, type: 2}
     PullData: {fileID: 0}

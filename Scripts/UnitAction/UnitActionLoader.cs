@@ -71,7 +71,7 @@ namespace develop_common
                     // FrameInfo動作用
                     if (_isExecuting)
                     {
-                        if (_loadFrameInfos?.Count != 0)
+                        if (_loadFrameInfos?.Count > 0)
                             foreach (var frameInfo in _loadFrameInfos)
                                 if (_stateController.Frame.Value * _stateController.GetCurrentClipSpeed() >= frameInfo.PlayFrame)
                                     if (!frameInfo.IsComplete)
@@ -167,7 +167,8 @@ namespace develop_common
                 //_stateController.FrameTimer.Value >= 0.5f
                 )
             {
-                UnitStatus = EUnitStatus.Ready;
+                // Memo. バグ修正にはなるが、これにより、Vicのモーション終了時に強制で立ち上がるので、改めてコメント化
+                ChangeStatus(EUnitStatus.Ready, 99);
             }
         }
 
@@ -179,8 +180,16 @@ namespace develop_common
             //Debug.Log($"GameObject:{gameObject.name} State: {stateName} 終了XXX");
 
             if (ActiveActionBase != null)
-                if (ActiveActionBase.ActionStart.PlayClip.name != stateName) return;
+            {
+                Debug.Log($"ActiveActionBase:{ActiveActionBase.name}");
+                if (ActiveActionBase.ActionStart != null)
+                {
+                    if (ActiveActionBase.ActionStart.PlayClip == null) return;// 投げ技は↓でエラーなっちゃうから追加してみた
+                    if (ActiveActionBase.ActionStart.PlayClip.name != stateName) return;
+                }
+            }
 
+            Debug.Log($"DOMO:{gameObject.name}");
             // Frame Reset
             _loadFrameInfos?.Clear();
 
@@ -264,7 +273,7 @@ namespace develop_common
                 // Start
                 if (actionBase.ActionStart != null)
                 {
-                    var stateName = actionBase.ActionStart.PlayClip.name;
+                    var stateName = actionBase.ActionStart.PlayClip != null ? actionBase.ActionStart.PlayClip.name : "";
                     var playType = actionBase.ActionStart.StatePlayType;
                     var reset = actionBase.ActionStart.IsStateReset;
                     var root = actionBase.ActionStart.IsApplyRootMotion;
@@ -294,6 +303,7 @@ namespace develop_common
 
         public void ChangeStatus(EUnitStatus status, int code = 0)
         {
+            Debug.Log($"{gameObject.name} ChangeStatus:{status}, code:{code}");
             if (status != EUnitStatus.None)
                 UnitStatus = status;
 

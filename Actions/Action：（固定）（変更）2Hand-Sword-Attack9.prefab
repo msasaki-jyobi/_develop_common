@@ -74,6 +74,7 @@ MonoBehaviour:
   IsStateReset: 1
   SetStartStatus: 2
   IsResetVelocity: 1
+  IsParentEntity: 0
   AnimatorLayer: 0
   WeightValue: 1
   WeightTime: 0.5
@@ -91,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SetFinishStatus: 0
   NextActionData: {fileID: 0}
+  IsDown: 0
 --- !u!114 &4257612234498888255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +115,7 @@ MonoBehaviour:
     PullData: {fileID: 11400000, guid: 52bb779289bcfed4d87fef6732d993a2, type: 2}
     IKData: {fileID: 0}
     IsComplete: 0
-  - PlayFrame: 22
+  - PlayFrame: 32
     NormalData: {fileID: 11400000, guid: 9907c62d2c09d2a48849d526f7385b14, type: 2}
     PrefabData: {fileID: 0}
     Attack_DamageData: {fileID: 867914962149053577, guid: 8604ec616ea7a4046b738568b6e71acf,

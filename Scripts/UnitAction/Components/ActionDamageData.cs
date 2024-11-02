@@ -18,5 +18,9 @@ namespace develop_common
         public GameObject DeadAction;
         [Header("部位別のヒット上限")]
         public EDamageType DamageType;
+
+        [Header("追加Addtive")]
+        public bool IsAddAddtive;
+        [Tooltip("None:ActionStartの設定モーションが参照される")]public AnimationClip AddAdditiveMotion;
     }
 }

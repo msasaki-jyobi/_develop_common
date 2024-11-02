@@ -93,8 +93,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6089b1ca23130ca4295a1b9c41cac0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SetFinishStatus: 1
+  SetFinishStatus: 2
   NextActionData: {fileID: 0}
+  IsDown: 0
 --- !u!114 &4257612234498888255
 MonoBehaviour:
   m_ObjectHideFlags: 0

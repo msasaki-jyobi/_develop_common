@@ -8,6 +8,7 @@ namespace develop_common
     {
         Ready,      // 操作可能状態
         Executing,   // アクション実行中
+        Down,   // Down中
         None,       // 未定義の状態
     }
     [AddComponentMenu("ActionRequirement：条件")]

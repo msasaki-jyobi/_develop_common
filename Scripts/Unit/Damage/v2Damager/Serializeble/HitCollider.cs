@@ -114,7 +114,7 @@ namespace _develop_common
                 }
             }
 
-            if(damageUnit.UnitObject.TryGetComponent<BodyCollider>(out var bodyCollider))
+            if (damageUnit.UnitObject.TryGetComponent<develop_body.BodyCollider>(out var bodyCollider))
             {
                 if (bodyCollider.RootObject.TryGetComponent<IHealth>(out var health))
                 {
@@ -157,60 +157,61 @@ namespace _develop_common
                 //LogManager.Instance.AddLog(gameObject, $"{actionBase.ActionRePlay != null} x", 3);
 
                 // 即切り替えアクションがあるか？
-                if (AttakerActionLoader.ActiveActionBase.ActionRePlay != null && AttakerActionLoader != null)
-                {
-                    if (AttakerActionLoader == null) return;
-                    if (AttakerActionLoader.ActiveActionBase == null) return;
-                    //LogManager.Instance.ConsoleLog(gameObject, $"{AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction.name} x", 3);
-
-                    if (AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction.TryGetComponent<ActionGrap>(out var grep))
+                if (AttakerActionLoader != null)
+                    if (AttakerActionLoader.ActiveActionBase.ActionRePlay != null)
                     {
-                        Debug.Log($"a::::{AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction}");
-                        Debug.Log($"b::::{AttakerActionLoader.ActiveActionBase.name}");
-                        // 攻撃者投げ
-                        AttakerActionLoader.LoadAction(AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction, ignoreDelayTime:true );
+                        //LogManager.Instance.ConsoleLog(gameObject, $"{AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction.name} x", 3);
 
-                        var stateName = grep.GrapClip.name;
-                        var pos = grep.OffsetPos;
-                        var rotOffset = grep.OffsetRot;
-
-                        // ダメージ側もダメージモーション実行
-                        if (damageUnit.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
+                        if (AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction.TryGetComponent<ActionGrap>(out var grep))
                         {
-                            // AttakerActionLoader.ActiveActionBase.ActionRePlay この時点でかわってしまう Attに
+                            Debug.Log($"a::::{AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction}");
+                            Debug.Log($"b::::{AttakerActionLoader.ActiveActionBase.name}");
+                            // 攻撃者投げ
+                            AttakerActionLoader.LoadAction(AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction, ignoreDelayTime: true);
 
-                            unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Executing;
-                            unitComponents.AnimatorStateController.StatePlay(stateName, EStatePlayType.SinglePlay, true);
+                            var stateName = grep.GrapClip.name;
+                            var pos = grep.OffsetPos;
+                            var rotOffset = grep.OffsetRot;
 
-                            damageUnit.transform.position = transform.position + UtilityFunction.LocalLookPos(transform, pos);
-                            Vector3 rot = transform.rotation.eulerAngles;
-                            damageUnit.transform.rotation = Quaternion.Euler(rot + rotOffset);
+                            // ダメージ側もダメージモーション実行
+                            if (damageUnit.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
+                            {
+                                // AttakerActionLoader.ActiveActionBase.ActionRePlay この時点でかわってしまう Attに
 
-                            // Task:これをモーション終了時に付与すれば良い
-                            unitComponents.PartAttachment.IsDown = true;
+                                unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Executing;
+                                unitComponents.AnimatorStateController.StatePlay(stateName, EStatePlayType.SinglePlay, true);
+
+                                damageUnit.transform.position = transform.position + UtilityFunction.LocalLookPos(transform, pos);
+                                Vector3 rot = transform.rotation.eulerAngles;
+                                damageUnit.transform.rotation = Quaternion.Euler(rot + rotOffset);
+                                if(damageUnit.TryGetComponent<Rigidbody>(out var rigid)) rigid.velocity = Vector3.zero;
+
+                                // Task:これをモーション終了時に付与すれば良い
+                                unitComponents.PartAttachment.IsDown = true;
+                            }
                         }
+                        return;
+                    }
+
+                // 投げ技ではないダメージ判定
+                int totalDamage = DamageWeight * actionBase.ActionDamageData.MotionDamage;
+
+                // ダメージを与えモーションも実行してもらう
+                health.TakeDamage(DamageAction, IsPull, totalDamage);
+
+                if (IsPull) // 固定化ONの場合
+                {
+                    if (damageUnit.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
+                    {
+                        // Pull
+                        var ran = UnityEngine.Random.Range(0, PullData.PullRots.Count);
+                        var pos = PullData.PullPos;
+                        unitComponents.PartAttachment.AttachTarget
+                            (transform, PullData.BodyKeyName,
+                            positionOffset: pos, rotationOffset: PullData.PullRots[ran]);
                     }
                 }
-                else // 投げ技ではないダメージ判定
-                {
-                    int totalDamage = DamageWeight * actionBase.ActionDamageData.MotionDamage;
 
-                    // ダメージを与えモーションも実行してもらう
-                    health.TakeDamage(DamageAction, IsPull, totalDamage);
-
-                    if (IsPull) // 固定化ONの場合
-                    {
-                        if (damageUnit.TryGetComponent<develop_common.UnitComponents>(out var unitComponents))
-                        {
-                            // Pull
-                            var ran = UnityEngine.Random.Range(0, PullData.PullRots.Count);
-                            var pos = PullData.PullPos;
-                            unitComponents.PartAttachment.AttachTarget
-                                (transform, PullData.BodyKeyName,
-                                positionOffset: pos, rotationOffset: PullData.PullRots[ran]);
-                        }
-                    }
-                }
             }
         }
 

@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayClip: {fileID: 7400070, guid: 932279eb1c22db24385eb04c03856eb1, type: 3}
+  PlayClip: {fileID: 7400024, guid: ecf5831e0be3d644db7ffd008f8420d1, type: 3}
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6089b1ca23130ca4295a1b9c41cac0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SetFinishStatus: 1
+  SetFinishStatus: 2
   NextActionData: {fileID: 0}
   IsDown: 1
 --- !u!114 &4257612234498888255
@@ -166,3 +166,5 @@ MonoBehaviour:
   MotionDamage: 0
   DeadAction: {fileID: 0}
   DamageType: 0
+  IsAddAddtive: 0
+  AddAdditiveMotion: {fileID: 0}

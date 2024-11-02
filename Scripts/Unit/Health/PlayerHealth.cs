@@ -43,7 +43,8 @@ namespace develop_common
 
         private async void OnCrossHandle(bool arg1, EInputReader reader)
         {
-            if (_unitComponents.PartAttachment.IsPull || _unitComponents.PartAttachment.IsDown)
+            // 起き上がる　これをGetUpのアクションにそもそもすればいいんじゃね？条件チェックでIsDownがTrueでDownValueが0ならこれみたいな
+            if ((_unitComponents.PartAttachment.IsPull || _unitComponents.PartAttachment.IsDown) && _unitComponents.UnitActionLoader.UnitStatus == EUnitStatus.Down)
             {
                 _unitComponents.PartAttachment.SetEntityParent();
                 await UniTask.Delay(1);
@@ -62,40 +63,50 @@ namespace develop_common
             CurrentHealth -= totalDamage;
 
             // Task: ダメージを受け取ってモーション再生を行う・シェイプ再生など
-            if(damageAction.TryGetComponent<ActionBase>(out var actionBase)) 
+            if (damageAction.TryGetComponent<ActionBase>(out var actionBase))
             {
+                Debug.Log($"GameObject:{gameObject.name}, 1 {actionBase}, 2{actionBase.ActionDamageData}");
+
                 if (actionBase.ActionDamageData.DamageType == EDamageType.Additive)
                     _animatorStateController.AnimatorLayerPlay(1, actionBase.ActionStart.PlayClip.name, 0f);
-            }
 
-            if (!isPull) // 固定化モーション以外を再生の場合
-            {
-                // Additiveを考慮する必要があるが、とりあえず引き離す必要がある吹き飛ばす
-                _rigidBody.isKinematic = false;
-                _unitComponents.PartAttachment.SetEntityParent();
-                //Vector3 rot = transform.rotation.eulerAngles;
-                //transform.rotation = Quaternion.Euler(0, rot.y, 0);
-
-                // グラップモーションの場合　座標と回転値を考慮する必要がある　or グラップモーションをPullとして扱う
-
-                // ノーマルモーション・グラップモーションを再生
-                _unitComponents.UnitActionLoader.LoadAction(damageAction);
-                // Additiveモーションを再生パターン
-
-            }
-            else // 固定化モーションを再生の場合
-            {
-                if(!_unitComponents.PartAttachment.IsPull)
+                var additive = actionBase.ActionDamageData.AddAdditiveMotion != null ? actionBase.ActionDamageData.AddAdditiveMotion.name : actionBase.ActionStart.PlayClip.name;
+                if (actionBase.ActionDamageData.IsAddAddtive)
                 {
-                    _rigidBody.isKinematic = true;
-                    _unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Executing;
-                    //_unitComponents.AnimatorStateController.StatePlay(hitCollider.PullData.MotionName, EStatePlayType.SinglePlay, true);
-                }
-                else // すでに固定化済み
-                {
-                    _animatorStateController.AnimatorLayerPlay(1, "Additive1", 0);
+                    _animatorStateController.AnimatorLayerPlay(1, additive, 0f);
                 }
 
+
+
+                if (!isPull) // 固定化モーション以外を再生の場合
+                {
+                    // Additiveを考慮する必要があるが、とりあえず引き離す必要がある吹き飛ばす
+                    _rigidBody.isKinematic = false;
+                    _unitComponents.PartAttachment.SetEntityParent();
+                    //Vector3 rot = transform.rotation.eulerAngles;
+                    //transform.rotation = Quaternion.Euler(0, rot.y, 0);
+
+                    // グラップモーションの場合　座標と回転値を考慮する必要がある　or グラップモーションをPullとして扱う
+
+                    // ノーマルモーション・グラップモーションを再生
+                    _unitComponents.UnitActionLoader.LoadAction(damageAction);
+                    // Additiveモーションを再生パターン
+
+                }
+                else // 固定化モーションを再生の場合
+                {
+                    if (!_unitComponents.PartAttachment.IsPull) // まだ固定されていない
+                    {
+                        _rigidBody.isKinematic = true;
+                        _unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Executing;
+                        _unitComponents.AnimatorStateController.StatePlay(actionBase.ActionStart.PlayClip.name, EStatePlayType.SinglePlay, true);
+                    }
+                    else // すでに固定化済み
+                    {
+                        _animatorStateController.AnimatorLayerPlay(1, additive, 0);
+                    }
+
+                }
             }
 
             var unitShape = _unitComponents.UnitShape;

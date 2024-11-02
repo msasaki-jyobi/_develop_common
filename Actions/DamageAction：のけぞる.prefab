@@ -77,6 +77,7 @@ MonoBehaviour:
   IsStateReset: 1
   SetStartStatus: 1
   IsResetVelocity: 1
+  IsParentEntity: 0
   AnimatorLayer: 0
   WeightValue: 1
   WeightTime: 0.5
@@ -95,6 +96,7 @@ MonoBehaviour:
   SetFinishStatus: 0
   NextActionData: {fileID: 867914962149053577, guid: 82a4398abc8c7514f979cb8af49a9679,
     type: 3}
+  IsDown: 0
 --- !u!114 &4257612234498888255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,3 +167,5 @@ MonoBehaviour:
   MotionDamage: 0
   DeadAction: {fileID: 0}
   DamageType: 1
+  IsAddAddtive: 1
+  AddAdditiveMotion: {fileID: 0}

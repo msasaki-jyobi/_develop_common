@@ -10,14 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1964579485700207550}
   - component: {fileID: 5017441459642140199}
-  - component: {fileID: -9094532401574635501}
   - component: {fileID: 4454726136892598134}
   - component: {fileID: 4257612234498888255}
   - component: {fileID: 6986013468331365574}
   - component: {fileID: 1318679288756685457}
   - component: {fileID: -1375330392209254722}
   m_Layer: 0
-  m_Name: "DamageAction\uFF1Ax"
+  m_Name: "DamageAction\uFF1A\u6295\u3052\u3089\u308C\u308B\uFF08\u30E2\u30FC\u30B7\u30E7\u30F3None)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,34 +50,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActionRequirement: {fileID: 0}
-  ActionStart: {fileID: -9094532401574635501}
+  ActionStart: {fileID: 0}
   ActionFrame: {fileID: 4257612234498888255}
   ActionFinish: {fileID: 4454726136892598134}
   ActionDamageData: {fileID: -1375330392209254722}
+  ActionGrap: {fileID: 0}
   ActionRePlay: {fileID: 0}
   ActionStartAdditiveParameter: {fileID: 6986013468331365574}
   ActionFinishAdditiveParameter: {fileID: 1318679288756685457}
---- !u!114 &-9094532401574635501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867914962149053577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MotionName: x
-  IsApplyRootMotion: 1
-  StatePlayType: 0
-  IsStateReset: 1
-  SetStartStatus: 1
-  IsResetVelocity: 1
-  AnimatorLayer: 0
-  WeightValue: 1
-  WeightTime: 0.5
 --- !u!114 &4454726136892598134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,9 +70,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6089b1ca23130ca4295a1b9c41cac0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SetFinishStatus: 0
-  NextActionData: {fileID: 867914962149053577, guid: 82a4398abc8c7514f979cb8af49a9679,
-    type: 3}
+  SetFinishStatus: 2
+  NextActionData: {fileID: 0}
+  IsDown: 0
 --- !u!114 &4257612234498888255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +92,7 @@ MonoBehaviour:
     Attack_DamageData: {fileID: 0}
     ActiveAttackData: {fileID: 0}
     PullData: {fileID: 0}
+    IKData: {fileID: 0}
     IsComplete: 0
 --- !u!114 &6986013468331365574
 MonoBehaviour:
@@ -162,4 +142,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MotionDamage: 0
   DeadAction: {fileID: 0}
-  DamageType: 1
+  DamageType: 0
