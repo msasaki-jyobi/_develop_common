@@ -218,6 +218,7 @@ namespace _develop_common
                             unitComponents.PartAttachment.AttachTarget
                                 (transform, PullData.BodyKeyName,
                                 positionOffset: pos, rotationOffset: PullData.PullRots[ran]);
+                            Debug.Log($"DEDE::{PullData.PullRots[ran]}");
                         }
                     }
 
