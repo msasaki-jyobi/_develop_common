@@ -66,12 +66,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayClip: {fileID: 7400000, guid: b42c5e0b0de84a642a925a4b7803d45c, type: 2}
+  PlayClip: Locomotion
+  PlayClip2: Locomotion
   IsApplyRootMotion: 0
   StatePlayType: 1
   IsStateReset: 1
   SetStartStatus: 0
   IsResetVelocity: 1
+  IsParentEntity: 0
   AnimatorLayer: 0
   WeightValue: 1
   WeightTime: 0.5

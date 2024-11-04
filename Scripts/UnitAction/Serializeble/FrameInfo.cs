@@ -16,6 +16,7 @@ namespace develop_common
         public FrameActiveAttackData ActiveAttackData;
         public FramePullData PullData;
         public FrameIKData IKData;
+        public FrameSync SyncData;
 
         //[Tooltip("Velocity Reset")]
         //public bool IsResetVelocity;
@@ -73,6 +74,7 @@ namespace develop_common
             this.Attack_DamageData = other.Attack_DamageData;
             this.PullData = other.PullData;
             this.IKData = other.IKData;
+            this.SyncData = other.SyncData;
 
             //this.IsResetVelocity = other.IsResetVelocity;
 

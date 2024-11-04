@@ -8,14 +8,15 @@ namespace develop_common
         public Animator Animator;
         public AnimatorStateController AnimatorStateController;
         public UnitActionLoader UnitActionLoader;
-        public BattleDealer AttackDealer;
         [Space(10)]
+        public BattleDealer AttackDealer;
         public PartAttachment PartAttachment;
         public UnitInstance UnitInstance;
         public Animator UnitAvatar;
         public UnitShape UnitShape;
-        public IKController iKController;
         public UnitVoice UnitVoice;
+        [Space(10)]
+        public IKController AttaqckIKController;
 
         [Space(10)]
         public bool IsSetAvatar; 

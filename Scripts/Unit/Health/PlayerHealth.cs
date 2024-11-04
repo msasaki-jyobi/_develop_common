@@ -33,6 +33,10 @@ namespace develop_common
         [field: SerializeField] public int CurrentHealth { get; private set; } = 50;
         public int MaxHealth { get; private set; } = 50;
 
+        [field: SerializeField] public bool IsInvisible { get; private set; }
+
+        public bool IsDeadSlow;
+        public float SlowTimer = 1;
 
 
         private void Start()
@@ -41,10 +45,23 @@ namespace develop_common
             _inputReader.PrimaryActionCrossEvent += OnCrossHandle;
         }
 
+        private void Update()
+        {
+            //if (SlowTimer > 0)
+            //{
+            //    Time.timeScale = 0.2f;
+            //    SlowTimer -= Time.unscaledDeltaTime;
+            //}
+            //else if (Time.timeScale != 1)
+            //{
+            //    Time.timeScale = 1f;
+            //}
+        }
+
         private async void OnCrossHandle(bool arg1, EInputReader reader)
         {
             // 起き上がる　これをGetUpのアクションにそもそもすればいいんじゃね？条件チェックでIsDownがTrueでDownValueが0ならこれみたいな
-            if ((_unitComponents.PartAttachment.IsPull || _unitComponents.PartAttachment.IsDown) && _unitComponents.UnitActionLoader.UnitStatus == EUnitStatus.Down)
+            if (_unitComponents.PartAttachment.IsPull || (_unitComponents.PartAttachment.IsDown && _unitComponents.UnitActionLoader.UnitStatus == EUnitStatus.Down))
             {
                 _unitComponents.PartAttachment.SetEntityParent();
                 await UniTask.Delay(1);
@@ -55,6 +72,9 @@ namespace develop_common
                 transform.rotation = Quaternion.Euler(0, rot.y, 0);
                 // 起き上がりモーションを実行
                 _unitComponents.UnitActionLoader.LoadAction(GetUpAction);
+                IsInvisible = true;
+                await UniTask.Delay(3000);
+                IsInvisible = false;
             }
         }
 
@@ -62,19 +82,36 @@ namespace develop_common
         {
             CurrentHealth -= totalDamage;
 
+            if (CurrentHealth < 0)
+                if (IsDeadSlow)
+                    SlowTimer = 3f;
+
+
             // Task: ダメージを受け取ってモーション再生を行う・シェイプ再生など
             if (damageAction.TryGetComponent<ActionBase>(out var actionBase))
             {
-                Debug.Log($"GameObject:{gameObject.name}, 1 {actionBase}, 2{actionBase.ActionDamageData}");
+                //if (actionBase.ActionDamageData.DamageType == EDamageType.Additive)
+                //    _animatorStateController.AnimatorLayerPlay(1, actionBase.ActionStart.PlayClip, 0f);
 
-                if (actionBase.ActionDamageData.DamageType == EDamageType.Additive)
-                    _animatorStateController.AnimatorLayerPlay(1, actionBase.ActionStart.PlayClip.name, 0f);
+                // いったんStartモーションを設定
+                var additiveMotion = actionBase.ActionStart.PlayClip;
+                int ran = 0;
+                if (actionBase.ActionDamageData.AdditiveDamageData != null)
+                    ran = UnityEngine.Random.Range(0, actionBase.ActionDamageData.AdditiveDamageData.AdditiveDatas.Count);
+                // Additiveデータがあれば上書き
+                if (actionBase.ActionDamageData != null)
+                    if (actionBase.ActionDamageData.AdditiveDamageData != null)
+                        additiveMotion = actionBase.ActionDamageData.AdditiveDamageData.AdditiveDatas[ran];
 
-                var additive = actionBase.ActionDamageData.AddAdditiveMotion != null ? actionBase.ActionDamageData.AddAdditiveMotion.name : actionBase.ActionStart.PlayClip.name;
                 if (actionBase.ActionDamageData.IsAddAddtive)
                 {
-                    _animatorStateController.AnimatorLayerPlay(1, additive, 0f);
+                    _animatorStateController.AnimatorLayerPlay(1, additiveMotion, 0f);
                 }
+                if (actionBase.ActionDamageData.DamageVoiceKey != "")
+                {
+                    _unitComponents.UnitVoice.PlayVoice(actionBase.ActionDamageData.DamageVoiceKey);
+                }
+
 
 
 
@@ -88,6 +125,7 @@ namespace develop_common
 
                     // グラップモーションの場合　座標と回転値を考慮する必要がある　or グラップモーションをPullとして扱う
 
+                    if (actionBase.ActionDamageData.IsAddAddtiveOnly) return;
                     // ノーマルモーション・グラップモーションを再生
                     _unitComponents.UnitActionLoader.LoadAction(damageAction);
                     // Additiveモーションを再生パターン
@@ -99,13 +137,12 @@ namespace develop_common
                     {
                         _rigidBody.isKinematic = true;
                         _unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Executing;
-                        _unitComponents.AnimatorStateController.StatePlay(actionBase.ActionStart.PlayClip.name, EStatePlayType.SinglePlay, true);
+                        _unitComponents.AnimatorStateController.StatePlay(actionBase.ActionStart.PlayClip, EStatePlayType.SinglePlay, true);
                     }
                     else // すでに固定化済み
                     {
-                        _animatorStateController.AnimatorLayerPlay(1, additive, 0);
+                        _animatorStateController.AnimatorLayerPlay(1, additiveMotion, 0);
                     }
-
                 }
             }
 

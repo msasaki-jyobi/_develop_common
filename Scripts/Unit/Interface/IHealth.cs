@@ -16,6 +16,7 @@ namespace develop_common
         void TakeDamage(GameObject damageAction, bool isPull, int totalDamage);
         void Heal(float amount);
         void ChangeStatus(EUnitStatus status);
+        bool IsInvisible { get; }
 
     }
 

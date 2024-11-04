@@ -6,7 +6,7 @@ namespace develop_common
 {
     public class ActionGrap : MonoBehaviour
     {
-        public AnimationClip GrapClip;
+        public string GrapClip;
         public Vector3 OffsetPos;
         public Vector3 OffsetRot;
     }

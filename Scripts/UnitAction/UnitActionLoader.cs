@@ -6,6 +6,7 @@ using System.Linq;
 using System;
 using develop_tps;
 using Cysharp.Threading.Tasks;
+using static UnityEditor.PlayerSettings;
 
 namespace develop_common
 {
@@ -97,13 +98,40 @@ namespace develop_common
                                         {
                                             // このタイミングはモーション中なのでここでONにする必要がある
                                             // ここで攻撃対象のIK取得が必要
-                                            if (_unitComponents.iKController != null)
+                                            if (_unitComponents.AttaqckIKController != null)
                                                 if (frameInfo.IKData != null)
-                                                    _unitComponents.iKController.SetTargetEnableIK(
+                                                    _unitComponents.AttaqckIKController.SetTargetEnableIK(
                                                          frameInfo.IKData.IKKeyName,
                                                          frameInfo.IKData.IKLifeTime,
                                                          TargetComponents.UnitInstance.SearchObject(frameInfo.IKData.IKTargetKeyName).transform
                                                         );
+                                        }
+                                        if (frameInfo.SyncData != null) // Syncの設定
+                                        {
+                                            // 近くの敵の部位を取得
+                                            var target = GameObject.Find("Player");
+                                            if (target != null)
+                                            {
+                                                if (target.TryGetComponent<develop_common.UnitComponents>(out var component))
+                                                {
+                                                    var body = component.UnitInstance.SearchObject(frameInfo.SyncData.DamageKeyName);
+                                                    //transform.position = pos + frameInfo.SyncData.WorldOffset;
+                                                    component.PartAttachment.ActivateAbility(
+                                                         body.transform, // ターゲットBody用
+                                                         _unitComponents.PartAttachment.PlayerRoot,
+                                                         _unitComponents.AttackDealer.GetAttack(frameInfo.SyncData.AttackKeyName).transform, // 武器用
+                                                         frameInfo.SyncData.WorldOffset
+                                                         );
+                                                    await UniTask.Delay(1);
+                                                    component.PartAttachment.ActivateAbility(
+                                                        body.transform, // ターゲットBody用
+                                                        _unitComponents.PartAttachment.PlayerRoot,
+                                                        _unitComponents.AttackDealer.GetAttack(frameInfo.SyncData.AttackKeyName).transform, // 武器用
+                                                        frameInfo.SyncData.WorldOffset
+                                                        );
+
+                                                }
+                                            }
                                         }
 
                                         if (frameInfo.ActiveAttackData != null) // Task:攻撃判定をONにする
@@ -181,15 +209,13 @@ namespace develop_common
 
             if (ActiveActionBase != null)
             {
-                Debug.Log($"ActiveActionBase:{ActiveActionBase.name}");
                 if (ActiveActionBase.ActionStart != null)
                 {
                     if (ActiveActionBase.ActionStart.PlayClip == null) return;// 投げ技は↓でエラーなっちゃうから追加してみた
-                    if (ActiveActionBase.ActionStart.PlayClip.name != stateName) return;
+                    if (ActiveActionBase.ActionStart.PlayClip != stateName) return;
                 }
             }
 
-            Debug.Log($"DOMO:{gameObject.name}");
             // Frame Reset
             _loadFrameInfos?.Clear();
 
@@ -208,17 +234,19 @@ namespace develop_common
                 if (oldActiveActionBase.ActionFinish != null)
                 {
                     // Status Change
-                    ChangeStatus(oldActiveActionBase.ActionFinish.SetFinishStatus, 1);
+                    ChangeStatus(oldActiveActionBase.ActionFinish.SetFinishStatus, 1, oldActiveActionObject);
                     // Next ActionData
                     if (oldActiveActionBase.ActionFinish.NextActionData != null)
                     {
-                        Debug.Log($"NextAction:::{oldActiveActionBase.ActionFinish.NextActionData}");
                         LoadAction(oldActiveActionBase.ActionFinish.NextActionData);
                         return;
                     }
 
                     if (oldActiveActionBase.ActionFinish.IsDown)
+                    {
                         _unitComponents.PartAttachment.IsDown = true;
+                        _unitComponents.PartAttachment.SetEntityParent();
+                    }
                 }
 
             // Finish Event
@@ -237,6 +265,7 @@ namespace develop_common
 
         public void LoadAction(GameObject actionObject, EInputReader key = EInputReader.None, bool ignoreDelayTime = false)
         {
+            if (actionObject == null) return;
             if (actionObject.TryGetComponent<ActionBase>(out var actionBase))
             {
                 // Delay Time Return
@@ -273,7 +302,7 @@ namespace develop_common
                 // Start
                 if (actionBase.ActionStart != null)
                 {
-                    var stateName = actionBase.ActionStart.PlayClip != null ? actionBase.ActionStart.PlayClip.name : "";
+                    var stateName = actionBase.ActionStart.PlayClip != null ? actionBase.ActionStart.PlayClip : "";
                     var playType = actionBase.ActionStart.StatePlayType;
                     var reset = actionBase.ActionStart.IsStateReset;
                     var root = actionBase.ActionStart.IsApplyRootMotion;
@@ -291,7 +320,7 @@ namespace develop_common
                     if (actionBase.ActionStart.IsParentEntity)
                         _unitComponents.PartAttachment.SetEntityParent();
 
-                    ChangeStatus(actionBase.ActionStart.SetStartStatus, 0);
+                    ChangeStatus(actionBase.ActionStart.SetStartStatus, 0, actionBase.gameObject);
 
                 }
                 // Frame
@@ -301,9 +330,9 @@ namespace develop_common
             }
         }
 
-        public void ChangeStatus(EUnitStatus status, int code = 0)
+        public void ChangeStatus(EUnitStatus status, int code = 0, GameObject Action = null)
         {
-            Debug.Log($"{gameObject.name} ChangeStatus:{status}, code:{code}");
+            Debug.Log($"{gameObject.name} ChangeStatus:{status}, code:{code}, アクション：{Action}");
             if (status != EUnitStatus.None)
                 UnitStatus = status;
 

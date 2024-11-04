@@ -1,5 +1,6 @@
 
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace develop_common
@@ -16,11 +17,13 @@ namespace develop_common
         public int MotionDamage;
         [Header("死亡モーション")]
         public GameObject DeadAction;
-        [Header("部位別のヒット上限")]
-        public EDamageType DamageType;
-
+        [Header("ダメージボイス")]
+        public string DamageVoiceKey;
         [Header("追加Addtive")]
         public bool IsAddAddtive;
-        [Tooltip("None:ActionStartの設定モーションが参照される")]public AnimationClip AddAdditiveMotion;
+        [Tooltip("None:ActionStartの設定モーションが参照される")]
+        public AdditiveDamageData AdditiveDamageData;
+        [Header("Additiveのみ再生する（OFFだと組み合わせモーション）")]
+        public bool IsAddAddtiveOnly;
     }
 }

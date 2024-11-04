@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayClip: {fileID: 7400024, guid: ecf5831e0be3d644db7ffd008f8420d1, type: 3}
+  PlayClip: KB_KO_Head
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
@@ -116,6 +116,7 @@ MonoBehaviour:
     ActiveAttackData: {fileID: 0}
     PullData: {fileID: 0}
     IKData: {fileID: 0}
+    SyncData: {fileID: 0}
     IsComplete: 0
 --- !u!114 &6986013468331365574
 MonoBehaviour:
@@ -163,8 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db6f45d21a1f5254b871647f4efee388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MotionDamage: 0
+  MotionDamage: 1
   DeadAction: {fileID: 0}
-  DamageType: 0
-  IsAddAddtive: 0
-  AddAdditiveMotion: {fileID: 0}
+  DamageVoiceKey: 
+  IsAddAddtive: 1
+  AdditiveDamageData: {fileID: 0}
+  IsAddAddtiveOnly: 0

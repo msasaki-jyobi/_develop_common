@@ -10,8 +10,6 @@ namespace develop_common
         public develop_common.UnitComponents UnitComponents;
         [Header("攻撃を行うHitCollider")]
         public List<AttackBodyInfo> AttackBodyInfos = new List<AttackBodyInfo>();
-        [Header("Layer2 Additiveダメージ")]
-        public List<string> AdditiveDamages = new List<string>() { "Additive1"};
 
         public void SetAttack(string attackBodyName, float lifeTime, GameObject damageAction, bool isPull = false, PullData pullData = default)
         {
@@ -25,8 +23,21 @@ namespace develop_common
                     info.HitCollider.IsPull = isPull; // 固定化の有無
                     info.HitCollider.PullData = pullData; // 固定化の情報
                     info.HitCollider.AttakerActionLoader = UnitComponents.UnitActionLoader; // 攻撃者のActionLoader
+                    info.HitCollider.AttackerUnitType = UnitComponents.UnitActionLoader.UnitType; // 攻撃者のUnitType
                 }
             }
+        }
+        public GameObject GetAttack(string attackBodyName)
+        {
+            foreach (AttackBodyInfo info in AttackBodyInfos)
+            {
+                if (info.AttackBodyName == attackBodyName)
+                {
+                    return info.HitCollider.gameObject;
+                }
+
+            }
+            return null;
         }
     }
 }

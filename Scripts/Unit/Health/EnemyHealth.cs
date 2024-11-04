@@ -20,6 +20,7 @@ namespace develop_common
         public ReactiveProperty<EUnitStatus> UnitStatus => new ReactiveProperty<EUnitStatus>();
         [field: SerializeField] public int CurrentHealth { get; private set; } = 10;
         public int MaxHealth { get; private set; } = 10;
+        [field: SerializeField] public bool IsInvisible { get; private set; }
 
         private void Start()
         {
