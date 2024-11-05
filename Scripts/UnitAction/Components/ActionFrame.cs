@@ -9,7 +9,5 @@ namespace develop_common
     public class ActionFrame : MonoBehaviour
     {
         public List<FrameInfo> FrameInfo = new List<FrameInfo>();
-
-
     }
 }

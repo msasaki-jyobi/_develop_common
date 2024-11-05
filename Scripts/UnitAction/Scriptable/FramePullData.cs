@@ -14,7 +14,6 @@ namespace develop_common
     public class PullData
     {
         public string BodyKeyName; // 固定化する対象Body
-        public string MotionName; // 実行するモーション一覧
         public Vector3 PullPos; // 回転値
         public List<Vector3> PullRots; // 回転値
     }

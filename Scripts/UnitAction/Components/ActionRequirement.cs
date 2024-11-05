@@ -15,21 +15,27 @@ namespace develop_common
     public class ActionRequirement : MonoBehaviour
     {
         [Header("条件：トリガーアクション")] // 再生するのに必要なトリガーアクション
+        [Tooltip("コンボなどに使用。設定すると設定されたアクションが実行中でないと、このアクションは実行できない")]
         public GameObject TriggerAction;
 
         [Header("条件：トリガーUnitStatus")] // 再生に必要なステータス
+        [Tooltip("キャラクターのUnitActionLoaderの状態が一致する場合のみ実行できる. Noneなら指定なし。")]
         public EUnitStatus TriggerStatus;
 
         [Header("条件：キー入力受付中のみ")]
+        [Tooltip("FrameInfoにて追加入力がONになってる時のみ実行できる")]
         public bool IsWaitingForKey;
 
         [Header("条件：地面にいる時のみ")]
+        [Tooltip("地面に足がついている時以外は実行できない")]
         public bool IsGround;
 
         [Header("条件：空中にいる時のみ")]
+        [Tooltip("空中にいる時以外は実行できない")]
         public bool IsAir;
 
         [Header("条件：指定キーが入力されているか？")]
+        [Tooltip("指定されたキーが入力されてる時以外は実行できない. Noneなら指定なし")]
         public EInputReader Key = EInputReader.None;
 
         public bool CheckExecute(UnitActionLoader actionLoader, EInputReader key)

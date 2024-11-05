@@ -21,26 +21,31 @@ namespace _develop_common
         // 各オブジェクトのタグ名
         private const string _bodyTagName = "Body";
 
-        [Header("攻撃者")]
-        public GameObject AttackerUnit;
         [Header("ダメージの重さ")]
+        [Tooltip("ダメージ計算に利用される")]
         public int DamageWeight;
         [Header("ダメージに関する詳細")]
+        [Tooltip("エフェクトやヒット上限の詳細情報データ")]
         public DamageData DamageData;
         [Space(10)]
         [Header("自動設定：攻撃者タイプ")]
+        [Tooltip("ダメージ側が一致しないタイプなら、ダメージ発生する")]
         public develop_common.EUnitType AttackerUnitType;
         [Header("自動設定：攻撃判定")]
         public ReactiveProperty<bool> IsAttack = new ReactiveProperty<bool>();
         [Header("自動設定：攻撃判定時間")]
+        [Tooltip("攻撃判定がONになっている時間")]
         public float AttackLifeTime;
         [Header("自動設定：ダメージアクション")]
+        [Tooltip("ヒットしたキャラクターに再生させるダメージアクション")]
         public GameObject DamageAction;
         [Header("自動設定：固定化フラグ")]
         public bool IsPull;
         [Header("自動設定：Pull情報")]
+        [Tooltip("固定化させる情報")]
         public PullData PullData;
         [Header("自動設定：ActionLoader")]
+        [Tooltip("Replay:即切り替えモーションがあるかどうか、の時だけ利用する。")]
         public UnitActionLoader AttakerActionLoader;
 
 
@@ -184,7 +189,7 @@ namespace _develop_common
                                 {
                                     // AttakerActionLoader.ActiveActionBase.ActionRePlay この時点でかわってしまう Attに
 
-                                    unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Executing;
+                                    unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Down;
                                     unitComponents.AnimatorStateController.StatePlay(stateName, EStatePlayType.SinglePlay, true);
 
                                     damageUnit.transform.position = transform.position + UtilityFunction.LocalLookPos(transform, pos);

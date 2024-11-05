@@ -8,14 +8,24 @@ namespace develop_common
     [System.Serializable]
     public class FrameInfo
     {
+        [Header("基本")]
         [Tooltip("発動フレーム")] // 追加したら下部のコピーメソッドに処理を追加すること！
         public float PlayFrame;
+        [Tooltip("再生する時に設定される基本情報（物理演算など")]
         public FrameNormalData NormalData;
+        [Tooltip("生成するプレハブの情報（エフェクトなど）")]
         public FramePrefabData PrefabData;
+
+        [Header("攻撃関連")]
+        [Tooltip("ダメージ側が実行するダメージアクションを指定")]
         public GameObject Attack_DamageData;
+        [Tooltip("各キャラクターのBattleDelarの攻撃判定がONになる情報（HitCllider）を指定")]
         public FrameActiveAttackData ActiveAttackData;
+        [Tooltip("固定化する時に、ダメージが発生したHitColliderにUnitInstanceのどの部位を固定化させるか")]
         public FramePullData PullData;
+        [Tooltip("キャラクターのIKControllerが何秒間、ダメージ側のUnitInstanceの指定Bodyを追跡するか？")]
         public FrameIKData IKData;
+        [Tooltip("攻撃部位（BattleDelaer）をダメージ側のUnitInstanceと座標を同期する場合に指定する")]
         public FrameSync SyncData;
 
         //[Tooltip("Velocity Reset")]

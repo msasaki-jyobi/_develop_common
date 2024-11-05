@@ -70,7 +70,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayClip: Paired_Clothesline_Att
-  PlayClip2: Paired_Clothesline_Att
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
@@ -115,6 +114,7 @@ MonoBehaviour:
     ActiveAttackData: {fileID: 0}
     PullData: {fileID: 0}
     IKData: {fileID: 0}
+    SyncData: {fileID: 0}
     IsComplete: 0
 --- !u!114 &217763541324700092
 MonoBehaviour:
@@ -129,6 +129,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GrapClip: Paired_Clothesline_Vic
-  GrapClip2: Paired_Clothesline_Vic
   OffsetPos: {x: 0, y: 0, z: -2}
   OffsetRot: {x: 0, y: 0, z: 0}

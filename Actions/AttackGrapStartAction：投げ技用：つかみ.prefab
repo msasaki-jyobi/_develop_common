@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4257612234498888255}
   - component: {fileID: -4551261338203220581}
   m_Layer: 0
-  m_Name: "AttackGrapStartAction\uFF1A\u6295\u3052\u6280"
+  m_Name: "AttackGrapStartAction\uFF1A\u6295\u3052\u6280\u7528\uFF1A\u3064\u304B\u307F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayClip: KB_m_OneTwo
-  PlayClip2: KB_m_OneTwo
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
@@ -116,6 +115,7 @@ MonoBehaviour:
     ActiveAttackData: {fileID: 11400000, guid: d706a210eeb4c31418047bada432d8f9, type: 2}
     PullData: {fileID: 0}
     IKData: {fileID: 0}
+    SyncData: {fileID: 0}
     IsComplete: 0
 --- !u!114 &-4551261338203220581
 MonoBehaviour:

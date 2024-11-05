@@ -93,9 +93,11 @@ namespace develop_common
                 //if (actionBase.ActionDamageData.DamageType == EDamageType.Additive)
                 //    _animatorStateController.AnimatorLayerPlay(1, actionBase.ActionStart.PlayClip, 0f);
 
-                // いったんStartモーションを設定
-                var additiveMotion = actionBase.ActionStart.PlayClip;
+                
+                var additiveMotion = "";
                 int ran = 0;
+                if (actionBase.ActionStart != null)
+                    additiveMotion = actionBase.ActionStart.PlayClip; // いったんStartモーションを設定
                 if (actionBase.ActionDamageData.AdditiveDamageData != null)
                     ran = UnityEngine.Random.Range(0, actionBase.ActionDamageData.AdditiveDamageData.AdditiveDatas.Count);
                 // Additiveデータがあれば上書き
@@ -109,7 +111,8 @@ namespace develop_common
                 }
                 if (actionBase.ActionDamageData.DamageVoiceKey != "")
                 {
-                    _unitComponents.UnitVoice.PlayVoice(actionBase.ActionDamageData.DamageVoiceKey);
+                    if (_unitComponents.UnitVoice != null)
+                        _unitComponents.UnitVoice.PlayVoice(actionBase.ActionDamageData.DamageVoiceKey);
                 }
 
 
