@@ -41,7 +41,6 @@ namespace _develop_common
         public GameObject DamageAction;
         [Header("自動設定：固定化フラグ")]
         public bool IsPull;
-        [Header("自動設定：Pull情報")]
         [Tooltip("固定化させる情報")]
         public PullData PullData;
         [Header("自動設定：ActionLoader")]
