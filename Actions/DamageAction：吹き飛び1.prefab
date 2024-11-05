@@ -74,7 +74,7 @@ MonoBehaviour:
   PlayClip: KB_HighKO_Powerful
   IsApplyRootMotion: 0
   StatePlayType: 0
-  IsStateReset: 0
+  IsStateReset: 1
   SetStartStatus: 1
   IsResetVelocity: 1
   IsParentEntity: 0

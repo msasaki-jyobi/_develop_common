@@ -6635,9 +6635,9 @@ MonoBehaviour:
   _inputReader: {fileID: 11400000, guid: 2938829d6e1a3e74d87d827e31978bfc, type: 2}
   _unitActionLoader: {fileID: 680506948}
   _actionDataR1:
-  - {fileID: 867914962149053577, guid: e7b06585e345bef4385f4aeeaa23cd37, type: 3}
-  - {fileID: 867914962149053577, guid: 3379a321bdbe8e944b9fe8219875d9d8, type: 3}
-  _actionDataR2: []
+  - {fileID: 867914962149053577, guid: c5acbf728588c6d42963cf7275e326b0, type: 3}
+  _actionDataR2:
+  - {fileID: 867914962149053577, guid: 35daf91d7b2f008498532baa55a0528a, type: 3}
   _actionDataL1:
   - {fileID: 867914962149053577, guid: d2f9ad00c8bf901418fffd5148983a56, type: 3}
   _actionDataL2: []
