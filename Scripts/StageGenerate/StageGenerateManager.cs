@@ -31,7 +31,7 @@ namespace develop_common
                 var parent = ch;
                 var prefab = Instantiate(submitObject, ch.transform.position, ch.transform.rotation);
                 prefab.transform.parent = parent;
-                prefab.transform.localScale = parent.localScale;
+                prefab.transform.localScale = SetSize;
             }
         }
     }
