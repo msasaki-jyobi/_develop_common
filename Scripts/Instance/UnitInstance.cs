@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,10 @@ namespace develop_common
         [Header("Body参照用(Tooltip詳細)")]
         [Tooltip("Timeline, PartAttachmentの固定先, IKの参照先")]
         public List<StringKeyGameObjectValuePair> InstanceBodys = new List<StringKeyGameObjectValuePair>();
+       
+        [Header("追加機能：Action時 カメラ切り替え")]
+        public List<CinemachineVirtualCamera> RandomCameras = new List<CinemachineVirtualCamera>();
+
 
         public GameObject SearchObject(string keyName)
         {

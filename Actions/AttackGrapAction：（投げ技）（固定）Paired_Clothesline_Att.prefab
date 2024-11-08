@@ -108,8 +108,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FrameInfo:
   - PlayFrame: 1
+    OverwriteAction: {fileID: 0}
     NormalData: {fileID: 0}
     PrefabData: {fileID: 0}
+    FramePair: []
     Attack_DamageData: {fileID: 0}
     ActiveAttackData: {fileID: 0}
     PullData: {fileID: 0}

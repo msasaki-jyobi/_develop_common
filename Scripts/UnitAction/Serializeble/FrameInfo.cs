@@ -11,10 +11,15 @@ namespace develop_common
         [Header("基本")]
         [Tooltip("発動フレーム")] // 追加したら下部のコピーメソッドに処理を追加すること！
         public float PlayFrame;
+        [Tooltip("強制割込みモーション")]
+        public GameObject OverwriteAction;
         [Tooltip("再生する時に設定される基本情報（物理演算など")]
         public FrameNormalData NormalData;
         [Tooltip("生成するプレハブの情報（エフェクトなど）")]
         public FramePrefabData PrefabData;
+        [Tooltip("途中で実行したいPair")]
+        public List<StringKeyStringValuePair> FramePair = new List<StringKeyStringValuePair>();
+
 
         [Header("攻撃関連")]
         [Tooltip("ダメージ側が実行するダメージアクションを指定")]
@@ -85,6 +90,8 @@ namespace develop_common
             this.PullData = other.PullData;
             this.IKData = other.IKData;
             this.SyncData = other.SyncData;
+            this.OverwriteAction = other.OverwriteAction;
+            this.FramePair = other.FramePair;
 
             //this.IsResetVelocity = other.IsResetVelocity;
 

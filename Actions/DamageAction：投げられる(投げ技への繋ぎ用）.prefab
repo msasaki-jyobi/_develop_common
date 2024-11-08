@@ -87,8 +87,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FrameInfo:
   - PlayFrame: 0
+    OverwriteAction: {fileID: 0}
     NormalData: {fileID: 0}
     PrefabData: {fileID: 0}
+    FramePair: []
     Attack_DamageData: {fileID: 0}
     ActiveAttackData: {fileID: 0}
     PullData: {fileID: 0}
@@ -145,5 +147,5 @@ MonoBehaviour:
   DeadAction: {fileID: 0}
   DamageVoiceKey: 
   IsAddAddtive: 0
-  AddAdditiveMotion: 
+  AdditiveDamageData: {fileID: 0}
   IsAddAddtiveOnly: 0

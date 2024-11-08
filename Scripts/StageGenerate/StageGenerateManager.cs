@@ -9,7 +9,7 @@ namespace develop_common
     {
         // オブジェクト毎にサイズ設定できると良いかも。　すべてランダム配置設定。
         public bool IsIgnoreSubmit;
-        public List<GameObject> GenerateObjects = new List<GameObject>();
+        public GenerateData GenerateData;
         public Vector3 SetSize = Vector3.one;
         
         
@@ -20,14 +20,14 @@ namespace develop_common
 
         private void Awake()
         {
-            int ran = Random.Range(0, GenerateObjects.Count);
-            _submitPrefab = GenerateObjects[ran];
+            int ran = Random.Range(0, GenerateData.Prefabs.Count);
+            _submitPrefab = GenerateData.Prefabs[ran];
 
             foreach(var ch in transform.GetComponentsInChildren<Transform>())
             {
                 if (transform == ch) continue;
 
-                var submitObject = !IsIgnoreSubmit ? _submitPrefab : GenerateObjects[Random.Range(0, GenerateObjects.Count)];
+                var submitObject = !IsIgnoreSubmit ? _submitPrefab : GenerateData.Prefabs[Random.Range(0, GenerateData.Prefabs.Count)];
                 var parent = ch;
                 var prefab = Instantiate(submitObject, ch.transform.position, ch.transform.rotation);
                 prefab.transform.parent = parent;

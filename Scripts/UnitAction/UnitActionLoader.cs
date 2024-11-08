@@ -79,6 +79,12 @@ namespace develop_common
                                     {
                                         frameInfo.IsComplete = true;
 
+                                        if(frameInfo.FramePair.Count > 0) // Pair
+                                        {
+                                            foreach(var framePair in frameInfo.FramePair)
+                                                PairManager.Instance.PlayPair(_unitComponents, framePair.Key, framePair.Value);
+                                        }
+
                                         if (frameInfo.NormalData != null)
                                         {
                                             if (frameInfo.NormalData.IsResetVelocity) // 速度リセット
@@ -177,6 +183,11 @@ namespace develop_common
                                                 frameInfo.PullData != null,
                                                 frameInfo.PullData != null ? frameInfo.PullData.PullDatas : null);
                                             }
+                                        }
+
+                                        if(frameInfo.OverwriteAction != null)
+                                        {
+                                            LoadAction(frameInfo.OverwriteAction);
                                         }
                                     }
                     }
