@@ -13,7 +13,7 @@ namespace develop_common
     public class UnitActionLoader : MonoBehaviour
     {
         [SerializeField] private UnitComponents _unitComponents;
-        public EUnitStatus UnitStatus;
+        public ReactiveProperty<EUnitStatus> UnitStatus = new ReactiveProperty<EUnitStatus>();
 
         // Property
         public GameObject ActiveActionObject { get; private set; }
@@ -79,9 +79,9 @@ namespace develop_common
                                     {
                                         frameInfo.IsComplete = true;
 
-                                        if(frameInfo.FramePair.Count > 0) // Pair
+                                        if (frameInfo.FramePair.Count > 0) // Pair
                                         {
-                                            foreach(var framePair in frameInfo.FramePair)
+                                            foreach (var framePair in frameInfo.FramePair)
                                                 PairManager.Instance.PlayPair(_unitComponents, framePair.Key, framePair.Value);
                                         }
 
@@ -185,7 +185,7 @@ namespace develop_common
                                             }
                                         }
 
-                                        if(frameInfo.OverwriteAction != null)
+                                        if (frameInfo.OverwriteAction != null)
                                         {
                                             LoadAction(frameInfo.OverwriteAction);
                                         }
@@ -274,7 +274,7 @@ namespace develop_common
 
         }
 
-        public void LoadAction(GameObject actionObject, EInputReader key = EInputReader.None, bool ignoreDelayTime = false)
+        public void LoadAction(GameObject actionObject, EInputReader key = EInputReader.None, bool ignoreDelayTime = false, bool ignoreRequirement = false)
         {
             if (actionObject == null) return;
             if (actionObject.TryGetComponent<ActionBase>(out var actionBase))
@@ -282,10 +282,11 @@ namespace develop_common
                 // Delay Time Return
                 if (!ignoreDelayTime && _actionDelayTimer > 0) return;
 
-                if (actionBase.ActionRequirement != null)
-                    // アクションの条件チェック
-                    if (!actionBase.ActionRequirement.CheckExecute(this, key))
-                        return;
+                if (!ignoreRequirement)
+                    if (actionBase.ActionRequirement != null)
+                        // アクションの条件チェック
+                        if (!actionBase.ActionRequirement.CheckExecute(this, key))
+                            return;
 
                 //Debug.Log($"実行!!. {gameObject.name} {actionObject.name}");
 
@@ -298,7 +299,6 @@ namespace develop_common
                 ActiveActionBase = actionBase;
                 IsNextAction = false;
                 _actionDelayTimer = _actionDelayTime; // 連打発動防止
-
 
                 // イベント発行
                 PlayActionEvent?.Invoke(actionBase);
@@ -345,7 +345,7 @@ namespace develop_common
         {
             Debug.Log($"{gameObject.name} ChangeStatus:{status}, code:{code}, アクション：{Action}");
             if (status != EUnitStatus.None)
-                UnitStatus = status;
+                UnitStatus.Value = status;
 
         }
 

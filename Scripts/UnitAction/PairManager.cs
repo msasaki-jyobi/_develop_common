@@ -8,7 +8,6 @@ namespace develop_common
 {
     public class PairManager : SingletonMonoBehaviour<PairManager>
     {
-        public List<CinemachineVirtualCamera> RandomCameras = new List<CinemachineVirtualCamera>();
 
         public void PlayPair(UnitComponents unit, string key, string value)
         {
@@ -19,7 +18,7 @@ namespace develop_common
                     PlayRandomCamera(unit, value);
                     break;
                 case "DefaultCamera":
-                    CameraManager.Instance.SetDefaultCamera(false);
+                    develop_easymovie.CameraManager.Instance.SetDefaultCamera(false);
                     break;
             }
         }
@@ -30,7 +29,7 @@ namespace develop_common
             {
                 var target = unit.UnitInstance.SearchObject(keyName);
                 if (target != null)
-                    CameraManager.Instance.ChangeRandomCamera(target.transform, unit.UnitInstance.RandomCameras);
+                    develop_easymovie.CameraManager.Instance.ChangeRandomCamera(target.transform, unit.UnitInstance.RandomCameras);
             }
         }
 

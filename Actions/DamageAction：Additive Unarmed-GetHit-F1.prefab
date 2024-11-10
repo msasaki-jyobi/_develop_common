@@ -108,7 +108,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 186fbed7197d4474bb075a52e80023f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FrameInfo: []
+  FrameInfo:
+  - PlayFrame: 1
+    OverwriteAction: {fileID: 0}
+    NormalData: {fileID: 0}
+    PrefabData: {fileID: 0}
+    FramePair: []
+    Attack_DamageData: {fileID: 0}
+    ActiveAttackData: {fileID: 0}
+    PullData: {fileID: 0}
+    IKData: {fileID: 0}
+    SyncData: {fileID: 0}
+    IsComplete: 0
 --- !u!114 &6986013468331365574
 MonoBehaviour:
   m_ObjectHideFlags: 0

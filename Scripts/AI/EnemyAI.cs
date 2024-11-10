@@ -6,6 +6,7 @@ using develop_common;
 using develop_tps;
 using System.Collections.Generic;
 using System.Linq;
+using UniRx;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class EnemyAI : MonoBehaviour
     // 追加処理
     public AnimatorStateController AnimatorStateController;
     public UnitActionLoader UnitActionLoader;
+    public Rigidbody Rigidbody;
     public List<EnemySkillInfo> SkillActions = new List<EnemySkillInfo>();
     public string IdleMotion = "idleCombat";
     public string WalkMotion = "walkForwardCombat";
@@ -35,7 +37,7 @@ public class EnemyAI : MonoBehaviour
     public Transform[] patrolPoints;
     public float patrolSpeed = 2.0f;
     public float chaseSpeed = 4.0f;
-    public float sightRange = 10.0f;
+    public float sightRange = 5.0f;
     public float attackRange = 2.0f;
     public float fleeHealthThreshold = 0.2f;
     public float attackCooldown = 2.0f;
@@ -50,6 +52,13 @@ public class EnemyAI : MonoBehaviour
     private bool isAttacking = false;
     private bool isCheckAttacking = false;
 
+    // 基本Patrol
+    // 範囲内にいたらおいかける
+    // Readyになったら考える時間 LoadActionを一回実行
+    // Excutingになったらagent終了
+
+
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -60,23 +69,38 @@ public class EnemyAI : MonoBehaviour
         PatrolNextPoint();
 
         AnimatorStateController.FinishMotionEvent += OnFinishMotionHandle;
+
+
+        UnitActionLoader
+            .UnitStatus
+            .Subscribe((x) => 
+            { 
+                switch(x)
+                {
+                    case EUnitStatus.Ready:
+                        agent.enabled = true;
+                        Rigidbody.isKinematic = false;
+                        break;
+                    case EUnitStatus.Executing:
+                        agent.enabled = false;
+                        Rigidbody.velocity = Vector3.zero;
+                        break;
+                    case EUnitStatus.Down:
+                        agent.enabled = false;
+                        Rigidbody.velocity = Vector3.zero;
+                        break;
+                }
+            });
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))
-            TakeDamage(10);
-
 
         // 死亡状態なら何もしない
         if (currentState == EnemyState.Dead) return;
 
         // 攻撃中やひるみ中なら動作を止める
         if (isAttacking || currentState == EnemyState.Staggered) return;
-
-
-
-
 
         switch (currentState)
         {
@@ -152,44 +176,47 @@ public class EnemyAI : MonoBehaviour
     // 攻撃処理
     private async void StartAttack() 
     {
-        if (isAttacking) return;
-        if (isCheckAttacking) return;
 
-        isCheckAttacking = true;
-
-        //AnimatorStateController.StatePlay("Attack", EStatePlayType.SinglePlay, true); // 攻撃アニメーション
-        float distance = Vector3.Distance(transform.position, player.transform.position);
-        var skill = await SearchSkill(distance);
-
-        if(skill != null)
+        // プレイヤーがまだ範囲内かどうか確認
+        if (Vector3.Distance(transform.position, player.position) <= attackRange)
         {
-            agent.enabled = false;
-            UnitActionLoader.LoadAction(skill.SkillAction, EInputReader.R1);
+            //if (isAttacking) return;
+            //if (isCheckAttacking) return;
 
-            isAttacking = true;
+            //isCheckAttacking = true;
 
-            //agent.isStopped = true; // 攻撃中は移動を停止
+            //AnimatorStateController.StatePlay("Attack", EStatePlayType.SinglePlay, true); // 攻撃アニメーション
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+            var skill = await SearchSkill(distance);
+
+            //////
+
+            Debug.Log($"{gameObject.name} A");
+            if (skill != null)
+            {
+                agent.enabled = false;
+                UnitActionLoader.LoadAction(skill.SkillAction, EInputReader.None, ignoreRequirement:true);
+                isAttacking = true;
+            }
+        }
+        else if(IsPlayerInSight()) // 視界の範囲内なら
+        {
+
+            Debug.Log($"{gameObject.name} B");
+            agent.enabled = true;
+            currentState = EnemyState.Chasing;
         }
         else
         {
-            agent.enabled = true;
-            // プレイヤーがまだ範囲内かどうか確認
-            if (Vector3.Distance(transform.position, player.position) <= attackRange)
-            {
-                StartAttack();
-            }
-            else
-            {
-                currentState = EnemyState.Chasing;
-            }
+
+            Debug.Log($"{gameObject.name} C");
+            currentState = EnemyState.Patrolling;
         }
 
         isCheckAttacking = false;
 
         // 攻撃アニメーションが終了するまで待機
         //await UniTask.Delay(1000);
-
-
     }
 
     // ダメージを受けた際の処理

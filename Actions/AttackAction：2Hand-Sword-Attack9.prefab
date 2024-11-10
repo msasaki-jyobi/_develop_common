@@ -107,9 +107,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FrameInfo:
   - PlayFrame: 12
-    NormalData: {fileID: 11400000, guid: 9907c62d2c09d2a48849d526f7385b14, type: 2}
-    PrefabData: {fileID: 11400000, guid: 63daa595cc9466c44a4be8e167e0c9c4, type: 2}
     OverwriteAction: {fileID: 0}
+    NormalData: {fileID: 11400000, guid: 9907c62d2c09d2a48849d526f7385b14, type: 2}
+    PrefabData: {fileID: 11400000, guid: a0ac20cc7e5b9b5448d40660b6005f31, type: 2}
+    FramePair: []
     Attack_DamageData: {fileID: 867914962149053577, guid: 715b445faaefd384da0ef9deb0c4320e,
       type: 3}
     ActiveAttackData: {fileID: 11400000, guid: ea3eab3564c80534fb094fda5fd3c4b6, type: 2}

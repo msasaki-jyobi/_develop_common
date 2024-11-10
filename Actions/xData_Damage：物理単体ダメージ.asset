@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e38508d30d2d4a4186d9bd97ef50543, type: 3}
   m_Name: "xData_Damage\uFF1A\u7269\u7406\u5358\u4F53\u30C0\u30E1\u30FC\u30B8"
   m_EditorClassIdentifier: 
-  HitLimit: 5
-  UnitLimit: 5
+  HitLimit: 15
+  UnitLimit: 15
   HitSpanTime: 0.5
   HitLimitResetTime: 0.5
   HitEffect: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}

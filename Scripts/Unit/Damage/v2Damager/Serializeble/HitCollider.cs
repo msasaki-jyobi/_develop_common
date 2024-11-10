@@ -126,13 +126,14 @@ namespace _develop_common
             {
                 if (bodyCollider.RootObject.TryGetComponent<IHealth>(out var health))
                 {
-
                     check = check && health.UnitType != AttackerUnitType; // 同じキャラクター同士じゃない
+
                     check = check && _damageUnits.Count <= DamageData.UnitLimit; // ユニット数ヒットリミット ADD
                     check = check && damageUnit.HitCount <= DamageData.UnitLimit; // 上限超えてない
                     check = check && damageUnit.HitTimer >= 0; // ヒットタイマーがリセットされていない
                     check = check && !health.IsInvisible;
 
+                    Debug.Log($"Damage**{bodyCollider.RootObject.name}**, {health.UnitType != AttackerUnitType}.{damageUnit.HitCount <= DamageData.UnitLimit},{damageUnit.HitTimer >= 0},{!health.IsInvisible},");
                     if (!check) return;
 
                     // エフェクト再生
@@ -171,7 +172,6 @@ namespace _develop_common
                         if (AttakerActionLoader.ActiveActionBase.ActionRePlay != null)
                         {
                             //LogManager.Instance.ConsoleLog(gameObject, $"{AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction.name} x", 3);
-
                             if (AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction.TryGetComponent<ActionGrap>(out var grep))
                             {
                                 Debug.Log($"a::::{AttakerActionLoader.ActiveActionBase.ActionRePlay.RePlayAction}");
@@ -188,7 +188,7 @@ namespace _develop_common
                                 {
                                     // AttakerActionLoader.ActiveActionBase.ActionRePlay この時点でかわってしまう Attに
 
-                                    unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Down;
+                                    unitComponents.UnitActionLoader.UnitStatus.Value = EUnitStatus.Down;
                                     unitComponents.AnimatorStateController.StatePlay(stateName, EStatePlayType.SinglePlay, true);
 
                                     damageUnit.transform.position = transform.position + UtilityFunction.LocalLookPos(transform, pos);
@@ -206,11 +206,17 @@ namespace _develop_common
 
 
 
+
                     // 投げ技ではないダメージ判定
                     int totalDamage = DamageWeight * actionBase.ActionDamageData.MotionDamage;
 
                     // ダメージを与えモーションも実行してもらう
                     health.TakeDamage(DamageAction, IsPull, totalDamage);
+
+                    if (damageUnit.TryGetComponent<EnemyAI>(out var enemyAI))
+                    {
+                        enemyAI.TakeDamage(totalDamage);
+                    }
 
                     if (IsPull) // 固定化ONの場合
                     {

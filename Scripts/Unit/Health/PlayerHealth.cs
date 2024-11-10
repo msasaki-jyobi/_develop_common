@@ -1,5 +1,6 @@
 using _develop_common;
 using Cysharp.Threading.Tasks;
+using develop_body;
 using develop_tps;
 using System;
 using System.Collections;
@@ -22,6 +23,7 @@ namespace develop_common
         [SerializeField] private UnitComponents _unitComponents;
         [SerializeField] private Rigidbody _rigidBody;
         [SerializeField] private AnimatorStateController _animatorStateController;
+
         public GameObject GetUpAction;
 
         [SerializeField]
@@ -37,11 +39,13 @@ namespace develop_common
 
         public bool IsDeadSlow;
         public float SlowTimer = 1;
+        [SerializeField] private List<ShakeController> Shakes = new List<ShakeController>();
 
 
         private void Start()
         {
             _unitComponents.UnitActionLoader.FrameFouceEvent += OnFrameFouceHandle;
+            if(_inputReader != null)
             _inputReader.PrimaryActionCrossEvent += OnCrossHandle;
         }
 
@@ -61,7 +65,7 @@ namespace develop_common
         private async void OnCrossHandle(bool arg1, EInputReader reader)
         {
             // 起き上がる　これをGetUpのアクションにそもそもすればいいんじゃね？条件チェックでIsDownがTrueでDownValueが0ならこれみたいな
-            if (_unitComponents.PartAttachment.IsPull || (_unitComponents.PartAttachment.IsDown && _unitComponents.UnitActionLoader.UnitStatus == EUnitStatus.Down))
+            if (_unitComponents.PartAttachment.IsPull || (_unitComponents.PartAttachment.IsDown && _unitComponents.UnitActionLoader.UnitStatus.Value == EUnitStatus.Down))
             {
                 _unitComponents.PartAttachment.SetEntityParent();
                 await UniTask.Delay(1);
@@ -81,6 +85,9 @@ namespace develop_common
         public async void TakeDamage(GameObject damageAction, bool isPull, int totalDamage)
         {
             CurrentHealth -= totalDamage;
+
+            foreach (var shake in Shakes)
+                shake.ShakeActionMove();
 
             if (CurrentHealth < 0)
                 if (IsDeadSlow)
@@ -139,7 +146,7 @@ namespace develop_common
                     if (!_unitComponents.PartAttachment.IsPull) // まだ固定されていない
                     {
                         _rigidBody.isKinematic = true;
-                        _unitComponents.UnitActionLoader.UnitStatus = EUnitStatus.Executing;
+                        _unitComponents.UnitActionLoader.UnitStatus.Value = EUnitStatus.Executing;
                         _unitComponents.AnimatorStateController.StatePlay(actionBase.ActionStart.PlayClip, EStatePlayType.SinglePlay, true);
                     }
                     else // すでに固定化済み

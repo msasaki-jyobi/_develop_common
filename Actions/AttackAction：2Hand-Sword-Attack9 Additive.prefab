@@ -10,12 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1964579485700207550}
   - component: {fileID: 5017441459642140199}
-  - component: {fileID: 8276063280196032279}
   - component: {fileID: -9094532401574635501}
   - component: {fileID: 4454726136892598134}
   - component: {fileID: 4257612234498888255}
   m_Layer: 0
-  m_Name: "AttackAction\uFF1A2Hand-Sword-Attack1"
+  m_Name: "AttackAction\uFF1A2Hand-Sword-Attack9 Additive"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458d7337e8ce6ff4f86d2423b88e6c92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActionRequirement: {fileID: 8276063280196032279}
+  ActionRequirement: {fileID: 0}
   ActionStart: {fileID: -9094532401574635501}
   ActionFrame: {fileID: 4257612234498888255}
   ActionFinish: {fileID: 4454726136892598134}
@@ -57,24 +56,6 @@ MonoBehaviour:
   ActionRePlay: {fileID: 0}
   ActionStartAdditiveParameter: {fileID: 0}
   ActionFinishAdditiveParameter: {fileID: 0}
---- !u!114 &8276063280196032279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867914962149053577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6898e62c2fc62be46a96eec2aeba8107, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TriggerAction: {fileID: 0}
-  TriggerStatus: 0
-  IsWaitingForKey: 0
-  IsGround: 1
-  IsAir: 0
-  Key: 0
 --- !u!114 &-9094532401574635501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,11 +68,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67e5204df513043886cfcf39dbd215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayClip: 2Hand-Sword-Attack1
+  PlayClip: 2Hand-Sword-Attack9
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
-  SetStartStatus: 1
+  SetStartStatus: 2
   IsResetVelocity: 1
   IsParentEntity: 0
   AnimatorLayer: 0
@@ -125,26 +106,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FrameInfo:
-  - PlayFrame: 13
+  - PlayFrame: 12
     OverwriteAction: {fileID: 0}
-    NormalData: {fileID: 11400000, guid: 1a9271c37e7a9b349998c5d02361d82c, type: 2}
-    PrefabData: {fileID: 11400000, guid: 63daa595cc9466c44a4be8e167e0c9c4, type: 2}
+    NormalData: {fileID: 11400000, guid: 9907c62d2c09d2a48849d526f7385b14, type: 2}
+    PrefabData: {fileID: 11400000, guid: a0ac20cc7e5b9b5448d40660b6005f31, type: 2}
     FramePair: []
     Attack_DamageData: {fileID: 867914962149053577, guid: 1276b74cab5a35c45a61b5a552223e13,
       type: 3}
-    ActiveAttackData: {fileID: 11400000, guid: e136901128f0ef44691473f7d4e09568, type: 2}
+    ActiveAttackData: {fileID: 11400000, guid: ea3eab3564c80534fb094fda5fd3c4b6, type: 2}
     PullData: {fileID: 0}
-    IKData: {fileID: 0}
-    SyncData: {fileID: 0}
-    IsComplete: 0
-  - PlayFrame: 21
-    OverwriteAction: {fileID: 0}
-    NormalData: {fileID: 0}
-    PrefabData: {fileID: 0}
-    FramePair: []
-    Attack_DamageData: {fileID: 0}
-    ActiveAttackData: {fileID: 0}
-    PullData: {fileID: 0}
-    IKData: {fileID: 0}
+    IKData: {fileID: 11400000, guid: 9bcea15543ed66f4692331971363237b, type: 2}
     SyncData: {fileID: 0}
     IsComplete: 0

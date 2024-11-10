@@ -52,7 +52,7 @@ namespace develop_common
             // ステートは一致するか
             if (TriggerStatus != EUnitStatus.None)
             {
-                check = check && actionLoader.UnitStatus == TriggerStatus;
+                check = check && actionLoader.UnitStatus.Value == TriggerStatus;
                 errorMessage += $", UnitStatusは一致しません. Trigger:{TriggerStatus}|Unit:{actionLoader.UnitStatus}";
             }
             // 追加入力が可能な状態か

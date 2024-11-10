@@ -110,8 +110,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FrameInfo:
   - PlayFrame: 1
+    OverwriteAction: {fileID: 0}
     NormalData: {fileID: 11400000, guid: a4501b73557a9b747b9945ce15763949, type: 2}
     PrefabData: {fileID: 0}
+    FramePair: []
     Attack_DamageData: {fileID: 0}
     ActiveAttackData: {fileID: 0}
     PullData: {fileID: 0}
@@ -119,8 +121,10 @@ MonoBehaviour:
     SyncData: {fileID: 0}
     IsComplete: 0
   - PlayFrame: 19
+    OverwriteAction: {fileID: 0}
     NormalData: {fileID: 11400000, guid: 9907c62d2c09d2a48849d526f7385b14, type: 2}
     PrefabData: {fileID: 0}
+    FramePair: []
     Attack_DamageData: {fileID: 0}
     ActiveAttackData: {fileID: 0}
     PullData: {fileID: 0}
