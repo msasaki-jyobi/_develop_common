@@ -72,7 +72,7 @@ MonoBehaviour:
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
-  SetStartStatus: 2
+  SetStartStatus: 1
   IsResetVelocity: 1
   IsParentEntity: 0
   AnimatorLayer: 0
@@ -107,8 +107,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FrameInfo:
   - PlayFrame: 1
+    OverwriteAction: {fileID: 0}
     NormalData: {fileID: 11400000, guid: 9907c62d2c09d2a48849d526f7385b14, type: 2}
     PrefabData: {fileID: 11400000, guid: 63daa595cc9466c44a4be8e167e0c9c4, type: 2}
+    FramePair: []
     Attack_DamageData: {fileID: 867914962149053577, guid: 6104cbc989f78644c8782b1273f03e60,
       type: 3}
     ActiveAttackData: {fileID: 11400000, guid: ea3eab3564c80534fb094fda5fd3c4b6, type: 2}
@@ -117,8 +119,10 @@ MonoBehaviour:
     SyncData: {fileID: 0}
     IsComplete: 0
   - PlayFrame: 13
+    OverwriteAction: {fileID: 0}
     NormalData: {fileID: 0}
     PrefabData: {fileID: 0}
+    FramePair: []
     Attack_DamageData: {fileID: 0}
     ActiveAttackData: {fileID: 0}
     PullData: {fileID: 0}
@@ -126,8 +130,10 @@ MonoBehaviour:
     SyncData: {fileID: 0}
     IsComplete: 0
   - PlayFrame: 32
+    OverwriteAction: {fileID: 0}
     NormalData: {fileID: 11400000, guid: 9907c62d2c09d2a48849d526f7385b14, type: 2}
     PrefabData: {fileID: 0}
+    FramePair: []
     Attack_DamageData: {fileID: 867914962149053577, guid: 8604ec616ea7a4046b738568b6e71acf,
       type: 3}
     ActiveAttackData: {fileID: 11400000, guid: ea3eab3564c80534fb094fda5fd3c4b6, type: 2}

@@ -72,7 +72,7 @@ MonoBehaviour:
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
-  SetStartStatus: 2
+  SetStartStatus: 1
   IsResetVelocity: 1
   IsParentEntity: 0
   AnimatorLayer: 0
