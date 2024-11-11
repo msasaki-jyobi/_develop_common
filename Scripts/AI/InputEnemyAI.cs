@@ -69,9 +69,20 @@ public class InputEnemyAI : MonoBehaviour
                         if (PatrolPoints.Count > 0)
                             PatrolTarget = GetPatrolPoint();
                     }
-                    else // çUåÇëŒè€Ç»ÇÁçUåÇé¿çs
+                    else if (AttackActions.Count + StepActions.Count > 0)// çUåÇëŒè€Ç»ÇÁçUåÇé¿çs
                     {
-                        UnitActionLoader.LoadAction(AttackActions[0], ignoreRequirement: true);
+                        int ran = Random.Range(0, 10);
+
+                        if (ran <= 3)
+                        {
+                            if (StepActions.Count > 0)
+                                UnitActionLoader.LoadAction(StepActions[Random.Range(0, StepActions.Count)], ignoreRequirement: true);
+                            else
+                                UnitActionLoader.LoadAction(AttackActions[Random.Range(0, AttackActions.Count)], ignoreRequirement: true);
+                        }
+                        else
+                            UnitActionLoader.LoadAction(AttackActions[Random.Range(0, AttackActions.Count)], ignoreRequirement: true);
+
                     }
                     return;
                 }
