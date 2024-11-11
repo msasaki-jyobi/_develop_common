@@ -15,6 +15,9 @@ namespace develop_common
     {
         public string BodyKeyName; // ŒÅ’è‰»‚·‚é‘ÎÛBody
         public Vector3 PullPos; // ‰ñ“]’l
+        public bool RandomRotX;
+        public bool RandomRotY;
+        public bool RandomRotZ;
         public List<Vector3> PullRots; // ‰ñ“]’l
     }
 }

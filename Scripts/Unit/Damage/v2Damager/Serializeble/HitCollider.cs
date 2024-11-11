@@ -225,9 +225,13 @@ namespace _develop_common
                             // Pull
                             var ran = UnityEngine.Random.Range(0, PullData.PullRots.Count);
                             var pos = PullData.PullPos;
+                            Vector3 rot = PullData.PullRots[ran];
+                            rot.x = PullData.RandomRotX ? UnityEngine.Random.Range(0, 360) : rot.x;
+                            rot.y = PullData.RandomRotY ? UnityEngine.Random.Range(0, 360) : rot.y;
+                            rot.z = PullData.RandomRotZ ? UnityEngine.Random.Range(0, 360) : rot.z;
                             unitComponents.PartAttachment.AttachTarget
                                 (transform, PullData.BodyKeyName,
-                                positionOffset: pos, rotationOffset: PullData.PullRots[ran]);
+                                positionOffset: pos, rotationOffset: rot);
                             Debug.Log($"DEDE::{PullData.PullRots[ran]}");
                         }
                     }

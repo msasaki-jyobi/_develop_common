@@ -7,6 +7,7 @@ using System;
 using develop_tps;
 using Cysharp.Threading.Tasks;
 using static UnityEditor.PlayerSettings;
+using System.Security.Cryptography.X509Certificates;
 
 namespace develop_common
 {
@@ -78,6 +79,8 @@ namespace develop_common
                                     if (!frameInfo.IsComplete)
                                     {
                                         frameInfo.IsComplete = true;
+
+
 
                                         if (frameInfo.FramePair.Count > 0) // Pair
                                         {

@@ -180,6 +180,6 @@ MonoBehaviour:
   MotionDamage: 1
   DeadAction: {fileID: 0}
   DamageVoiceKey: Damage
-  IsAddAddtive: 1
+  IsAddAddtive: 0
   AdditiveDamageData: {fileID: 0}
   IsAddAddtiveOnly: 0
