@@ -16,7 +16,7 @@ namespace develop_common
         [Header("HitLimitを完全リセットするまでの時間")]
         public float HitLimitResetTime = 6f;
         [Space(10)]
-        [Header("ユニットのヒット上限")]
+        [Header("ヒットするユニット数の上限")]
         public int UnitLimit = 5;
 
         [Space(10)]
