@@ -106,19 +106,33 @@ namespace develop_common
                 shake.ShakeActionMove();
 
             if (CurrentHealth < 0)
+            {
                 if (IsDeadSlow)
                     SlowTimer = 3f;
 
-            // 立ち上がっていたらDeadモーション
-            if (_unitComponents.AnimatorStateController.MainStateName.Value == "Locomotion")
-            {
-                _rigidBody.velocity = Vector3.zero;
-                string deadMotion = DeadMotions[UnityEngine.Random.Range(0, DeadMotions.Count)];
-                _unitComponents.UnitActionLoader.UnitStatus.Value = EUnitStatus.Executing;
-                _unitComponents.AnimatorStateController.StatePlay(deadMotion, EStatePlayType.SinglePlay, true);
+                // 立ち上がっていたらDeadモーション
+                if (_unitComponents.AnimatorStateController.MainStateName.Value == "Locomotion")
+                {
+                    _rigidBody.velocity = Vector3.zero;
+                    string deadMotion = DeadMotions[UnityEngine.Random.Range(0, DeadMotions.Count)];
+                    _unitComponents.UnitActionLoader.UnitStatus.Value = EUnitStatus.Executing;
+                    _unitComponents.AnimatorStateController.StatePlay(deadMotion, EStatePlayType.SinglePlay, true);
 
-                // Infinityのダメージ リストからランダム化でもいいかも
+                    // Infinityのダメージ リストからランダム化でもいいかも
+                }
+                // 敵が攻撃中Locomotionじゃないので死なないため
+                if (_unitComponents.UnitActionLoader.NotHumanoid)
+                {
+                    if (_unitComponents.AnimatorStateController.MainStateName.Value != "Dead") // Generic 死亡モーションリピート防止
+                    {
+                        _unitComponents.UnitActionLoader.UnitStatus.Value = EUnitStatus.Executing;
+                        _unitComponents.AnimatorStateController.StatePlay("Dead", EStatePlayType.SinglePlay, true);
+                    }
+                }
             }
+      
+
+
 
             // Task: ダメージを受け取ってモーション再生を行う・シェイプ再生など
             if (damageAction.TryGetComponent<ActionBase>(out var actionBase))

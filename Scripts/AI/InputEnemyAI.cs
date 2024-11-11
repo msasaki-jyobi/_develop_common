@@ -37,6 +37,10 @@ public class InputEnemyAI : MonoBehaviour
 
     void Update()
     {
+        if (UnitHealth != null)
+            if (UnitHealth.CurrentHealth <= 0)
+                return;
+
         // 目標の決め方　プレイヤーとの距離
         // 対象追跡に入るには StateがReadyの時
         // 攻撃に入るには、対象がプレイヤー、攻撃可能時間になったら
@@ -47,7 +51,7 @@ public class InputEnemyAI : MonoBehaviour
         // 攻撃対象との距離
         float atkTargetDistance = Vector3.Distance(transform.position, AttackTarget.position);
         if (PatrolPoints.Count > 0) // パトロールポイントがあるなら
-            Target = atkTargetDistance > HuntDistance ? PatrolTarget : AttackTarget.transform;
+            Target = atkTargetDistance > HuntDistance * transform.localScale.x ? PatrolTarget : AttackTarget.transform;
         else // パトロールポイントがないなら攻撃対象をTarget
             Target = AttackTarget.transform;
 
@@ -62,7 +66,7 @@ public class InputEnemyAI : MonoBehaviour
                     distanceToTarget = Vector3.Distance(transform.position, Target.position);
 
                 // 目的地に近づきすぎた場合
-                if (distanceToTarget <= StoppingDistance)
+                if (distanceToTarget <= StoppingDistance * transform.localScale.x)
                 {
                     // 停止（もしくは次のロジックを待つ）
                     MoveCharacter(0, 0);
