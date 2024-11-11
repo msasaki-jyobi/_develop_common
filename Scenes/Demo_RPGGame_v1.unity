@@ -13128,9 +13128,9 @@ Transform:
   m_Children:
   - {fileID: 809134975}
   - {fileID: 440912648}
+  - {fileID: 1244255510}
   - {fileID: 103092314}
   - {fileID: 680506943}
-  - {fileID: 1244255510}
   - {fileID: 1829743665}
   m_Father: {fileID: 1766395358}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16607,7 +16607,7 @@ MonoBehaviour:
   TPSUnitController: {fileID: 1829743679}
   UnitActionLoader: {fileID: 1829743667}
   UnitHealth: {fileID: 1829743677}
-  StoppingDistance: 0.5
+  StoppingDistance: 2
   PatrolPoints:
   - {fileID: 1904159561}
   - {fileID: 2070384224}

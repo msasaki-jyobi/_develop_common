@@ -102,9 +102,9 @@ namespace _develop_common
 
             if (!IsAttack.Value) return;
             bool check = true; // HitCheckを行う
+            
+            
             DamageUnit damageUnit = CheckDamageInfos(hit); // ダメージ回数などキャラクター情報を確認
-                                                           //LogManager.Instance.AddLog(damageUnit.UnitObject, "Damage1");
-
             // ヒット可能
             damageUnit.HitCount++; // 回数加算
             damageUnit.HitTimer = DamageData.HitSpanTime; // ダメージ間隔を上書き
@@ -112,7 +112,7 @@ namespace _develop_common
             // オブジェクトに触れたら消える場合
             if (DamageData.ObjectHitOff)
             {
-                // タグがユニットじゃないならReturn
+                // タグがダメージを受けるタグじゃないならReturn
                 check = check && !hit.gameObject.CompareTag(_bodyTagName);
                 if (!check)
                 {
@@ -122,7 +122,7 @@ namespace _develop_common
                 }
             }
 
-            if (damageUnit.UnitObject.TryGetComponent<develop_body.BodyCollider>(out var bodyCollider))
+            if (hit.TryGetComponent<develop_body.BodyCollider>(out var bodyCollider))
             {
                 if (bodyCollider.RootObject.TryGetComponent<IHealth>(out var health))
                 {
@@ -274,6 +274,9 @@ namespace _develop_common
         /// </summary>
         protected virtual DamageUnit CheckDamageInfos(GameObject target)
         {
+            if (target.TryGetComponent<BodyCollider>(out var body))
+                target = body.RootObject;
+
             for (int i = 0; i < _damageUnits.Count; i++)
             {
                 // 存在した場合は、該当キャラクターを返す
