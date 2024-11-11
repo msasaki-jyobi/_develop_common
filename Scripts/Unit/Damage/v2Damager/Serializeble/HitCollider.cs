@@ -106,7 +106,7 @@ namespace _develop_common
             
             DamageUnit damageUnit = CheckDamageInfos(hit); // ダメージ回数などキャラクター情報を確認
             // ヒット可能
-            damageUnit.HitCount++; // 回数加算
+            damageUnit.HitCount++; // 回数加算 なぜか数ヒットしてる１なのに
             damageUnit.HitTimer = DamageData.HitSpanTime; // ダメージ間隔を上書き
 
             // オブジェクトに触れたら消える場合
@@ -129,7 +129,7 @@ namespace _develop_common
                     check = check && health.UnitType != AttackerUnitType; // 同じキャラクター同士じゃない
 
                     check = check && _damageUnits.Count <= DamageData.UnitLimit; // ユニット数ヒットリミット ADD
-                    check = check && damageUnit.HitCount <= DamageData.UnitLimit; // 上限超えてない
+                    check = check && damageUnit.HitCount <= DamageData.HitLimit; // 上限超えてない
                     check = check && damageUnit.HitTimer >= 0; // ヒットタイマーがリセットされていない
                     check = check && !health.IsInvisible;
 

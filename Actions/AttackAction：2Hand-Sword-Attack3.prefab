@@ -89,7 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayClip: 2Hand-Sword-Attack3
-  PlayClip2: 2Hand-Sword-Attack3
   IsApplyRootMotion: 1
   StatePlayType: 0
   IsStateReset: 1
@@ -128,11 +127,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FrameInfo:
   - PlayFrame: 12
+    OverwriteAction: {fileID: 0}
     NormalData: {fileID: 11400000, guid: 9907c62d2c09d2a48849d526f7385b14, type: 2}
     PrefabData: {fileID: 11400000, guid: 63daa595cc9466c44a4be8e167e0c9c4, type: 2}
+    FramePair: []
     Attack_DamageData: {fileID: 867914962149053577, guid: a0a7df04e4f16344ebe4e93a8a422acd,
       type: 3}
-    ActiveAttackData: {fileID: 11400000, guid: ea3eab3564c80534fb094fda5fd3c4b6, type: 2}
+    ActiveAttackData: {fileID: 11400000, guid: e136901128f0ef44691473f7d4e09568, type: 2}
     PullData: {fileID: 0}
     IKData: {fileID: 0}
+    SyncData: {fileID: 0}
     IsComplete: 0

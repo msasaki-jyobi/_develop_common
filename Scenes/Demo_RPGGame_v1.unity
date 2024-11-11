@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 69773763}
   - component: {fileID: 69773762}
   m_Layer: 0
-  m_Name: RootWeapon)Hummer)
+  m_Name: Wepon:HitCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1433,7 +1433,7 @@ GameObject:
   - component: {fileID: 103092315}
   - component: {fileID: 103092322}
   m_Layer: 0
-  m_Name: "\u8A2D\u7F6E\u7269"
+  m_Name: "\u8A2D\u7F6E\u7269:HitCollider"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5188,12 +5188,12 @@ GameObject:
   - component: {fileID: 447052341}
   - component: {fileID: 447052348}
   m_Layer: 0
-  m_Name: "\u30EC\u30B9\u30E9\u30FC\u306E\u624B"
+  m_Name: Hand:HitCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &447052340
 Transform:
   m_ObjectHideFlags: 0
@@ -14486,7 +14486,7 @@ GameObject:
   - component: {fileID: 1633232143}
   - component: {fileID: 1633232150}
   m_Layer: 0
-  m_Name: "\u30A2\u30C3\u30AF\u30B9\u306E\u5148\u7AEF"
+  m_Name: "\u30A2\u30C3\u30AF\u30B9:HitCollider"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16166,7 +16166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782635041}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.012285337, y: -0.18328199, z: 0.002290666, w: 0.98298097}
+  m_LocalRotation: {x: 0.012285349, y: -0.18328199, z: 0.0022906675, w: 0.98298097}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

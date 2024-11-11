@@ -113,7 +113,7 @@ MonoBehaviour:
     FramePair: []
     Attack_DamageData: {fileID: 867914962149053577, guid: 6104cbc989f78644c8782b1273f03e60,
       type: 3}
-    ActiveAttackData: {fileID: 11400000, guid: ea3eab3564c80534fb094fda5fd3c4b6, type: 2}
+    ActiveAttackData: {fileID: 11400000, guid: d706a210eeb4c31418047bada432d8f9, type: 2}
     PullData: {fileID: 11400000, guid: 52bb779289bcfed4d87fef6732d993a2, type: 2}
     IKData: {fileID: 0}
     SyncData: {fileID: 0}

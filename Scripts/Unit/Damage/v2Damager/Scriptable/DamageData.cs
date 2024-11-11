@@ -9,14 +9,15 @@ namespace develop_common
     public class DamageData : ScriptableObject
     {
 
-        [Header("部位別のヒット上限")]
+        [Header("ユニットごとのヒット上限")]
         public int HitLimit = 1;
-        [Header("ユニットのヒット上限")]
-        public int UnitLimit = 5;
-        [Header("HitLimitまでの間隔")]
+        [Header("再ヒットまでの間隔")]
         public float HitSpanTime = 0.1f;
         [Header("HitLimitを完全リセットするまでの時間")]
         public float HitLimitResetTime = 6f;
+        [Space(10)]
+        [Header("ユニットのヒット上限")]
+        public int UnitLimit = 5;
 
         [Space(10)]
         [Header("エフェクト・演出関連")]

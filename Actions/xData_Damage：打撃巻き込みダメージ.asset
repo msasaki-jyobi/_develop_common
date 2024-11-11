@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e38508d30d2d4a4186d9bd97ef50543, type: 3}
   m_Name: "xData_Damage\uFF1A\u6253\u6483\u5DFB\u304D\u8FBC\u307F\u30C0\u30E1\u30FC\u30B8"
   m_EditorClassIdentifier: 
-  HitLimit: 15
-  UnitLimit: 15
-  HitSpanTime: 0.5
-  HitLimitResetTime: 0.5
+  HitLimit: 2
+  HitSpanTime: 1
+  HitLimitResetTime: 1
+  UnitLimit: 2
   HitEffect: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7, type: 3}
   HitSE: {fileID: 0}
   DestroyEffect: {fileID: 0}
