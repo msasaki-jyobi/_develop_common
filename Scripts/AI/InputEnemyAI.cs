@@ -9,6 +9,7 @@ public class InputEnemyAI : MonoBehaviour
     [Header("共通")]
     public TPSUnitController TPSUnitController;
     public UnitActionLoader UnitActionLoader;
+    public UnitHealth UnitHealth;
     public float StoppingDistance = 0.5f; // 目的地に到達と見なす距離
     [Header("パトロール 関連")]
     public List<GameObject> PatrolPoints = new List<GameObject>(); // 探索場所
@@ -50,6 +51,7 @@ public class InputEnemyAI : MonoBehaviour
 
 
         if (UnitActionLoader.UnitStatus.Value == EUnitStatus.Ready)
+        {
             if (Target != null)
             {
                 // 現在地と目標地点の距離を計算
@@ -111,7 +113,14 @@ public class InputEnemyAI : MonoBehaviour
                     _currentPathIndex = 0;
                 }
             }
+        }
+        else if (UnitActionLoader.UnitStatus.Value == EUnitStatus.Down) // ダウン中なら
+        {
+            UnitActionLoader.LoadAction(UnitHealth.GetUpAction);
+        }
+
     }
+
 
     private void MoveCharacter(float inputX, float inputY)
     {

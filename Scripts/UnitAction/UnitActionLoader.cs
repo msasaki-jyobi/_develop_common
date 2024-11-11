@@ -34,6 +34,9 @@ namespace develop_common
         private float _actionDelayTimer;
         private float _actionDelayTime = 0.1f;
 
+        public float DownTimer = 0;
+        public float DownNoneActionTime = 0.5f;
+
         // components
         private AnimatorStateController _stateController;
         private BattleDealer _attackDealer;
@@ -212,6 +215,8 @@ namespace develop_common
                 // Memo. バグ修正にはなるが、これにより、Vicのモーション終了時に強制で立ち上がるので、改めてコメント化
                 ChangeStatus(EUnitStatus.Ready, 99);
             }
+
+            DownTimer += Time.deltaTime;
         }
 
         private void FinishMotionEventHandle(string stateName, bool isLoop)
@@ -261,6 +266,10 @@ namespace develop_common
                         _unitComponents.PartAttachment.IsDown = true;
                         _unitComponents.PartAttachment.SetEntityParent();
                     }
+                    
+                    // 終了時にダウン状態になる場合
+                    if(oldActiveActionBase.ActionFinish.SetFinishStatus == EUnitStatus.Down)
+                        DownTimer = 0; 
                 }
 
             // Finish Event
@@ -279,9 +288,12 @@ namespace develop_common
 
         public void LoadAction(GameObject actionObject, EInputReader key = EInputReader.None, bool ignoreDelayTime = false, bool ignoreRequirement = false)
         {
+
+
             if (actionObject == null) return;
             if (actionObject.TryGetComponent<ActionBase>(out var actionBase))
             {
+
                 // Delay Time Return
                 if (!ignoreDelayTime && _actionDelayTimer > 0) return;
 
@@ -290,6 +302,11 @@ namespace develop_common
                         // アクションの条件チェック
                         if (!actionBase.ActionRequirement.CheckExecute(this, key))
                             return;
+
+                // ダウンDelay ダウン開始から0.5秒はretur, ダウン開始から5秒間は無敵
+                if (DownTimer < DownNoneActionTime)
+                    return;
+
 
                 //Debug.Log($"実行!!. {gameObject.name} {actionObject.name}");
 
@@ -335,6 +352,7 @@ namespace develop_common
                         _unitComponents.PartAttachment.SetEntityParent();
 
                     ChangeStatus(actionBase.ActionStart.SetStartStatus, 0, actionBase.gameObject);
+
 
                 }
                 // Frame

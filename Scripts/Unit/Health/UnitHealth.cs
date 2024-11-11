@@ -17,9 +17,11 @@ namespace develop_common
         Other
     }
     // PlayerHealth クラス
-    public class PlayerHealth : MonoBehaviour, IHealth
+    public class UnitHealth : MonoBehaviour, IHealth
     {
+        [Header("Player Only")]
         [SerializeField] private develop_tps.InputReader _inputReader;
+        [Header("Player and Enemy")]
         [SerializeField] private UnitComponents _unitComponents;
         [SerializeField] private Rigidbody _rigidBody;
         [SerializeField] private AnimatorStateController _animatorStateController;
@@ -67,6 +69,9 @@ namespace develop_common
             // 起き上がる　これをGetUpのアクションにそもそもすればいいんじゃね？条件チェックでIsDownがTrueでDownValueが0ならこれみたいな
             if (_unitComponents.PartAttachment.IsPull || (_unitComponents.PartAttachment.IsDown && _unitComponents.UnitActionLoader.UnitStatus.Value == EUnitStatus.Down))
             {
+                // ダウン時間から0.5未満ならReturn
+                if (_unitComponents.UnitActionLoader.DownTimer <= _unitComponents.UnitActionLoader.DownNoneActionTime) return;
+
                 _unitComponents.PartAttachment.SetEntityParent();
                 await UniTask.Delay(1);
                 _unitComponents.PartAttachment.SetEntityParent(); // なぜかここでも呼ばないと親オブジェクト解除されない
@@ -84,6 +89,9 @@ namespace develop_common
 
         public async void TakeDamage(GameObject damageAction, bool isPull, int totalDamage)
         {
+            if (_unitComponents.UnitActionLoader.DownTimer <= 5f) // 無敵時間中ならReturn 
+                return;
+
             CurrentHealth -= totalDamage;
 
             foreach (var shake in Shakes)
