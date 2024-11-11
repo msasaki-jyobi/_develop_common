@@ -102,40 +102,41 @@ namespace _develop_common
 
             if (!IsAttack.Value) return;
             bool check = true; // HitCheckを行う
-            
-            
-            DamageUnit damageUnit = CheckDamageInfos(hit); // ダメージ回数などキャラクター情報を確認
-            // ヒット可能
-            damageUnit.HitCount++; // 回数加算 なぜか数ヒットしてる１なのに
-            damageUnit.HitTimer = DamageData.HitSpanTime; // ダメージ間隔を上書き
-
-            // オブジェクトに触れたら消える場合
-            if (DamageData.ObjectHitOff)
-            {
-                // タグがダメージを受けるタグじゃないならReturn
-                check = check && !hit.gameObject.CompareTag(_bodyTagName);
-                if (!check)
-                {
-                    // Effect
-                    Destroy(gameObject);
-                    HitEffect(DamageData.DestroyEffect);
-                }
-            }
 
             if (hit.TryGetComponent<develop_body.BodyCollider>(out var bodyCollider))
             {
                 if (bodyCollider.RootObject.TryGetComponent<IHealth>(out var health))
                 {
-                    check = check && health.UnitType != AttackerUnitType; // 同じキャラクター同士じゃない
 
+                    DamageUnit damageUnit = CheckDamageInfos(hit, bodyCollider, health); // ダメージ回数などキャラクター情報を確認
+                    if (damageUnit == null) return;
+
+                    // オブジェクトに触れたら消える場合
+                    if (DamageData.ObjectHitOff)
+                    {
+                        // タグがダメージを受けるタグじゃないならReturn
+                        check = check && !hit.gameObject.CompareTag(_bodyTagName);
+                        if (!check)
+                        {
+                            // Effect
+                            Destroy(gameObject);
+                            HitEffect(DamageData.DestroyEffect);
+                        }
+                    }
+
+
+                    //check = check && health.UnitType != AttackerUnitType; // 同じキャラクター同士じゃない
                     check = check && _damageUnits.Count <= DamageData.UnitLimit; // ユニット数ヒットリミット ADD
                     check = check && damageUnit.HitCount <= DamageData.HitLimit; // 上限超えてない
-                    check = check && damageUnit.HitTimer >= 0; // ヒットタイマーがリセットされていない
+                    check = check && damageUnit.HitTimer <= 0; // ヒットタイマーがリセットされていない
                     check = check && !health.IsInvisible;
 
                     Debug.Log($"Damage**{bodyCollider.RootObject.name}**, {health.UnitType != AttackerUnitType}.{damageUnit.HitCount <= DamageData.UnitLimit},{damageUnit.HitTimer >= 0},{!health.IsInvisible},");
                     if (!check) return;
 
+                    // ヒット可能
+                    damageUnit.HitCount++; // 回数加算 なぜか数ヒットしてる１なのに
+                    damageUnit.HitTimer = DamageData.HitSpanTime; // ダメージ間隔を上書き
                     // エフェクト再生
                     HitEffect(DamageData.HitEffect);
                     //DamagePlay(health, damageUnit.UnitObject); // 触れたオブジェクトを渡す
@@ -272,23 +273,30 @@ namespace _develop_common
         /// <summary>
         /// ダメージを与えたキャラクターが追加済みかチェックし、未追加の場合は追加も行う
         /// </summary>
-        protected virtual DamageUnit CheckDamageInfos(GameObject target)
+        protected virtual DamageUnit CheckDamageInfos(GameObject target, develop_body.BodyCollider body, IHealth health)
         {
-            if (target.TryGetComponent<BodyCollider>(out var body))
+            if (body != null)
+            {
+                // 同じタイプならReturn
+                if (AttackerUnitType == health.UnitType) return null;
+
                 target = body.RootObject;
 
-            for (int i = 0; i < _damageUnits.Count; i++)
-            {
-                // 存在した場合は、該当キャラクターを返す
-                if (target == _damageUnits[i].UnitObject)
-                    return _damageUnits[i];
+                for (int i = 0; i < _damageUnits.Count; i++)
+                {
+                    // 存在した場合は、該当キャラクターを返す
+                    if (target == _damageUnits[i].UnitObject)
+                        return _damageUnits[i];
+                }
+
+                // 存在しない場合追加
+                DamageUnit damageUnit = new DamageUnit();
+                damageUnit.UnitObject = target;
+                _damageUnits.Add(damageUnit);
+                return damageUnit;
             }
 
-            // 存在しない場合追加
-            DamageUnit damageUnit = new DamageUnit();
-            damageUnit.UnitObject = target;
-            _damageUnits.Add(damageUnit);
-            return damageUnit;
+            return null;
         }
 
         private void HitEffect(GameObject effect)
