@@ -46,6 +46,7 @@ namespace develop_common
         [SerializeField] private List<ShakeController> Shakes = new List<ShakeController>();
 
         public event Action DamageActionEvent;
+        private bool _initDead;
 
 
         private void Start()
@@ -115,7 +116,7 @@ namespace develop_common
                 string deadMotion = DeadMotions[UnityEngine.Random.Range(0, DeadMotions.Count)];
                 _unitComponents.UnitActionLoader.UnitStatus.Value = EUnitStatus.Executing;
                 _unitComponents.AnimatorStateController.StatePlay(deadMotion, EStatePlayType.SinglePlay, true);
-                
+
                 // Infinityのダメージ リストからランダム化でもいいかも
             }
 
@@ -207,7 +208,11 @@ namespace develop_common
                     if (CurrentHealth <= 0)
                     {
                         if (_unitComponents.UnitVoice != null)
-                            _unitComponents.UnitVoice.PlayVoice("Dead", true);
+                            if (!_initDead)
+                            {
+                                _initDead = true;
+                                _unitComponents.UnitVoice.PlayVoice("Dead", true);
+                            }
                     }
                 }
             }
