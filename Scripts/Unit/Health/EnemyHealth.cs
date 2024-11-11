@@ -26,7 +26,7 @@ namespace develop_common
         {
             _unitActionLoader.FrameFouceEvent += OnFrameFouceHandle;
         }
-        public void TakeDamage(GameObject damageAction, bool isPull, int totalDamage)
+        public void TakeDamage(GameObject damageAction, bool isPull, int totalDamage, bool InitRandomCamera = false, List<string> bodyNames = default)
         {
             CurrentHealth -= totalDamage;
 

@@ -11,8 +11,8 @@ namespace develop_common
         [Tooltip("Timeline, PartAttachmentの固定先, IKの参照先")]
         public List<StringKeyGameObjectValuePair> InstanceBodys = new List<StringKeyGameObjectValuePair>();
        
-        [Header("追加機能：Action時 カメラ切り替え")]
-        public List<CinemachineVirtualCamera> RandomCameras = new List<CinemachineVirtualCamera>();
+        [Header("HitColliderのカメラ切り替え用")]
+        public List<Transform> RandomBodys = new List<Transform>();
 
 
         public GameObject SearchObject(string keyName)

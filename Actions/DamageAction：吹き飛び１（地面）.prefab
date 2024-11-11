@@ -77,7 +77,8 @@ MonoBehaviour:
   IsStateReset: 1
   SetStartStatus: 1
   IsResetVelocity: 1
-  IsParentEntity: 0
+  IsParentEntity: 1
+  IsCameraReset: 0
   AnimatorLayer: 0
   WeightValue: 1
   WeightTime: 0.5
@@ -180,6 +181,6 @@ MonoBehaviour:
   MotionDamage: 1
   DeadAction: {fileID: 0}
   DamageVoiceKey: Damage
-  IsAddAddtive: 0
-  AdditiveDamageData: {fileID: 0}
+  IsAddAddtive: 1
+  AdditiveDamageData: {fileID: 11400000, guid: 214d5c583e3c542428238ad43728c3c7, type: 2}
   IsAddAddtiveOnly: 0

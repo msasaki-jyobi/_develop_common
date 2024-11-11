@@ -11,6 +11,7 @@ public class InputEnemyAI : MonoBehaviour
     public UnitActionLoader UnitActionLoader;
     public UnitHealth UnitHealth;
     public float StoppingDistance = 0.5f; // 目的地に到達と見なす距離
+    public float HuntDistance = 5f; // 目的地に到達と見なす距離
     [Header("パトロール 関連")]
     public List<GameObject> PatrolPoints = new List<GameObject>(); // 探索場所
     [Header("攻撃 関連")]
@@ -30,7 +31,8 @@ public class InputEnemyAI : MonoBehaviour
     void Start()
     {
         _path = new NavMeshPath();
-        PatrolTarget = GetPatrolPoint();
+        if (PatrolPoints.Count > 0)
+            PatrolTarget = GetPatrolPoint();
     }
 
     void Update()
@@ -45,7 +47,7 @@ public class InputEnemyAI : MonoBehaviour
         // 攻撃対象との距離
         float atkTargetDistance = Vector3.Distance(transform.position, AttackTarget.position);
         if (PatrolPoints.Count > 0) // パトロールポイントがあるなら
-            Target = atkTargetDistance > 5f ? PatrolTarget : AttackTarget.transform;
+            Target = atkTargetDistance > HuntDistance ? PatrolTarget : AttackTarget.transform;
         else // パトロールポイントがないなら攻撃対象をTarget
             Target = AttackTarget.transform;
 
@@ -74,6 +76,10 @@ public class InputEnemyAI : MonoBehaviour
                     else if (AttackActions.Count + StepActions.Count > 0)// 攻撃対象なら攻撃実行
                     {
                         int ran = Random.Range(0, 10);
+
+                        transform.LookAt(Target.transform.position);
+                        Vector3 rot = transform.rotation.eulerAngles;
+                        transform.rotation = Quaternion.Euler(0, rot.y, 0);
 
                         if (ran <= 3)
                         {

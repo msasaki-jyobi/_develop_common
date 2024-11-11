@@ -19,5 +19,7 @@ namespace develop_common
         public bool RandomRotY;
         public bool RandomRotZ;
         public List<Vector3> PullRots; // ‰ñ“]’l
+
+        public bool IsRandomCamera;
     }
 }

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 963cfe702163c8842b2ac070b0e10341, type: 3}
-  m_Name: "xData_FAA\uFF1A\u767A\u52D5\u5834\u6240\uFF1A04 Root 0.5s"
+  m_Name: "xData_FAA\uFF1A\u767A\u52D5\u5834\u6240\uFF1A01 Hand 1s"
   m_EditorClassIdentifier: 
   AttackBodyNames:
-  - Root
-  AttackLifeTime: 0.5
+  - Hand
+  AttackLifeTime: 1

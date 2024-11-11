@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 963cfe702163c8842b2ac070b0e10341, type: 3}
-  m_Name: "xData_FAA\uFF1A\u767A\u52D5\u5834\u6240\uFF1A03 WeaponX 0.2s"
+  m_Name: "xData_FAA\uFF1A\u767A\u52D5\u5834\u6240\uFF1A03 WeaponX 1s"
   m_EditorClassIdentifier: 
   AttackBodyNames:
   - WeaponX
-  AttackLifeTime: 0.2
+  AttackLifeTime: 1

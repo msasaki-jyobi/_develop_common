@@ -39,10 +39,13 @@ namespace _develop_common
         [Header("自動設定：ダメージアクション")]
         [Tooltip("ヒットしたキャラクターに再生させるダメージアクション")]
         public GameObject DamageAction;
+        public List<GameObject> RandomDamageActions = new List<GameObject>(); // 入ってたら抽選される
         [Header("自動設定：固定化フラグ")]
         public bool IsPull;
         [Tooltip("固定化させる情報")]
         public PullData PullData;
+
+
         [Header("自動設定：ActionLoader")]
         [Tooltip("Replay:即切り替えモーションがあるかどうか、の時だけ利用する。")]
         public UnitActionLoader AttakerActionLoader;
@@ -212,12 +215,15 @@ namespace _develop_common
                     int totalDamage = DamageWeight * actionBase.ActionDamageData.MotionDamage;
 
                     // ダメージを与えモーションも実行してもらう
-                    health.TakeDamage(DamageAction, IsPull, totalDamage);
+                    bool isRandomCam = false;
+                    if (PullData != null)
+                        isRandomCam = PullData.IsRandomCamera;
 
-                    if (damageUnit.TryGetComponent<EnemyAI>(out var enemyAI))
-                    {
-                        enemyAI.TakeDamage(totalDamage);
-                    }
+                    // ダメージモーション確定
+                    var damageAction = DamageAction;
+                    if (RandomDamageActions.Count > 0)
+                        damageAction = RandomDamageActions[UnityEngine.Random.Range(0, RandomDamageActions.Count)];
+                    health.TakeDamage(damageAction, IsPull, totalDamage, isRandomCam);
 
                     if (IsPull) // 固定化ONの場合
                     {

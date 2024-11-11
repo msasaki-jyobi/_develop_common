@@ -233,5 +233,21 @@ namespace develop_common
             return currentSpeed;
         }
 
+        // モーションErrorバグ対策
+        public void FootR()
+        {
+
+        }
+        // モーションErrorバグ対策
+        public void FootL()
+        {
+
+        }
+        // モーションErrorバグ対策
+        private void Hit()
+        {
+
+        }
+
     }
 }

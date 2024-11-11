@@ -8,6 +8,7 @@ using develop_tps;
 using Cysharp.Threading.Tasks;
 using static UnityEditor.PlayerSettings;
 using System.Security.Cryptography.X509Certificates;
+using RPGCharacterAnims.Actions;
 
 namespace develop_common
 {
@@ -15,6 +16,8 @@ namespace develop_common
     {
         [SerializeField] private UnitComponents _unitComponents;
         public ReactiveProperty<EUnitStatus> UnitStatus = new ReactiveProperty<EUnitStatus>();
+        [Tooltip("Damage:GetHit1(LoopOFF), 通常:Locomotion")]
+        public bool NotHumanoid; // 人じゃない場合「Dogとかの場合」
 
         // Property
         public GameObject ActiveActionObject { get; private set; }
@@ -34,6 +37,7 @@ namespace develop_common
         private float _actionDelayTimer;
         private float _actionDelayTime = 0.1f;
 
+        [Header("計算用")]
         public float DownTimer = 0;
         public float DownNoneActionTime = 0.5f;
 
@@ -226,6 +230,13 @@ namespace develop_common
 
             //Debug.Log($"GameObject:{gameObject.name} State: {stateName} 終了XXX");
 
+            // Dogがダメージを受け終わった場合
+            if (NotHumanoid && stateName == "GetHit1") // Dogとかの場合 ダメージが終了した場合
+            {
+                ChangeStatus(EUnitStatus.Ready, 1, null);
+                _stateController.StatePlay("Locomotion", EStatePlayType.SinglePlay, resetMotion: true);
+            }
+
             if (ActiveActionBase != null)
             {
                 if (ActiveActionBase.ActionStart != null)
@@ -252,8 +263,9 @@ namespace develop_common
             if (oldActiveActionBase != null)
                 if (oldActiveActionBase.ActionFinish != null)
                 {
-                    // Status Change
+                    // Change State
                     ChangeStatus(oldActiveActionBase.ActionFinish.SetFinishStatus, 1, oldActiveActionObject);
+
                     // Next ActionData
                     if (oldActiveActionBase.ActionFinish.NextActionData != null)
                     {
@@ -266,10 +278,10 @@ namespace develop_common
                         _unitComponents.PartAttachment.IsDown = true;
                         _unitComponents.PartAttachment.SetEntityParent();
                     }
-                    
+
                     // 終了時にダウン状態になる場合
-                    if(oldActiveActionBase.ActionFinish.SetFinishStatus == EUnitStatus.Down)
-                        DownTimer = 0; 
+                    if (oldActiveActionBase.ActionFinish.SetFinishStatus == EUnitStatus.Down)
+                        DownTimer = 0;
                 }
 
             // Finish Event
@@ -288,8 +300,6 @@ namespace develop_common
 
         public void LoadAction(GameObject actionObject, EInputReader key = EInputReader.None, bool ignoreDelayTime = false, bool ignoreRequirement = false)
         {
-
-
             if (actionObject == null) return;
             if (actionObject.TryGetComponent<ActionBase>(out var actionBase))
             {
@@ -306,6 +316,7 @@ namespace develop_common
                 // ダウンDelay ダウン開始から0.5秒はretur, ダウン開始から5秒間は無敵
                 if (DownTimer < DownNoneActionTime)
                     return;
+
 
 
                 //Debug.Log($"実行!!. {gameObject.name} {actionObject.name}");
@@ -341,7 +352,14 @@ namespace develop_common
                     var layer = actionBase.ActionStart.AnimatorLayer;
 
                     if (layer == 0)
+                    {
+                        // Dogのダメージを強制的に"GetHit1"にする
+                        if (NotHumanoid && actionBase.ActionDamageData != null) // Dogとかの場合
+                        {
+                            stateName = "GetHit1";
+                        }
                         _stateController.StatePlay(stateName, playType, reset, root);
+                    }
                     else
                     {
                         _stateController.AnimatorLayerWeightPlay(layer, stateName,
@@ -350,6 +368,9 @@ namespace develop_common
 
                     if (actionBase.ActionStart.IsParentEntity)
                         _unitComponents.PartAttachment.SetEntityParent();
+
+                    if (actionBase.ActionStart.IsCameraReset)
+                        develop_easymovie.CameraManager.Instance.SetDefaultCamera(false);
 
                     ChangeStatus(actionBase.ActionStart.SetStartStatus, 0, actionBase.gameObject);
 

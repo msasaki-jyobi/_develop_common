@@ -30,6 +30,8 @@ namespace develop_common
         [Tooltip("実行時に親オブジェクトを初期状態に戻す（固定化を外したりなど）")]
         // Velocity Reset
         public bool IsParentEntity; // 親オブジェクトをデフォルトに戻す
+        [Tooltip("実行時にカメラを通常カメラに戻す）")]
+        public bool IsCameraReset; // CameraReset
 
         // レイヤー用
         [Header("レイヤー指定がある場合")]

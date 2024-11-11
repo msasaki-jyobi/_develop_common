@@ -13,16 +13,17 @@ namespace develop_common
 
         private void Update()
         {
-            if(_voiceTimer > 0) { _voiceTimer -= Time.deltaTime; }
+            if (_voiceTimer > 0) { _voiceTimer -= Time.deltaTime; }
         }
 
-        public void PlayVoice(string keyName)
+        public void PlayVoice(string keyName, bool ignoreTimer = false)
         {
-            if (_voiceTimer > 0) return;
+            if (!ignoreTimer)
+                if (_voiceTimer > 0) return;
 
-            foreach(var voice  in VoiceClips) 
-            { 
-                if(keyName == voice.ClipName)
+            foreach (var voice in VoiceClips)
+            {
+                if (keyName == voice.ClipName)
                 {
                     _voiceTimer = VoiceSpan;
                     AudioManager.Instance.PlayOneShotClipData(voice.ClipData);
