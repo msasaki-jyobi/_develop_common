@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1cd7e9b4cf7b976488331650ae9385a2, type: 3}
-  m_Name: "xData_IK\uFF1AWeapon, Hips"
+  m_Name: "xData_IK\uFF1AWeapon, Head"
   m_EditorClassIdentifier: 
   IKKeyName: Weapon
-  IKTargetKeyName: Hips
+  IKTargetKeyName: Head
   IKLifeTime: 0.6
