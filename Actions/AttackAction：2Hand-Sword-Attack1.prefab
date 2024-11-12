@@ -94,6 +94,7 @@ MonoBehaviour:
   SetStartStatus: 1
   IsResetVelocity: 1
   IsParentEntity: 0
+  IsCameraReset: 0
   AnimatorLayer: 0
   WeightValue: 1
   WeightTime: 0.5
@@ -130,7 +131,7 @@ MonoBehaviour:
     NormalData: {fileID: 11400000, guid: 1a9271c37e7a9b349998c5d02361d82c, type: 2}
     PrefabData: {fileID: 11400000, guid: 63daa595cc9466c44a4be8e167e0c9c4, type: 2}
     FramePair: []
-    Attack_DamageData: {fileID: 867914962149053577, guid: 1276b74cab5a35c45a61b5a552223e13,
+    Attack_DamageData: {fileID: 867914962149053577, guid: 6104cbc989f78644c8782b1273f03e60,
       type: 3}
     ActiveAttackData: {fileID: 11400000, guid: e136901128f0ef44691473f7d4e09568, type: 2}
     PullData: {fileID: 0}
