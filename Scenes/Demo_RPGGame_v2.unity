@@ -7416,6 +7416,7 @@ MonoBehaviour:
   _animatorStateController: {fileID: 680506945}
   _unitActionLoader: {fileID: 680506948}
   _unitGround: {fileID: 680506955}
+  _unitHealth: {fileID: 680506953}
   _moveSpeed: 5
   _dashRange: 1.5
   _stamina: 10
@@ -7548,6 +7549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 11400000, guid: 2938829d6e1a3e74d87d827e31978bfc, type: 2}
   _unitActionLoader: {fileID: 680506948}
+  _unitHealth: {fileID: 680506953}
   _actionDataR1:
   - {fileID: 867914962149053577, guid: c5acbf728588c6d42963cf7275e326b0, type: 3}
   - {fileID: 867914962149053577, guid: 2117a5ef90ec15f47b60e4b9ad72a015, type: 3}
@@ -7913,7 +7915,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713256262}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.021344135, y: 0.44481647, z: 0.010604462, w: 0.8953046}
+  m_LocalRotation: {x: -0.021344129, y: 0.44481653, z: 0.010604459, w: 0.8953045}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9832,7 +9834,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219552733}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.00509849, y: 0.44493565, z: 0.002533096, w: 0.8955445}
+  m_LocalRotation: {x: -0.005098491, y: 0.44493565, z: 0.0025330964, w: 0.8955445}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14592,6 +14594,7 @@ MonoBehaviour:
   _animatorStateController: {fileID: 1829743668}
   _unitActionLoader: {fileID: 1829743667}
   _unitGround: {fileID: 1829743674}
+  _unitHealth: {fileID: 0}
   _moveSpeed: 3
   _dashRange: 1.5
   _stamina: 10
