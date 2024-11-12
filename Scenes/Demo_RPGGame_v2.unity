@@ -7573,7 +7573,7 @@ Animator:
   m_GameObject: {fileID: 680506942}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 5917c0e93d180a842b61d1ebc62a195c, type: 3}
-  m_Controller: {fileID: 9100000, guid: fe877155e3c3962458ee0b7e686d949c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 257a6a0b2d3ae0a49aff6adf656f076c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 1
   m_ApplyRootMotion: 0
@@ -14547,7 +14547,7 @@ MonoBehaviour:
   UnitShape: {fileID: 0}
   UnitVoice: {fileID: 0}
   AttaqckIKController: {fileID: 1805876708}
-  IsSetAvatar: 0
+  IsSetAvatar: 1
 --- !u!114 &1829743677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14594,7 +14594,7 @@ MonoBehaviour:
   _animatorStateController: {fileID: 1829743668}
   _unitActionLoader: {fileID: 1829743667}
   _unitGround: {fileID: 1829743674}
-  _unitHealth: {fileID: 0}
+  _unitHealth: {fileID: 1829743677}
   _moveSpeed: 3
   _dashRange: 1.5
   _stamina: 10
@@ -14647,7 +14647,6 @@ MonoBehaviour:
   - {fileID: 867914962149053577, guid: c5acbf728588c6d42963cf7275e326b0, type: 3}
   - {fileID: 867914962149053577, guid: 2117a5ef90ec15f47b60e4b9ad72a015, type: 3}
   - {fileID: 867914962149053577, guid: 35daf91d7b2f008498532baa55a0528a, type: 3}
-  - {fileID: 867914962149053577, guid: 2a1b7c42a2d62924c9bde6cfcf6257ec, type: 3}
   StepActions: []
   AttackTarget: {fileID: 0}
   PatrolTarget: {fileID: 0}

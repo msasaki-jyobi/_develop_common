@@ -18,6 +18,7 @@
 # _develop_common 利用アセット
 - [Basic Motions FREE](https://assetstore.unity.com/packages/3d/animations/basic-motions-free-154271)
 - [RPG Character Mecanim Animation Pack FREE](https://assetstore.unity.com/packages/3d/animations/rpg-character-mecanim-animation-pack-free-65284)
+- [FastIK](https://assetstore.unity.com/packages/tools/animation/fast-ik-139972)
 
 # その他 利用させていただいてるgit
 - [UniSerializableDictionary](https://github.com/baba-s/UniSerializableDictionary)

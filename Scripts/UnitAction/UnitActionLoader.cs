@@ -197,7 +197,7 @@ namespace develop_common
 
                                         if (frameInfo.OverwriteAction != null)
                                         {
-                                            LoadAction(frameInfo.OverwriteAction);
+                                            LoadAction(frameInfo.OverwriteAction, ignoreRequirement: true);
                                         }
                                     }
                     }
