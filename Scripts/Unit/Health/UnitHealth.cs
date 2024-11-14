@@ -46,8 +46,9 @@ namespace develop_common
         [SerializeField] private List<ShakeController> Shakes = new List<ShakeController>();
 
         public event Action DamageActionEvent;
-        private bool _initDead;
+        public ReactiveProperty<bool> InitDead = new ReactiveProperty<bool>();
 
+        public event Action DeadEvent;
 
         private void Start()
         {
@@ -107,6 +108,18 @@ namespace develop_common
 
             if (CurrentHealth < 0)
             {
+                // Ž€–S
+                if (CurrentHealth <= 0)
+                {
+                    InitDead.Value = true;
+                    if (_unitComponents.UnitVoice != null)
+                        if (!InitDead.Value)
+                        {
+                            _unitComponents.UnitVoice.PlayVoice("Dead", true);
+                            DeadEvent?.Invoke();
+                        }
+                }
+
                 if (IsDeadSlow)
                     SlowTimer = 3f;
 
@@ -218,16 +231,7 @@ namespace develop_common
                         _animatorStateController.AnimatorLayerPlay(1, additiveMotion, 0);
                     }
 
-                    // ŒÅ’è‰» Ž€–S
-                    if (CurrentHealth <= 0)
-                    {
-                        if (_unitComponents.UnitVoice != null)
-                            if (!_initDead)
-                            {
-                                _initDead = true;
-                                _unitComponents.UnitVoice.PlayVoice("Dead", true);
-                            }
-                    }
+
                 }
             }
 
@@ -240,12 +244,6 @@ namespace develop_common
                 if (CurrentHealth <= 0)
                     word.NotWardData.Add("ŠJ");
                 unitShape.SetShapeWard(word);
-            }
-
-            if (CurrentHealth <= 0)
-            {
-                // ƒvƒŒƒCƒ„[‚ªŽ€–S‚·‚éˆ—
-                LogManager.Instance.AddLog(gameObject, "PlayerDead", 1);
             }
         }
 

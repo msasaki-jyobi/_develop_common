@@ -22,3 +22,7 @@
 
 # その他 利用させていただいてるgit
 - [UniSerializableDictionary](https://github.com/baba-s/UniSerializableDictionary)
+- [FadeCamera2(UniTask, RealTimeに置き換えインポート済み)](https://github.com/tsubaki/FadeCamera2/tree/master) 
+-   [FadeCamera2：Unity Package](https://github.com/tsubaki/FadeCamera2/blob/master/FadeCamera2.unitypackage?raw=true)
+-   [FadeCamera2 Sample：Unity Package](https://github.com/tsubaki/FadeCamera2/blob/master/FadeCamera2%20sample.unitypackage?raw=true)
+- [MaskImage：pokeita様（/rule1080p）](https://4you.bz/)

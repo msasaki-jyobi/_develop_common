@@ -17,6 +17,11 @@ namespace develop_common
         {
             if (_isStartCursolLock)
                 OnVisibleCursol(false);
+
+            UIStateManager.Instance.ChangeStateEvent += ((x) =>
+            {
+                OnVisibleCursol(x != "Close");
+            });
         }
 
         private void Update()
