@@ -10,6 +10,7 @@ public class InputEnemyAI : MonoBehaviour
     public TPSUnitController TPSUnitController;
     public UnitActionLoader UnitActionLoader;
     public UnitHealth UnitHealth;
+    public AnimatorStateController AnimatorStateController;
     public float StoppingDistance = 0.5f; // 目的地に到達と見なす距離
     public float HuntDistance = 5f; // 目的地に到達と見なす距離
     [Header("パトロール 関連")]
@@ -39,7 +40,14 @@ public class InputEnemyAI : MonoBehaviour
     {
         if (UnitHealth != null)
             if (UnitHealth.CurrentHealth <= 0)
+            {
+                if(AnimatorStateController.MainStateName.Value != "Dead") // 突っ立ってたら死亡させる
+                {
+                    int ran = Random.Range(0, UnitHealth.DeadMotions.Count);
+                    AnimatorStateController.StatePlay(UnitHealth.DeadMotions[ran], EStatePlayType.SinglePlay, true);
+                }
                 return;
+            }
 
         // 目標の決め方　プレイヤーとの距離
         // 対象追跡に入るには StateがReadyの時

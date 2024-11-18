@@ -40,6 +40,7 @@ namespace develop_common
         public int MaxHealth { get; private set; } = 50;
 
         [field: SerializeField] public bool IsInvisible { get; private set; }
+        public float InVisibleTimer = 0;
 
         public bool IsDeadSlow;
         public float SlowTimer = 1;
@@ -68,6 +69,9 @@ namespace develop_common
             //{
             //    Time.timeScale = 1f;
             //}
+
+            if (InVisibleTimer > 0) InVisibleTimer -= Time.deltaTime;
+            IsInvisible = InVisibleTimer > 0;
         }
 
         private async void OnCrossHandle(bool arg1, EInputReader reader)
@@ -88,9 +92,7 @@ namespace develop_common
                 transform.rotation = Quaternion.Euler(0, rot.y, 0);
                 // 起き上がりモーションを実行
                 _unitComponents.UnitActionLoader.LoadAction(GetUpAction);
-                IsInvisible = true;
-                await UniTask.Delay(3000);
-                IsInvisible = false;
+                InVisibleTimer = 3f;
             }
         }
 

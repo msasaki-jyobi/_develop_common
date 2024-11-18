@@ -22,6 +22,9 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
     [Header("状態")]
     public bool IsFade;
 
+    public event Action<string> LoadNameSceneEvent;
+
+
     private void Awake()
     {
 
@@ -73,6 +76,7 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
         fade.FadeIn(FadeInTime, async () =>
         {
             // 黒くなったタイミングで呼び出される処理
+            LoadNameSceneEvent?.Invoke(loadSceneName);
             SceneManager.LoadScene(loadSceneName);
             fade.FadeOut(FadeOutTime, () =>
             {

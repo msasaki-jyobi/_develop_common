@@ -35,7 +35,6 @@ namespace develop_common
                 {
                     return info.HitCollider.gameObject;
                 }
-
             }
             return null;
         }

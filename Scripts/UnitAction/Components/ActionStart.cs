@@ -32,6 +32,12 @@ namespace develop_common
         public bool IsParentEntity; // 親オブジェクトをデフォルトに戻す
         [Tooltip("実行時にカメラを通常カメラに戻す）")]
         public bool IsCameraReset; // CameraReset
+        [Header("開始時：UnitVoice Play")]
+        [Tooltip("再生するボイスIDを指定")]
+        public string StartVoice; // CameraReset
+        [Header("開始時：無敵時間付与")]
+        [Tooltip("無敵時間を付与")]
+        public float InVisibleTime;
 
         // レイヤー用
         [Header("レイヤー指定がある場合")]

@@ -87,7 +87,11 @@ namespace develop_common
                                     {
                                         frameInfo.IsComplete = true;
 
-
+                                        if (frameInfo.InVisibleTime > 0)
+                                        {
+                                            if (_unitComponents.UnitHealth != null)
+                                                _unitComponents.UnitHealth.InVisibleTimer = frameInfo.InVisibleTime;
+                                        }
 
                                         if (frameInfo.FramePair.Count > 0) // Pair
                                         {
@@ -373,6 +377,12 @@ namespace develop_common
                         develop_easymovie.CameraManager.Instance.SetDefaultCamera(false);
 
                     ChangeStatus(actionBase.ActionStart.SetStartStatus, 0, actionBase.gameObject);
+
+                    if (actionBase.ActionStart.StartVoice != "")
+                        _unitComponents.UnitVoice.PlayVoice(actionBase.ActionStart.StartVoice, true);
+
+                    if (actionBase.ActionStart.InVisibleTime > 0)
+                        _unitComponents.UnitHealth.InVisibleTimer = actionBase.ActionStart.InVisibleTime;
 
 
                 }

@@ -9,6 +9,7 @@ namespace develop_common
         public Animator Animator;
         public AnimatorStateController AnimatorStateController;
         public UnitActionLoader UnitActionLoader;
+        public UnitHealth UnitHealth;
         public CinemachineFreeLook BodyFreeLook; // 自由視点じゃないFreeLook
         [Space(10)]
         public BattleDealer AttackDealer;

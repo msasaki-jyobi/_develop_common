@@ -11,6 +11,7 @@ namespace develop_common
         [Header("基本")]
         [Tooltip("発動フレーム")] // 追加したら下部のコピーメソッドに処理を追加すること！
         public float PlayFrame;
+        public float InVisibleTime;
         [Tooltip("強制割込みモーション")]
         public GameObject OverwriteAction;
         [Tooltip("再生する時に設定される基本情報（物理演算など")]
@@ -83,6 +84,7 @@ namespace develop_common
         public FrameInfo(FrameInfo other)
         {
             this.PlayFrame = other.PlayFrame;
+            this.InVisibleTime = other.InVisibleTime;
             this.NormalData = other.NormalData;
             this.PrefabData = other.PrefabData;
             this.ActiveAttackData = other.ActiveAttackData;

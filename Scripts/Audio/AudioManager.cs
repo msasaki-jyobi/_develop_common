@@ -66,6 +66,7 @@ namespace develop_common
         public void PlayBGM(AudioClip clip)
         {
             if(clip == null) return;
+            _bgmAudio.Stop();
             _bgmAudio.clip = clip;
             _bgmAudio.Play();
         }

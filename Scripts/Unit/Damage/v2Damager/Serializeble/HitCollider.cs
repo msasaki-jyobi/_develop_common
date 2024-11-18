@@ -21,6 +21,9 @@ namespace _develop_common
         // 各オブジェクトのタグ名
         private const string _bodyTagName = "Body";
 
+        public develop_common.UnitComponents AttakerUnitComponents;
+        public List<string> NoneHitColliderStateName = new List<string>(); // このモーション再生中はダメージ判定が機能しない　というもの
+
         [Header("ダメージの重さ")]
         [Tooltip("ダメージ計算に利用される")]
         public int DamageWeight;
@@ -102,6 +105,21 @@ namespace _develop_common
         public async void OnHit(GameObject hit)
         {
             //LogManager.Instance.AddLog(hit.gameObject, $"${gameObject.name} Damage0:{IsAttack.Value}, {AttackLifeTime}");
+
+            if(AttakerUnitComponents != null)
+            {
+                if (AttakerUnitComponents.UnitHealth.CurrentHealth <= 0)
+                    return;
+
+                // ダメージや死亡モーションが一致する場合ダメージ判定をOFF
+                var stateName = AttakerUnitComponents.AnimatorStateController.MainStateName.Value;
+                foreach (var motion in NoneHitColliderStateName)
+                {
+                    if (motion == stateName)
+                        return;
+                }
+            }
+
 
             if (!IsAttack.Value) return;
             bool check = true; // HitCheckを行う
@@ -285,6 +303,8 @@ namespace _develop_common
             {
                 // 同じタイプならReturn
                 if (AttackerUnitType == health.UnitType) return null;
+
+                if(health.UnitType == develop_common.EUnitType.Enemy && health.CurrentHealth <= 0) return null; // 敵キャラが死亡している場合
 
                 target = body.RootObject;
 
