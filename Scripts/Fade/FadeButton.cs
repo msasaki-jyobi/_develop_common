@@ -6,10 +6,10 @@ public class FadeButton : MonoBehaviour
 {
     public void OnLoadSceneFadeOut(string sceneName)
     {
-        FadeController.Instance.LoadSceneFadeout(sceneName);
+        FadeController.Instance.LoadSceneFadeIn(sceneName);
     }
     public void OnReLoadSceneFadeOut()
     {
-        FadeController.Instance.ReloadSceneFadeOut();
+        FadeController.Instance.ReloadSceneFadeIn();
     }
 }

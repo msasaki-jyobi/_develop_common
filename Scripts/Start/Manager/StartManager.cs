@@ -20,7 +20,7 @@ public class StartManager : SingletonMonoBehaviour<StartManager>
 
         if (_fadeController)
         {
-            _fadeController.Fadeout();
+            _fadeController.FadeIn();
             await UniTask.Delay((int)(_fadeController.FadeInTime * 1000));
         }
         // Player‚Ì‰ŠúˆÊ’u‚ğİ’è
@@ -41,7 +41,7 @@ public class StartManager : SingletonMonoBehaviour<StartManager>
         await UniTask.Delay(10);
         if (_fadeController)
         {
-            _fadeController.Fadeout();
+            _fadeController.FadeIn();
             await UniTask.Delay((int)(_fadeController.FadeInTime * 1000));
         }
         _brain.m_DefaultBlend.m_Time = 0f;

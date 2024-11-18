@@ -159,7 +159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8131853130497977569}
-  - component: {fileID: 4072858627683433778}
+  - component: {fileID: 3137676872617829586}
   m_Layer: 0
   m_Name: FadeController
   m_TagString: Untagged
@@ -184,7 +184,7 @@ Transform:
   - {fileID: 4553412869750059025}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4072858627683433778
+--- !u!114 &3137676872617829586
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,9 +193,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5386691934340905854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f6d43993bfaedc4cb2974474b7ac88b, type: 3}
+  m_Script: {fileID: 11500000, guid: 00bdd611d437baf4a9a2417a98135e00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FadeInTime: 2
+  FadeOutTime: 2
+  group: {fileID: 7323128660206587589}
+  fade: {fileID: 4553412869745378605}
+  YKeyDebugFade: 1
+  IsFade: 0
 --- !u!1 &7684761228989146574
 GameObject:
   m_ObjectHideFlags: 0

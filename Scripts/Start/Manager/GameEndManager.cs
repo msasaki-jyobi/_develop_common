@@ -30,7 +30,7 @@ public class GameEndManager : SingletonMonoBehaviour<GameEndManager>
             if(_fadeController != null ) 
             {
                 // クリアシーンやリザルトシーンへ飛ぶ
-                _fadeController.LoadSceneFadeout(_endLoadSceneName);
+                _fadeController.LoadSceneFadeIn(_endLoadSceneName);
             }
         }
     }
