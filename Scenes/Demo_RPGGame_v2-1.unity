@@ -9593,7 +9593,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713256262}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.021344135, y: 0.44481647, z: 0.010604462, w: 0.8953046}
+  m_LocalRotation: {x: -0.021344129, y: 0.44481653, z: 0.010604459, w: 0.8953045}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9806,7 +9806,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 2
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -12410,7 +12410,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219552733}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.005098491, y: 0.44493565, z: 0.0025330964, w: 0.8955445}
+  m_LocalRotation: {x: -0.00509849, y: 0.44493565, z: 0.002533096, w: 0.8955445}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -14027,7 +14027,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 2
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -15354,6 +15354,7 @@ MonoBehaviour:
   AttackTime: 5
   AttackActions:
   - {fileID: 867914962149053577, guid: 65aa9442333a83d43a927a7a967e9f73, type: 3}
+  - {fileID: 867914962149053577, guid: 03467873ba0919c4795794443293385b, type: 3}
   StepActions: []
   AttackTarget: {fileID: 0}
   PatrolTarget: {fileID: 0}
@@ -17725,7 +17726,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782635041}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.011191831, y: 0.44490814, z: -0.0055604675, w: 0.89548904}
+  m_LocalRotation: {x: 0.011191861, y: 0.44490814, z: -0.0055604824, w: 0.89548904}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -20406,7 +20407,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 2
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
