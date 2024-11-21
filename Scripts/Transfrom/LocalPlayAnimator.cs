@@ -43,7 +43,10 @@ namespace develop_common
 
         private void Update()
         {
-            if(DebugLoopPlay)
+            if (Input.GetKeyDown(KeyCode.H))
+                OnPlay();
+
+            if (DebugLoopPlay)
             {
                 SetLoopFlag(DebugLoopFlg);
                 DebugLoopPlay = false;
