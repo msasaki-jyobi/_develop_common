@@ -8,32 +8,32 @@ namespace develop_common
     [Serializable]
     public class AnimationStep
     {
-        public Vector3 LocalPosition;
-        public Vector3 LocalRotation;
-        public float Duration;
-        public float TransitionDuration; // ステップ間の遷移時間
-        public string StateName;
-        public EStatePlayType StatePlayType;
-        public bool StateReset;
+        [Tooltip("ローカル座標での座標")] public Vector3 LocalPosition;
+        [Tooltip("ローカル座標での回転角度")] public Vector3 LocalRotation;
+        [Tooltip("アニメーションにかかる時間（秒）")]public float Duration;
+        [Tooltip("このステップが完了した後、次のステップに進むまでの待機時間（秒）")] public float TransitionDuration; // ステップ間の遷移時間
+        [Tooltip("再生するアニメーションステートの名前")] public string StateName;
+        [Tooltip("ステート再生時の再生タイプ（例: ワンショット再生、ループ再生など）。")] public EStatePlayType StatePlayType;
+        [Tooltip("ステートを再生する前にリセット（初期状態に戻す）するかどうか。")] public bool StateReset;
     }
 
     public class LocalPlayAnimator : MonoBehaviour
     {
-        public Transform Target; // アニメーション対象のTransform
-        public AnimatorStateController AnimatorStateController;
-        public List<AnimationStep> AnimationSteps = new List<AnimationStep>(); // アニメーションステップのリスト
-        public Vector3 InitialPosition = Vector3.zero; // 元の位置
-        public Vector3 InitialRotation = Vector3.zero; // 元の回転
-        public float ReturnDuration = 0.5f; // 元の位置に戻る時間
-        public float ReturnTransitionDuration = 0.2f; // 元の位置に戻る際の遷移時間
+        [Tooltip("アニメーションの対象となるオブジェクト。\r\n")] public Transform Target; // アニメーション対象のTransform
+        [Tooltip("アニメーションの状態を管理するカスタムコントローラー（Animatorと連携するオブジェクト）")] public AnimatorStateController AnimatorStateController;
+        [Tooltip("実行するアニメーションステップのリスト。。")] public List<AnimationStep> AnimationSteps = new List<AnimationStep>(); // アニメーションステップのリスト
+        [Tooltip("アニメーション開始前、および終了後に戻る初期位置。")] public Vector3 InitialPosition = Vector3.zero; // 元の位置
+        [Tooltip(" アニメーション開始前、および終了後に戻る初期回転（オイラー角）。")] public Vector3 InitialRotation = Vector3.zero; // 元の回転
+        [Tooltip("アニメーション終了後、ターゲットが初期位置に戻るまでにかかる時間（秒）。")] public float ReturnDuration = 0.5f; // 元の位置に戻る時間
+        [Tooltip("初期位置に戻る際の追加の遷移時間（秒）。")] public float ReturnTransitionDuration = 0.2f; // 元の位置に戻る際の遷移時間
 
-        public bool IsLooping = false; // ループのフラグ
+        [Tooltip("アニメーションをループ再生するかどうかを制御します。")] public bool IsLooping = false; // ループのフラグ
         private bool isAnimating = false; // 現在アニメーションが実行中かを管理
 
         private Sequence _animationSequence; // アニメーションシーケンス
 
-        public bool DebugLoopPlay;
-        public bool DebugLoopFlg;
+        [Tooltip("デバッグ用のループ再生トグル。SetLoopFlag をテストするために使用。")] public bool DebugLoopPlay;
+        [Tooltip("DebugLoopPlay と連動するデバッグ用フラグ。")] public bool DebugLoopFlg;
 
         private void Start()
         {
