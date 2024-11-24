@@ -10,6 +10,14 @@ using UnityEngine;
 
 namespace _develop_common
 {
+    public enum EAttackType
+    {
+        None,
+        Attack,
+        Grab,
+        Guard,
+        Hold
+    }
     public class HitCollider : MonoBehaviour
     {
         // 攻撃者を識別するID
@@ -105,8 +113,8 @@ namespace _develop_common
         public async void OnHit(GameObject hit)
         {
             //LogManager.Instance.AddLog(hit.gameObject, $"${gameObject.name} Damage0:{IsAttack.Value}, {AttackLifeTime}");
-
-            if(AttakerUnitComponents != null)
+            Debug.Log("AA1");
+            if (AttakerUnitComponents != null)
             {
                 if (AttakerUnitComponents.UnitHealth.CurrentHealth <= 0)
                     return;
@@ -120,7 +128,7 @@ namespace _develop_common
                 }
             }
 
-
+            Debug.Log("AA2");
             if (!IsAttack.Value) return;
             bool check = true; // HitCheckを行う
 
@@ -128,7 +136,7 @@ namespace _develop_common
             {
                 if (bodyCollider.RootObject.TryGetComponent<IHealth>(out var health))
                 {
-
+                    Debug.Log("AA3");
                     DamageUnit damageUnit = CheckDamageInfos(hit, bodyCollider, health); // ダメージ回数などキャラクター情報を確認
                     if (damageUnit == null) return;
 
@@ -301,10 +309,13 @@ namespace _develop_common
         {
             if (body != null)
             {
+                Debug.Log("A1");
                 // 同じタイプならReturn
                 if (AttackerUnitType == health.UnitType) return null;
+                Debug.Log("A2");
 
                 if(health.UnitType == develop_common.EUnitType.Enemy && health.CurrentHealth <= 0) return null; // 敵キャラが死亡している場合
+                Debug.Log("A3");
 
                 target = body.RootObject;
 
@@ -315,6 +326,7 @@ namespace _develop_common
                         return _damageUnits[i];
                 }
 
+                Debug.Log("A4");
                 // 存在しない場合追加
                 DamageUnit damageUnit = new DamageUnit();
                 damageUnit.UnitObject = target;

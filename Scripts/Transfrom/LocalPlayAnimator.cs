@@ -8,13 +8,24 @@ namespace develop_common
     [Serializable]
     public class AnimationStep
     {
+        [Header("Battle用")]
+
         [Tooltip("ローカル座標での座標")] public Vector3 LocalPosition;
         [Tooltip("ローカル座標での回転角度")] public Vector3 LocalRotation;
+        [Space(3)]
         [Tooltip("アニメーションにかかる時間（秒）")]public float Duration;
         [Tooltip("このステップが完了した後、次のステップに進むまでの待機時間（秒）")] public float TransitionDuration; // ステップ間の遷移時間
+        [Space(3)]
         [Tooltip("再生するアニメーションステートの名前")] public string StateName;
         [Tooltip("ステート再生時の再生タイプ（例: ワンショット再生、ループ再生など）。")] public EStatePlayType StatePlayType;
         [Tooltip("ステートを再生する前にリセット（初期状態に戻す）するかどうか。")] public bool StateReset;
+        [Space(3)]
+        public ClipData SE;
+        public GameObject EffectPrefab;
+        [Space(3)]
+        public int DamageValue;
+        public string DamageAdditiveStateName = "";
+        public string VoiceID;
     }
 
     public class LocalPlayAnimator : MonoBehaviour

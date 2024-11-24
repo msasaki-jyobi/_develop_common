@@ -29,6 +29,7 @@ namespace develop_common
         public List<string> DeadMotions = new List<string>() { "Dead", };
 
         public GameObject GetUpAction;
+        public bool NoneChangeIsKinetic;
 
         [SerializeField]
         private EUnitType _unitType = EUnitType.Player;
@@ -46,7 +47,7 @@ namespace develop_common
         public float SlowTimer = 1;
         [SerializeField] private List<ShakeController> Shakes = new List<ShakeController>();
 
-        public event Action DamageActionEvent;
+        public event Action<int> DamageActionEvent;
         public ReactiveProperty<bool> InitDead = new ReactiveProperty<bool>();
 
         public event Action DeadEvent;
@@ -86,7 +87,8 @@ namespace develop_common
                 _unitComponents.PartAttachment.SetEntityParent();
                 await UniTask.Delay(1);
                 _unitComponents.PartAttachment.SetEntityParent(); // なぜかここでも呼ばないと親オブジェクト解除されない
-                _rigidBody.isKinematic = false;
+                if (!NoneChangeIsKinetic)
+                    _rigidBody.isKinematic = false;
                 // 角度を修正
                 Vector3 rot = transform.rotation.eulerAngles;
                 transform.rotation = Quaternion.Euler(0, rot.y, 0);
@@ -101,7 +103,7 @@ namespace develop_common
             //if (_unitComponents.UnitActionLoader.DownTimer >= 5f) // 無敵時間中ならReturn 
             //    return;
 
-            DamageActionEvent?.Invoke();
+            DamageActionEvent?.Invoke(totalDamage);
 
             CurrentHealth -= totalDamage;
 
@@ -145,7 +147,7 @@ namespace develop_common
                     }
                 }
             }
-      
+
 
 
 
@@ -180,7 +182,8 @@ namespace develop_common
                 if (!isPull) // 固定化モーション以外を再生の場合
                 {
                     // Additiveを考慮する必要があるが、とりあえず引き離す必要がある吹き飛ばす
-                    _rigidBody.isKinematic = false;
+                    if (!NoneChangeIsKinetic)
+                        _rigidBody.isKinematic = false;
                     _unitComponents.PartAttachment.SetEntityParent();
                     //Vector3 rot = transform.rotation.eulerAngles;
                     //transform.rotation = Quaternion.Euler(0, rot.y, 0);
@@ -219,7 +222,8 @@ namespace develop_common
                 {
                     if (!_unitComponents.PartAttachment.IsPull) // まだ固定されていない
                     {
-                        _rigidBody.isKinematic = true;
+                        if (!NoneChangeIsKinetic)
+                            _rigidBody.isKinematic = true;
                         _unitComponents.UnitActionLoader.UnitStatus.Value = EUnitStatus.Executing;
                         _unitComponents.AnimatorStateController.StatePlay(actionBase.ActionStart.PlayClip, EStatePlayType.SinglePlay, true);
                         // HitCollider：ランダムカメラなら

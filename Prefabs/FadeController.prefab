@@ -198,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FadeInTime: 2
   FadeOutTime: 2
+  FadeImage: {fileID: 0}
   group: {fileID: 7323128660206587589}
   fade: {fileID: 4553412869745378605}
   YKeyDebugFade: 1
