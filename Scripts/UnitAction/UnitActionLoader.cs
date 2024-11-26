@@ -113,7 +113,13 @@ namespace develop_common
                                         }
 
                                         if (frameInfo.PrefabData != null) // Prefab生成
-                                            CreatePrefab(frameInfo.PrefabData, gameObject);
+                                        {
+                                            CreatePrefab(frameInfo.PrefabData.PrefabData, gameObject);
+                                            // 追加プレハブ
+                                            if (frameInfo.PrefabData.AddPrefabData.Count > 0)
+                                                foreach (var pre in frameInfo.PrefabData.AddPrefabData)
+                                                    CreatePrefab(pre, gameObject);
+                                        }
 
                                         if (frameInfo.IKData != null) // IKの設定
                                         {
@@ -401,12 +407,12 @@ namespace develop_common
 
         }
 
-        public async void CreatePrefab(FramePrefabData framePrefabData, GameObject unit)
+        public async void CreatePrefab(PrefabData prefabData, GameObject unit)
         {
             //if (PrefabDatas.Count == 0) return;
             //if (PrefabDatas.Count <= listIndex) return;
 
-            var data = framePrefabData.PrefabData;
+            var data = prefabData;
 
             // 生成するAttackPointの特定
             GameObject pointObject = unit.gameObject;

@@ -1,3 +1,6 @@
+using _develop_common;
+using Cysharp.Threading.Tasks;
+using develop_body;
 using develop_common;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,9 +12,15 @@ public class HitDestroy : MonoBehaviour
     public GameObject DestroyEffect;
     public AudioClip DestroyAudioClip;
     public ClipData DestroyClipData;
+
+    [Tooltip("自分がHitColliderあって、触れた相手のBodyColliderのRootObjectのUnitActionLoaderが一緒なら無視します")]
+    public bool SelfHitNoneDestroy = true;
+
+    private HitCollider _selfHitCollider;
+
     void Start()
     {
-        
+        TryGetComponent(out _selfHitCollider);
     }
 
     // Update is called once per frame
@@ -30,12 +39,30 @@ public class HitDestroy : MonoBehaviour
         OnHit(other.gameObject);
     }
 
-    private void OnHit(GameObject hit)
+    private async void OnHit(GameObject hit)
     {
         foreach(var tag in HitDestroyTags) 
         { 
             if(hit.tag == tag)
             {
+                if(SelfHitNoneDestroy)
+                {
+                    if (_selfHitCollider != null)
+                        if (hit.TryGetComponent<BodyCollider>(out var body))
+                        {
+                            if (body.RootObject.TryGetComponent<UnitActionLoader>(out var loader))
+                                if (loader.UnitType == _selfHitCollider.AttackerUnitType) // 同じユニットならReturn
+                                    return;
+                        }
+                    else if (hit.TryGetComponent<UnitActionLoader>(out var loader2))
+                        {
+                            if (loader2.UnitType == _selfHitCollider.AttackerUnitType)
+                                return;
+                        }
+
+
+                }
+                await UniTask.Delay(1);
                 Destroy(gameObject);
                 UtilityFunction.PlayEffect(gameObject, DestroyEffect);
                 develop_common.AudioManager.Instance.PlayOneShotClipData(DestroyClipData);
