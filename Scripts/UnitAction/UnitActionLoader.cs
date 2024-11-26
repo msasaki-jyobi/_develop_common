@@ -9,6 +9,7 @@ using Cysharp.Threading.Tasks;
 using static UnityEditor.PlayerSettings;
 using System.Security.Cryptography.X509Certificates;
 using RPGCharacterAnims.Actions;
+using _develop_common;
 
 namespace develop_common
 {
@@ -457,6 +458,10 @@ namespace develop_common
                 // Parent
                 if (data.ParentType == EParentType.SetParent) // Parent
                     prefab.transform.parent = pointObject.transform;
+
+                // HitCollider
+                if (prefab.TryGetComponent<HitCollider>(out var col))
+                    col.AttackerUnitType = UnitType;
 
                 Destroy(prefab, data.DestroyTime);
 
