@@ -11,7 +11,7 @@ public class HitDestroy : MonoBehaviour
     public List<string> HitDestroyTags = new List<string>() { "Unit", "Wall", "Default" };
     public GameObject DestroyEffect;
     public AudioClip DestroyAudioClip;
-    public ClipData DestroyClipData;
+    public develop_common.ClipData DestroyClipData;
 
     [Tooltip("自分がHitColliderあって、触れた相手のBodyColliderのRootObjectのUnitActionLoaderが一緒なら無視します")]
     public bool SelfHitNoneDestroy = true;
@@ -48,7 +48,7 @@ public class HitDestroy : MonoBehaviour
                 if(SelfHitNoneDestroy)
                 {
                     if (_selfHitCollider != null)
-                        if (hit.TryGetComponent<BodyCollider>(out var body))
+                        if (hit.TryGetComponent<develop_body.BodyCollider>(out var body))
                         {
                             if (body.RootObject.TryGetComponent<UnitActionLoader>(out var loader))
                                 if (loader.UnitType == _selfHitCollider.AttackerUnitType) // 同じユニットならReturn
@@ -66,7 +66,7 @@ public class HitDestroy : MonoBehaviour
                 Destroy(gameObject);
                 UtilityFunction.PlayEffect(gameObject, DestroyEffect);
                 develop_common.AudioManager.Instance.PlayOneShotClipData(DestroyClipData);
-                develop_common.AudioManager.Instance.PlayOneShot(DestroyAudioClip, EAudioType.Se);
+                develop_common.AudioManager.Instance.PlayOneShot(DestroyAudioClip, develop_common.EAudioType.Se);
                 return;
             }
         }
