@@ -95,6 +95,8 @@ MonoBehaviour:
   IsResetVelocity: 1
   IsParentEntity: 0
   IsCameraReset: 0
+  StartVoice: 
+  InVisibleTime: 0
   AnimatorLayer: 0
   WeightValue: 1
   WeightTime: 0.5
@@ -127,6 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FrameInfo:
   - PlayFrame: 13
+    InVisibleTime: 0
     OverwriteAction: {fileID: 0}
     NormalData: {fileID: 11400000, guid: 1a9271c37e7a9b349998c5d02361d82c, type: 2}
     PrefabData: {fileID: 11400000, guid: 63daa595cc9466c44a4be8e167e0c9c4, type: 2}
@@ -139,6 +142,7 @@ MonoBehaviour:
     SyncData: {fileID: 0}
     IsComplete: 0
   - PlayFrame: 21
+    InVisibleTime: 0
     OverwriteAction: {fileID: 0}
     NormalData: {fileID: 0}
     PrefabData: {fileID: 0}

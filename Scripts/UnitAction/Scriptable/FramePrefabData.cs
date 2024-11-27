@@ -8,5 +8,6 @@ namespace develop_common
     public class FramePrefabData : ScriptableObject
     {
         public PrefabData PrefabData;
+        public List<PrefabData> AddPrefabData = new List<PrefabData>();
     }
 }
