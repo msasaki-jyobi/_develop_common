@@ -106,7 +106,7 @@ namespace develop_common
         /// </summary>
         /// <param name="camera">ゲーム用カメラ</param>
         /// <returns></returns>
-        static public Vector3 GetScreenClickObjectPosition(Camera camera, GameObject effectPrefab = null)
+        static public Vector3 GetScreenClickObjectPosition(Camera camera, GameObject effectPrefab = null, string targetTag = "")
         {
             RaycastHit hit;
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
@@ -120,7 +120,10 @@ namespace develop_common
                         g.loop = false;
                     Destroy(effect, 5f);
                 }
-                return hit.point;
+                if(targetTag == "")
+                    return hit.point;
+                else if(hit.collider.gameObject.tag == targetTag)
+                    return hit.point;
             }
             return Vector3.zero;
         }
