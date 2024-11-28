@@ -160,7 +160,7 @@ namespace develop_common
             // 滑らかに切り替えるまでの時間を計測
             float duration = fadeLength / Animator.GetCurrentAnimatorStateInfo(layerNo).length;
             // 現在のモーションから滑らかにモーション切り替え
-            Animator.CrossFade("", duration, layerNo);
+            //Animator.CrossFade("", duration, layerNo);
             await UniTask.Delay(1);
             Animator.CrossFade(animName, duration, layerNo);
         }
