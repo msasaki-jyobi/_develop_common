@@ -38,6 +38,7 @@ namespace develop_common
         public event Action<string, bool> FinishMotionEvent;
 
         private Tween _currentLayerTween;
+        private bool _additiveRepeatOption;
 
         private void Start()
         {
@@ -148,7 +149,8 @@ namespace develop_common
         /// <param name="_animator">Animator</param>
         /// <param name="animName">ステート名</param>
         /// <param name="fadeLength">切り替え時間</param>
-        public async void AnimatorLayerPlay(int layerNo, string animName, float fadeLength)
+        /// <param name="repeatOption"><MotionName> <MotionName>1 を繰り返す</param>
+        public async void AnimatorLayerPlay(int layerNo, string animName, float fadeLength, bool repeatOption = false, string repeatOptionName = "1")
         {
             //if (_addTimer >= 0.7f) return;
             //_addTimer = 1;
@@ -160,9 +162,16 @@ namespace develop_common
             // 滑らかに切り替えるまでの時間を計測
             float duration = fadeLength / Animator.GetCurrentAnimatorStateInfo(layerNo).length;
             // 現在のモーションから滑らかにモーション切り替え
-            //Animator.CrossFade("", duration, layerNo);
+            if(!repeatOption)
+                Animator.CrossFade("", duration, layerNo);
             await UniTask.Delay(1);
-            Animator.CrossFade(animName, duration, layerNo);
+            var motionName = animName;
+            if (repeatOption)
+            {
+                motionName = _additiveRepeatOption ? animName+repeatOptionName : animName; // trueなら"<repeatOptionName>"を加えて再生
+                _additiveRepeatOption = !_additiveRepeatOption; // 反転する
+            }
+            Animator.CrossFade(motionName, duration, layerNo);
         }
 
 

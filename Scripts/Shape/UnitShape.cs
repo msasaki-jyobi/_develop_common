@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,10 @@ namespace develop_common
         [SerializeField] private float _defaultChangeSpeed = 3; // Shapeを滑らかに切り替える速度
         [SerializeField] private float _defaultChangeInterval = 0.5f; // Shapeを切り替える周期
         [SerializeField] private ShapeWordData _defaultShapeWordData; // デフォルトのワードデータ
+
+        [Header("AddShape")]
+        public List<AddShape> AddBlendShape = new List<AddShape>();
+
         [Header("設定不要")]
         [SerializeField] private ShapeWordData _playShapeWordData; // 常時再生に利用するワードデータ
 
@@ -72,25 +77,30 @@ namespace develop_common
         /// <param name="blendShapeDatas">表情一覧が格納された変数を入れる</param>
         /// <param name="keyWard">実行したい表情のキーワード</param>
         /// <param name="notWard">実行したくない表情のキーワード</param>
-        private void KeyWardShape(List<BlendShapeData> blendShapeDatas, string keyWard, List<string> notWard)
+        private async void KeyWardShape(List<BlendShapeData> blendShapeDatas, string keyWard, List<string> notWard)
         {
+            var blendList = new List<BlendShapeData>(blendShapeDatas);
+
+
+
             // ワードに引っかかったシェイプを入れるLIST
             List<BlendShapeData> shapeDatas = new List<BlendShapeData>();
+
             //shapeDatas.Clear();
 
             // シェイプの中から指定されたワードでランダム再生
-            for (int s = 0; s < blendShapeDatas.Count; s++)
+            for (int s = 0; s < blendList.Count; s++)
             {
                 bool notWordFlg = false;
 
                 // シェイプを１つずつ見ていってワードが一致するなら
-                if (blendShapeDatas[s].name.Contains(keyWard))
+                if (blendList[s].name.Contains(keyWard))
                 {
                     // NotWord検索 ヒット
                     for (int t = 0; t < notWard.Count; t++)
                     {
                         //もし含んでいけない文字列があるシェイプだったなら次のfor文へ
-                        if (blendShapeDatas[s].name.Contains(notWard[t]))
+                        if (blendList[s].name.Contains(notWard[t]))
                         {
                             notWordFlg = true;
                             continue;
@@ -100,7 +110,7 @@ namespace develop_common
                         continue;
 
                     // 再生用シェイプリストに格納しておく
-                    if (!notWordFlg) shapeDatas.Add(blendShapeDatas[s]);
+                    if (!notWordFlg) shapeDatas.Add(blendList[s]);
                 }
             }
 
@@ -108,6 +118,13 @@ namespace develop_common
             if (shapeDatas.Count != 0)
             {
                 int ran = Random.Range(0, shapeDatas.Count);
+
+                foreach (var data in AddBlendShape)
+                    if (data.IsAddShape)
+                        foreach (var data2 in data.BlandValues)
+                            shapeDatas[ran].BlendShapeList.Add(data2);
+                await UniTask.Delay(1);
+
                 ShapeChange(shapeDatas[ran].BlendShapeList, _changeSpeed);
             }
         }
@@ -172,6 +189,25 @@ namespace develop_common
                 yield return null;
             }
         }
+
+        public void OnChangeAddShape(string keyName, bool flg)
+        {
+            foreach (var data in AddBlendShape)
+            {
+                if(data.AddKeyName == keyName)
+                {
+                    data.IsAddShape = flg;
+                }
+            }
+        }
+    }
+
+    [System.Serializable]
+    public class AddShape
+    {
+        public string AddKeyName;
+        public bool IsAddShape;
+        public List<BlandValue> BlandValues = new List<BlandValue>();
     }
 }
 

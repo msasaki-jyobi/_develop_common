@@ -8,8 +8,6 @@ namespace develop_common
     [Serializable]
     public class AnimationStep
     {
-        [Header("Battle用")]
-
         [Tooltip("ローカル座標での座標")] public Vector3 LocalPosition;
         [Tooltip("ローカル座標での回転角度")] public Vector3 LocalRotation;
         [Space(3)]
