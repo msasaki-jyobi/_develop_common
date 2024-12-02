@@ -63,6 +63,10 @@ public class FadeImage : UnityEngine.UI.Graphic , IFade
 		material.SetTexture ("_MaskTex", texture);
 		material.SetColor ("_Color", color);
 	}
+	public void UpdateMaterialColor(Color color)
+	{
+        material.SetColor("_Color", color);
+    }
 
 	#if UNITY_EDITOR
 	protected override void OnValidate ()
