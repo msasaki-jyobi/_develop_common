@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1318679288756685457}
   - component: {fileID: -1375330392209254722}
   m_Layer: 0
-  m_Name: "DamageAction\uFF1AAdditive Additive1 Only"
+  m_Name: "DamageAction\uFF1AAdditive Additive1 Only 1"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,6 +79,8 @@ MonoBehaviour:
   IsResetVelocity: 1
   IsParentEntity: 0
   IsCameraReset: 0
+  StartVoice: 
+  InVisibleTime: 0
   AnimatorLayer: 0
   WeightValue: 1
   WeightTime: 0.5
@@ -111,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FrameInfo:
   - PlayFrame: 0
+    InVisibleTime: 0
     OverwriteAction: {fileID: 0}
     NormalData: {fileID: 0}
     PrefabData: {fileID: 0}

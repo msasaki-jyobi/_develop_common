@@ -38,7 +38,8 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
         if (FadeController.Instance == this)
         {
             FadeOut();
-            DontDestroyOnLoad(gameObject);
+            if(gameObject != null)
+                DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -57,6 +58,9 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
 
     public void FadeIn(float fadeInTime = -1, float fadeOutTime = -1, Color color = default)
     {
+        // フェードカラー指定
+        FadeImage.UpdateMaterialColor(color != default ? color : Color.white);
+
         if (IsFade) return;
         var inTime = fadeInTime == -1 ? FadeInTime : fadeInTime;
         var outTime = fadeOutTime == -1 ? FadeOutTime : fadeOutTime;
@@ -118,18 +122,23 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
             });
         });
     }
-    public void ActionPlayFadeIn(Action action)
+    public void ActionPlayFadeIn(Action action, float fadeInTime = -1, float fadeOutTime = -1, Color color = default)
     {
+        // フェードカラー指定
+        FadeImage.UpdateMaterialColor(color != default ? color : Color.white);
+
+        var inTime = fadeInTime == -1 ? FadeInTime : fadeInTime;
+        var outTime = fadeOutTime == -1 ? FadeOutTime : fadeOutTime;
         if (IsFade) return;
         IsFade = true;
         group.blocksRaycasts = false; // UIの操作を停止
-        fade.FadeIn(FadeInTime, async () =>
+        fade.FadeIn(inTime, async () =>
         {
             // 黒くなったタイミングで呼び出される処理
             //PlayableDirector.Play();
             action();
             await UniTask.Delay(1);
-            fade.FadeOut(FadeOutTime, () =>
+            fade.FadeOut(outTime, () =>
             {
                 // フェードが終了したタイミングで呼び出される処理
                 group.blocksRaycasts = true; // UIの操作を再開

@@ -54,7 +54,10 @@ namespace develop_common
 
         private void Start()
         {
-            _unitComponents.UnitActionLoader.FrameFouceEvent += OnFrameFouceHandle;
+            if (_unitComponents != null)
+                if (_unitComponents.UnitActionLoader != null)
+                    _unitComponents.UnitActionLoader.FrameFouceEvent += OnFrameFouceHandle;
+
             if (_inputReader != null)
                 _inputReader.PrimaryActionCrossEvent += OnCrossHandle;
         }

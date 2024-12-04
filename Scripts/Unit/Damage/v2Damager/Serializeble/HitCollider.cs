@@ -55,6 +55,10 @@ namespace _develop_common
         public bool IsPull;
         [Tooltip("固定化させる情報")]
         public PullData PullData;
+        [Tooltip("移動情報")]
+        public bool IsReHitDistance;
+        public float ReHitDistance = 0.1f;
+        private Vector3 _oldHitPosition;
 
 
         [Header("自動設定：ActionLoader")]
@@ -130,6 +134,10 @@ namespace _develop_common
 
             Debug.Log("AA2");
             if (!IsAttack.Value) return;
+            if(IsReHitDistance)
+                if(Vector3.Distance(transform.position, _oldHitPosition) <= ReHitDistance) return;
+            _oldHitPosition = transform.position;
+
             bool check = true; // HitCheckを行う
 
             if (hit.TryGetComponent<develop_body.BodyCollider>(out var bodyCollider))

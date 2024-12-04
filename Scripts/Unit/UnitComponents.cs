@@ -18,6 +18,7 @@ namespace develop_common
         public Animator UnitAvatar;
         public UnitShape UnitShape;
         public UnitVoice UnitVoice;
+        public develop_body.UnitBody UnitBody;
         [Space(10)]
         public IKController AttaqckIKController;
 

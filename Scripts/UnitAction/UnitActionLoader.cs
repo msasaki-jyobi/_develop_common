@@ -6,7 +6,6 @@ using System.Linq;
 using System;
 using develop_tps;
 using Cysharp.Threading.Tasks;
-using static UnityEditor.PlayerSettings;
 using System.Security.Cryptography.X509Certificates;
 using RPGCharacterAnims.Actions;
 using _develop_common;
