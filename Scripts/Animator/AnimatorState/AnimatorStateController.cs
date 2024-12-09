@@ -40,6 +40,9 @@ namespace develop_common
         private Tween _currentLayerTween;
         private bool _additiveRepeatOption;
 
+        public float AdditiveSpan = 0.2f;
+        private float _additiveSpanTimer;
+
         private void Start()
         {
             if (_crossAnimationTimer == 0)
@@ -95,6 +98,8 @@ namespace develop_common
         {
             // アニメーション用カウント
             FrameTimer.Value += Time.deltaTime;
+
+            if(_additiveSpanTimer >= 0) _additiveSpanTimer -= Time.deltaTime;
         }
 
         /// <summary>
@@ -150,8 +155,10 @@ namespace develop_common
         /// <param name="animName">ステート名</param>
         /// <param name="fadeLength">切り替え時間</param>
         /// <param name="repeatOption"><MotionName> <MotionName>1 を繰り返す</param>
-        public async void AnimatorLayerPlay(int layerNo, string animName, float fadeLength, bool repeatOption = false, string repeatOptionName = "1")
+        public async void AnimatorLayerPlay(int layerNo, string animName, float fadeLength, bool repeatOption = false, string repeatOptionName = "1", bool ignoreSpanTime = false)
         {
+            if (_additiveSpanTimer > 0 && !ignoreSpanTime) return;
+            _additiveSpanTimer = AdditiveSpan;
             //if (_addTimer >= 0.7f) return;
             //_addTimer = 1;
 

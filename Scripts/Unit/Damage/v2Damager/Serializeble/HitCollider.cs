@@ -55,7 +55,7 @@ namespace _develop_common
         public bool IsPull;
         [Tooltip("固定化させる情報")]
         public PullData PullData;
-        [Tooltip("移動情報")]
+        [Tooltip("再ヒット時の離れていないといけない距離")]
         public bool IsReHitDistance;
         public float ReHitDistance = 0.1f;
         private Vector3 _oldHitPosition;
@@ -142,7 +142,8 @@ namespace _develop_common
 
             if (hit.TryGetComponent<develop_body.BodyCollider>(out var bodyCollider))
             {
-                if (bodyCollider.RootObject.TryGetComponent<IHealth>(out var health))
+                Debug.Log($"AA２２２ {bodyCollider.gameObject.name}, Root:{bodyCollider.RootObject}");
+                if (bodyCollider.RootObject.TryGetComponent<UnitHealth>(out var health))
                 {
                     Debug.Log("AA3");
                     DamageUnit damageUnit = CheckDamageInfos(hit, bodyCollider, health); // ダメージ回数などキャラクター情報を確認
