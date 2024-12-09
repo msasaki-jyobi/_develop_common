@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace develop_common
 {
-    public class InstanceManager : SingletonMonoBehaviour<InstanceManager>
+    public class InstanceManager : MonoBehaviour
     {
-        public string TargetPlayerName = "";
+        public string CostumeName = "：デフォ";
         public List<InstanceInfo> InstanceInfos = new List<InstanceInfo>();
         public void ChangeKeyNameActive(string keyName)
         {
@@ -14,12 +14,17 @@ namespace develop_common
             {
                 string targetInfoKeyName = info.KeyName;
                 string targetkeyName = keyName;
-                if (info.IsTargetName) // KayNameの検知にTargetNameの付与が必要な場合
-                    targetkeyName += TargetPlayerName; // KeyName + TargetNameにする
+                if (info.IsCostumeName) // KayNameの検知にTargetNameの付与が必要な場合
+                    targetkeyName += $"{CostumeName}"; // KeyName + TargetNameにする
+
+                Debug.Log($"targetInfoKeyName:{targetInfoKeyName}, targetkeyName:{targetkeyName}");
 
                 if (info.KeyName == targetkeyName)
                 {
-                    info.TargetObject.SetActive(info.IsSetActive);
+                   foreach(var info2 in info.ActiveObjects)
+                        info2.SetActive(true);
+                    foreach (var info3 in info.NotActiveObjects)
+                        info3.SetActive(false);
                 }
             }
         }
@@ -29,8 +34,9 @@ namespace develop_common
     public class InstanceInfo
     {
         public string KeyName;
-        public bool IsTargetName; // KeyNameにTargetNameの指定が必要
-        public bool IsSetActive;
-        public GameObject TargetObject;
+        [Header("：xxxが一致する場合のみにする")]
+        public bool IsCostumeName; // KeyNameにTargetNameの指定が必要
+        public List<GameObject> ActiveObjects;
+        public List<GameObject> NotActiveObjects;
     }
 }

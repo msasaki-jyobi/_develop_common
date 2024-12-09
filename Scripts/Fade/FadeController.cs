@@ -35,6 +35,8 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
+
         if (FadeController.Instance == this)
         {
             FadeOut();

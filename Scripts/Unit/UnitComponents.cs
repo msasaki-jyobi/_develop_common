@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using develop_timeline;
 using System.Collections;
 using UnityEngine;
 
@@ -23,12 +24,20 @@ namespace develop_common
         public IKController AttaqckIKController;
 
         [Space(10)]
-        public bool IsSetAvatar; 
+        public develop_common.InstanceManager InstanceManager;
+        public develop_common.ShapeManager ShapeManager;
+        [Space(10)]
+        public bool IsSetAvatar;
+
+        [Space(10)]
+        public UnitDirectorCharacterOffset UnitDirectorCharacterOffset;
 
         private void Start()
         {
-            if(IsSetAvatar)
-                Animator.avatar = UnitAvatar.avatar;
+            if (Animator != null)
+                if (UnitAvatar != null)
+                    if (IsSetAvatar)
+                        Animator.avatar = UnitAvatar.avatar;
         }
 
 

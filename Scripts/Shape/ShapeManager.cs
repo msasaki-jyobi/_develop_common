@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace develop_common
 {
-    public class ShapeManager : SingletonMonoBehaviour<ShapeManager>
+    public class ShapeManager : MonoBehaviour
     {
-        public string TargetPlayerName = "";
+        public string CostumeName = "：デフォ";
         public List<ShapeInstanceInfo> ShapeInstances = new List<ShapeInstanceInfo>();
 
         public void ChangeKeyNameShape(string keyName)
@@ -14,8 +14,8 @@ namespace develop_common
             {
                 string targetInfoKeyName = info.KeyName;
                 string targetkeyName = keyName;
-                if (info.IsTargetName) // KayNameの検知にTargetNameの付与が必要な場合
-                    targetkeyName += TargetPlayerName; // KeyName + TargetNameにする
+                if (info.IsCostumeName) // KayNameの検知にTargetNameの付与が必要な場合
+                    targetkeyName += $"{CostumeName}"; // KeyName + TargetNameにする
 
                 Debug.Log($"targetInfoKeyName:{targetInfoKeyName}, targetkeyName:{targetkeyName}");
 
@@ -54,7 +54,7 @@ namespace develop_common
     public class ShapeInstanceInfo
     {
         public string KeyName;
-        public bool IsTargetName; // KeyNameにTargetNameの指定が必要
+        public bool IsCostumeName; // KeyNameにTargetNameの指定が必要
         public SkinnedMeshRenderer SkinMesh;
         public develop_common.BlendShapeData blendShapeData;
     }
