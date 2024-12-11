@@ -4,12 +4,14 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System;
 using Cysharp.Threading.Tasks;
+using TMPro;
 
 public class FadeController : SingletonMonoBehaviour<FadeController>
 {
     public float FadeInTime = 1f;
     public float FadeOutTime = 1f;
     public FadeImage FadeImage;
+    public TextMeshProUGUI LoadingTextUGUI;
 
 
     [SerializeField]
@@ -58,7 +60,7 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
             }
     }
 
-    public void FadeIn(float fadeInTime = -1, float fadeOutTime = -1, Color color = default)
+    public void FadeIn(float fadeInTime = -1, float fadeOutTime = -1, Color color = default, bool loadingText = false)
     {
         // フェードカラー指定
         FadeImage.UpdateMaterialColor(color != default ? color : Color.white);
@@ -71,8 +73,8 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
             var co = color == default ? _defaultFadeColor : color;
             FadeImage.color = co;
         }
-
-
+        if (loadingText)
+            LoadingTextUGUI.text = "よみこみ中...";
         IsFade = true;
         group.blocksRaycasts = false; // UIの操作を停止
         fade.FadeIn(inTime, async () =>
@@ -81,6 +83,7 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
             // 黒くなったタイミングで呼び出される処理
             fade.FadeOut(outTime, () =>
             {
+                LoadingTextUGUI.text = "";
                 // フェードが終了したタイミングで呼び出される処理
                 group.blocksRaycasts = true; // UIの操作を再開
                 IsFade = false;
@@ -88,11 +91,13 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
         });
     }
 
-    public void LoadSceneFadeIn(string loadSceneName)
+    public void LoadSceneFadeIn(string loadSceneName, bool isLoadingText = false)
     {
         if (IsFade) return;
         IsFade = true;
         group.blocksRaycasts = false; // UIの操作を停止
+        if (isLoadingText)
+            LoadingTextUGUI.text = "よみこみ中...";
         fade.FadeIn(FadeInTime, async () =>
         {
             // 黒くなったタイミングで呼び出される処理
@@ -100,17 +105,20 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
             SceneManager.LoadScene(loadSceneName);
             fade.FadeOut(FadeOutTime, () =>
             {
+                LoadingTextUGUI.text = "";
                 // フェードが終了したタイミングで呼び出される処理
                 group.blocksRaycasts = true; // UIの操作を再開
                 IsFade = false;
             });
         });
     }
-    public void AdditiveSceneFadeIn(string loadSceneName)
+    public void AdditiveSceneFadeIn(string loadSceneName, bool loadingText = false)
     {
         if (IsFade) return;
         IsFade = true;
         group.blocksRaycasts = false; // UIの操作を停止
+        if (loadingText)
+            LoadingTextUGUI.text = "よみこみ中...";
         fade.FadeIn(FadeInTime, async () =>
         {
             // 黒くなったタイミングで呼び出される処理
@@ -118,13 +126,14 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
             await UniTask.Delay(1);
             fade.FadeOut(FadeOutTime, () =>
             {
+                LoadingTextUGUI.text = "";
                 // フェードが終了したタイミングで呼び出される処理
                 group.blocksRaycasts = true; // UIの操作を再開
                 IsFade = false;
             });
         });
     }
-    public void ActionPlayFadeIn(Action action, float fadeInTime = -1, float fadeOutTime = -1, Color color = default)
+    public void ActionPlayFadeIn(Action action, float fadeInTime = -1, float fadeOutTime = -1, Color color = default, bool loadingText = false)
     {
         // フェードカラー指定
         FadeImage.UpdateMaterialColor(color != default ? color : Color.white);
@@ -134,6 +143,8 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
         if (IsFade) return;
         IsFade = true;
         group.blocksRaycasts = false; // UIの操作を停止
+        if (loadingText)
+            LoadingTextUGUI.text = "よみこみ中...";
         fade.FadeIn(inTime, async () =>
         {
             // 黒くなったタイミングで呼び出される処理
@@ -142,6 +153,7 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
             await UniTask.Delay(1);
             fade.FadeOut(outTime, () =>
             {
+                LoadingTextUGUI.text = "";
                 // フェードが終了したタイミングで呼び出される処理
                 group.blocksRaycasts = true; // UIの操作を再開
                 IsFade = false;
@@ -149,11 +161,13 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
         });
     }
 
-    public void ReloadSceneFadeIn()
+    public void ReloadSceneFadeIn( bool loadingText = false)
     {
         if (IsFade) return;
         IsFade = true;
         group.blocksRaycasts = false; // UIの操作を停止
+        if (loadingText)
+            LoadingTextUGUI.text = "よみこみ中...";
         fade.FadeIn(FadeInTime, async () =>
         {
             // 黒くなったタイミングで呼び出される処理
@@ -162,6 +176,7 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
             await UniTask.Delay(1);
             fade.FadeOut(FadeOutTime, () =>
             {
+                LoadingTextUGUI.text = "";
                 // フェードが終了したタイミングで呼び出される処理
                 group.blocksRaycasts = true; // UIの操作を再開
                 IsFade = false;
@@ -171,17 +186,20 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
     /// <summary>
     /// シーン開始時
     /// </summary>
-    public void FadeOut()
+    public void FadeOut(bool loadingText = false)
     {
         if (IsFade) return;
         IsFade = true;
         group.blocksRaycasts = false; // UIの操作を停止
+        if(loadingText)
+        LoadingTextUGUI.text = "よみこみ中...";
         fade.FadeIn(0f, async () =>
         {
             await UniTask.Delay(1);
             // 黒くなったタイミングで呼び出される処理
             fade.FadeOut(FadeOutTime, () =>
             {
+                LoadingTextUGUI.text = "";
                 // フェードが終了したタイミングで呼び出される処理
                 group.blocksRaycasts = true; // UIの操作を再開
                 IsFade = false;

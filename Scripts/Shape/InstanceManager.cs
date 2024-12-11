@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,9 @@ namespace develop_common
     {
         public string CostumeName = "：デフォ";
         public List<InstanceInfo> InstanceInfos = new List<InstanceInfo>();
+
+        public event Func<string, bool> CheckReturnKeyEvent;
+
         public void ChangeKeyNameActive(string keyName)
         {
             foreach (var info in InstanceInfos)
@@ -21,10 +25,20 @@ namespace develop_common
 
                 if (info.KeyName == targetkeyName)
                 {
-                   foreach(var info2 in info.ActiveObjects)
-                        info2.SetActive(true);
-                    foreach (var info3 in info.NotActiveObjects)
-                        info3.SetActive(false);
+                    bool check = false;
+                    if(info.IsReturnCheck)
+                    {
+                        check = CheckReturnKeyEvent?.Invoke(info.IsReturnKeyName) ?? false;
+                    }
+
+
+                    if(!check)
+                    {
+                        foreach (var info2 in info.ActiveObjects)
+                            info2.SetActive(true);
+                        foreach (var info3 in info.NotActiveObjects)
+                            info3.SetActive(false);
+                    }
                 }
             }
         }
@@ -34,8 +48,10 @@ namespace develop_common
     public class InstanceInfo
     {
         public string KeyName;
-        [Header("：xxxが一致する場合のみにする")]
+        [Header("：<KeyName>が一致する場合のみにする")]
         public bool IsCostumeName; // KeyNameにTargetNameの指定が必要
+        public bool IsReturnCheck; // 一致するキーがあったらActibve処理を実行せずReturn
+        public string IsReturnKeyName; // Returnするキーネーム
         public List<GameObject> ActiveObjects;
         public List<GameObject> NotActiveObjects;
     }
