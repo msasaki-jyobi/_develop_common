@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace develop_common
         public float VoiceSpan = 0.2f;
         public List<VoiceKind> VoiceClips = new List<VoiceKind>();
 
+        public event Func<bool> VoicePlayCheckEvent;
+
         private float _voiceTimer;
 
         private void Update()
@@ -16,8 +19,13 @@ namespace develop_common
             if (_voiceTimer > 0) { _voiceTimer -= Time.deltaTime; }
         }
 
-        public void PlayVoice(string keyName, bool ignoreTimer = false)
+        public void PlayVoice(string keyName, bool ignoreTimer = false, bool checkIgnore = false)
         {
+            // Ä¶‚Å‚«‚È‚¢ðŒ‚ð–ž‚½‚·ê‡Return
+            bool check = VoicePlayCheckEvent?.Invoke() ?? false;
+            if (check && !checkIgnore)
+                return;
+
             if (!ignoreTimer)
                 if (_voiceTimer > 0) return;
 
