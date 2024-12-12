@@ -32,15 +32,17 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
 
     private void Awake()
     {
-        _defaultFadeColor = FadeImage.color;
     }
 
-    private void Start()
+    private async void Start()
     {
-        Application.targetFrameRate = 60;
+
+        await UniTask.Delay(10);
+        _defaultFadeColor = FadeImage.color;
 
         if (FadeController.Instance == this)
         {
+            Application.targetFrameRate = 60;
             FadeOut();
             if(gameObject != null)
                 DontDestroyOnLoad(gameObject);
