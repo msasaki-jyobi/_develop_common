@@ -113,7 +113,16 @@ namespace develop_common
             foreach (var shake in Shakes)
                 shake.ShakeActionMove();
 
-            if (CurrentHealth < 0)
+            if(CurrentHealth > 0)
+            {
+                if (_unitComponents.UnitVoice != null)
+                    if (!InitDead.Value)
+                    {
+                        _unitComponents.UnitVoice.PlayVoice("1");
+                        DeadEvent?.Invoke();
+                    }
+            }
+            else if (CurrentHealth < 0)
             {
                 // Ž€–S
                 if (CurrentHealth <= 0)
